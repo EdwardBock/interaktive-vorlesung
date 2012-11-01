@@ -16,19 +16,39 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
         <activity
             android:name=".activities.ListCourses"
             android:label="@string/title_activity_list_courses" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity android:name=".activities.CourseDetails" ></activity>
-    	<activity android:name=".activities.PdfReader" ></activity>
-    	
+        <activity
+            android:name=".activities.CourseDetails"
+            android:label="@string/title_activity_course_details" >
+        </activity>
+        <activity android:name=".activities.PdfReader" >
+        </activity>
+        <activity
+            android:name=".activities.CourseDetails_details"
+            android:label="@string/title_activity_course_details_details" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.CourseDetails_sessions"
+            android:label="@string/title_activity_course_details_sessions" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
