@@ -1,11 +1,21 @@
 <resources>
 
+    <!-- Global -->
     <string name="app_name">Interaktive Vorlesung</string>
     <string name="hello_world">Hello world!</string>
+
+    <!-- ENDE Global -->
+
+
+    <!-- ListCourses -->
+    <string name="title_activity_list_courses">Interaktive Vorlesung</string>
+
+    <!-- ENDE ListCourses -->
+
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_vorlesung_liste">VorlesungListe</string>
     <string name="openPDF">PDF-Viewer starten</string>
     <string name="exit">App beenden</string>
     <string name="title_activity_pdf_reader">PdfReader</string>
+    <string name="title_activity_course_details">CourseDetails</string>
 
 </resources>

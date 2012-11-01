@@ -16,22 +16,17 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
         <activity
-            android:name=".VorlesungListe"
-            android:label="@string/title_activity_vorlesung_liste" >
+            android:name=".activities.ListCourses"
+            android:label="@string/title_activity_list_courses" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".PdfReader"
-            android:label="@string/title_activity_pdf_reader" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.bockstallmann.interaktive.vorlesung.VorlesungListe" />
-        </activity>
+        
+        <activity android:name=".activities.CourseDetails" ></activity>
     </application>
 
 </manifest>
