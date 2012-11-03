@@ -24,6 +24,7 @@ public class CourseDetails extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
         
+        //Sucht den TabHost aus dem Layout
         TabHost tabhost = getTabHost();
         
         //Tab für Details
@@ -38,6 +39,7 @@ public class CourseDetails extends TabActivity {
         Intent sessionIntent = new Intent(this, CourseDetails_sessions.class);
         sessionsspec.setContent(sessionIntent);
         
+        //Tabs zum TabHost adden
         tabhost.addTab(detailsspec);
         tabhost.addTab(sessionsspec);
         

@@ -16,6 +16,9 @@
     <string name="course_details_sessiontab">DETAILS</string>
     <string name="course_details_detailstab">TERMINE</string>
     <!-- ENDE CourseDetails -->
+    <!-- CourseDetailsDetails -->
+    <string name="short_info">Kurzbeschreibung:</string>
+    <!-- ENDE CourseDetailsDetails -->
 
 
     <!-- PdfReader -->

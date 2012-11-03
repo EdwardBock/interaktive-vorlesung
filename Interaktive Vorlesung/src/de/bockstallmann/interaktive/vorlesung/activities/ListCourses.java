@@ -39,7 +39,7 @@ public class ListCourses extends Activity implements OnItemClickListener, OnItem
 		
 		
 		for (int i = 0; i < 20; i++) {
-			courseList.add(new Course("Course: "+i, "bla bla", false));
+			courseList.add(new Course(i,"Course: "+i, "bla bla", false));
 		}
 		
 		
