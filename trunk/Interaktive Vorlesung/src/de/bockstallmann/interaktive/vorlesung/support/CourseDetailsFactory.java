@@ -4,18 +4,28 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TabHost.TabContentFactory;
+import android.widget.TextView;
 
-public class CourseDetailsFactory implements TabContentFactory{
+public class CourseDetailsFactory{
 	
 	private String courseid;
+	private TextView tv;
 
-	public CourseDetailsFactory(final Context theContext, long id){
+	public CourseDetailsFactory(final Context theContext, TextView tevi){
 		courseid = Constants.EXTRA_COURSE_ID;
-		System.out.println(id);
+		tv = tevi;
 	}
-	@Override
-	public View createTabContent(String tag) {
-		ListView listview;
+	
+	public View createTabContent(int tab) {
+		switch(tab){
+			//Wenn die Details aufgerufen werden
+			case 1:
+				tv.setText("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.");
+				return tv;
+		//Wenn die Termine aufgerufen werden
+			case 2:
+				break;
+		}
 		
 		
 		return null;
