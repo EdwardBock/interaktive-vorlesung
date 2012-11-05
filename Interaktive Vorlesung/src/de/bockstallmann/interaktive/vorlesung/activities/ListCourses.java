@@ -37,9 +37,10 @@ public class ListCourses extends Activity implements OnItemClickListener, OnItem
 		super.onResume();
 		
 		
-		
-		for (int i = 0; i < 20; i++) {
-			courseList.add(new Course(i,"Course: "+i, "bla bla", false));
+		if( courseList.size() < 1 ){
+			for (int i = 0; i < 20; i++) {
+				courseList.add(new Course(i,"Course: "+i, "bla bla", false));
+			}
 		}
 		
 		
@@ -62,8 +63,13 @@ public class ListCourses extends Activity implements OnItemClickListener, OnItem
 		return false;
 	}
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		startActivity(new Intent(this, CourseDetails.class).putExtra(Constants.EXTRA_COURSE_ID, "id"));
+	public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+		Course course = (Course)parent.getItemAtPosition(position);
+		Intent intent = new Intent(this, CourseDetails.class);
+		intent.putExtra(Constants.EXTRA_COURSE_ID, course.getID());
+		intent.putExtra(Constants.EXTRA_COURSE_TITLE, course.getTitle());
+		intent.putExtra(Constants.EXTRA_COURSE_READER, course.getReader());
+		startActivity(intent);
 	}
 
     

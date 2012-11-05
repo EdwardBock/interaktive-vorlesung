@@ -3,17 +3,20 @@ package de.bockstallmann.interaktive.vorlesung.activities;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.R.layout;
 import de.bockstallmann.interaktive.vorlesung.R.menu;
+import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.CourseDetailsFactory;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class CourseDetails extends TabActivity {
@@ -24,6 +27,10 @@ public class CourseDetails extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
         
+		int id = getIntent().getExtras().getInt(Constants.EXTRA_COURSE_ID);
+        
+		Log.d("STATE ede:", "Übergeben: "+String.valueOf(id));
+		
         //Sucht den TabHost aus dem Layout
         TabHost tabhost = getTabHost();
         
