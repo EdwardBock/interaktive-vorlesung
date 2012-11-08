@@ -70,7 +70,5 @@ public class ListCourses extends Activity implements OnItemClickListener, OnItem
 		intent.putExtra(Constants.EXTRA_COURSE_TITLE, course.getTitle());
 		intent.putExtra(Constants.EXTRA_COURSE_READER, course.getReader());
 		startActivity(intent);
-	}
-
-    
+	}    
 }
