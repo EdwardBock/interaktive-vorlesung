@@ -3,19 +3,18 @@ package de.bockstallmann.interaktive.vorlesung.model;
 public class Session {
 
 	private String room;
-	private String info;
+	private String title;
 
 	private String begin;
 	private String end;
 	private String src;
 	
 	
-	public Session(String r,String i,String b,String e,String s){
-		this.room = r;
-		this.info = i;
-		this.begin = b;
-		this.end = e;
-		this.src = s;
+	public Session(String Room, String Title, String Begin, String End){
+		this.room = Room;
+		this.title = Title;
+		this.begin = Begin;
+		this.end = End;
 	}
 	
 	
@@ -27,12 +26,12 @@ public class Session {
 		this.room = room;
 	}
 	
-	public String getInfo() {
-		return info;
+	public String getTitle() {
+		return title;
 	}
 	
-	public void setInfo(String info) {
-		this.info = info;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	public String getBegin() {
@@ -51,11 +50,5 @@ public class Session {
 		this.end = end;
 	}
 	
-	public String getSrc() {
-		return src;
-	}
-	
-	public void setSrc(String src) {
-		this.src = src;
-	}
+
 }
