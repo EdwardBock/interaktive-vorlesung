@@ -38,7 +38,7 @@ public class CoursesArrayAdapter extends ArrayAdapter<Course> {
 		Course course = items.get(position);
 
 		((TextView)view.findViewById(R.id.tx_course_row_title)).setText(course.getTitle());
-		((TextView)view.findViewById(R.id.tx_course_row_description)).setText(course.getDescription());
+		((TextView)view.findViewById(R.id.tx_course_row_description)).setText(course.getSemester()+"; "+course.getReader());
 		
 		return view;
 	}

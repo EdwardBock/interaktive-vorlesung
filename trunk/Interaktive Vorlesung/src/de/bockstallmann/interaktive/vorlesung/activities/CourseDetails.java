@@ -28,8 +28,10 @@ public class CourseDetails extends TabActivity {
         setContentView(R.layout.activity_course_details);
         
 		int id = getIntent().getExtras().getInt(Constants.EXTRA_COURSE_ID);
+		String title = getIntent().getExtras().getString(Constants.EXTRA_COURSE_TITLE);
+		String reader = getIntent().getExtras().getString(Constants.EXTRA_COURSE_READER);
         
-		Log.d("STATE ede:", "Übergeben: "+String.valueOf(id));
+		//Log.d("STATE ede:", "Übergeben: "+String.valueOf(id));
 		
         //Sucht den TabHost aus dem Layout
         TabHost tabhost = getTabHost();
@@ -38,12 +40,14 @@ public class CourseDetails extends TabActivity {
         TabSpec detailsspec = tabhost.newTabSpec("DETAILS");
         detailsspec.setIndicator("DATEILS");
         Intent detailsIntent = new Intent(this, CourseDetails_details.class);
+        detailsIntent.putExtra(Constants.EXTRA_COURSE_ID, id);
         detailsspec.setContent(detailsIntent);
         
         //Tab für TERMINE
         TabSpec sessionsspec = tabhost.newTabSpec("TERMINE");
         sessionsspec.setIndicator("TERMINE");
         Intent sessionIntent = new Intent(this, CourseDetails_sessions.class);
+        sessionIntent.putExtra(Constants.EXTRA_COURSE_ID, id);
         sessionsspec.setContent(sessionIntent);
         
         //Tabs zum TabHost adden

@@ -3,6 +3,8 @@ package de.bockstallmann.interaktive.vorlesung.activities;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.R.layout;
 import de.bockstallmann.interaktive.vorlesung.R.menu;
+import de.bockstallmann.interaktive.vorlesung.model.Course;
+import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.CourseDetailsFactory;
 import android.os.Bundle;
 import android.app.Activity;
@@ -14,16 +16,23 @@ import android.widget.TextView;
 public class CourseDetails_details extends Activity {
 
     private TextView short_info;
-    private CourseDetailsFactory cdf;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details_details);
-        short_info = (TextView)findViewById(R.id.short_info_content);
-        cdf = new CourseDetailsFactory(this, short_info);
-        cdf.createTabContent(1);
+        
+        int id = getIntent().getExtras().getInt(Constants.EXTRA_COURSE_ID);
+        //Abfrage hinzufügen       
     }
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		short_info = (TextView)findViewById(R.id.short_info_content);
+        short_info.setText("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.");
+
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
