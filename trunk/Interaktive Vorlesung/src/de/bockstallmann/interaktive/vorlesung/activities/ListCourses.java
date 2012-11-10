@@ -2,6 +2,8 @@ package de.bockstallmann.interaktive.vorlesung.activities;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,12 +18,15 @@ import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.CoursesArrayAdapter;
+import de.bockstallmann.interaktive.vorlesung.support.ServerCommunication;
 
 public class ListCourses extends Activity implements OnItemClickListener, OnItemLongClickListener {
 
     private ListView list;
 	private CoursesArrayAdapter courseListAdapter;
 	private ArrayList<Course> courseList;
+	private Thread thread;
+	protected JSONArray serverDaten;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,14 @@ public class ListCourses extends Activity implements OnItemClickListener, OnItem
 	protected void onResume() {
 		super.onResume();
 		
+		thread = new Thread(new Runnable() {
+			public void run() {			
+				serverDaten = ServerCommunication.getJSONDaten("script_all_courses.php");
+            }
+        });
 		
+    	thread.start();
+    	
 		if( courseList.size() < 1 ){
 			for (int i = 0; i < 20; i++) {
 				courseList.add(new Course(i,"Course: "+i, "Prof Dr. rer Nat Jedermann","WS 12/13", false));

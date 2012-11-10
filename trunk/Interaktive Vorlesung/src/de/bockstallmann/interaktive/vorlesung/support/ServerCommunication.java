@@ -1,96 +1,86 @@
 package de.bockstallmann.interaktive.vorlesung.support;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
-import org.apache.http.NameValuePair;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
-import android.widget.Toast;
 
 public class ServerCommunication {
-
 	
-	private int TIMEOUT_MILLISEC;
+	private final static String BASE_URL = "http://iv.jstallmann.com/";
+	
+	public static JSONArray getJSONDaten(final String script_pfad){
 
-	public void getJSON(){
+		// Aufruf vorbereiten
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet(BASE_URL+script_pfad);
+		HttpResponse response;
+		
 		try {
-	        // http://androidarabia.net/quran4android/phpserver/connecttoserver.php
+			// Serveradresse aufrufen
+			response = httpClient.execute(httpGet);
+			
+			// TODO: Response überprüfen: "z.B. 200 ok" oder "404"
+			Log.d("ServerConnection","Response: "+response.getStatusLine().toString());
 
-	        // Log.i(getClass().getSimpleName(), "send  task - start");
-	        HttpParams httpParams = new BasicHttpParams();
-	        HttpConnectionParams.setConnectionTimeout(httpParams,
-	                TIMEOUT_MILLISEC);
-	        HttpConnectionParams.setSoTimeout(httpParams, TIMEOUT_MILLISEC);
-	        //
-	        HttpParams p = new BasicHttpParams();
-	        // p.setParameter("name", pvo.getName());
-	        p.setParameter("user", "1");
-
-	        // Instantiate an HttpClient
-	        HttpClient httpclient = new DefaultHttpClient(p);
-	        String url = "http://10.0.2.2:8080/sample1/" + 
-	                     "webservice1.php?user=1&format=json";
-	        HttpPost httppost = new HttpPost(url);
-
-	        // Instantiate a GET HTTP method
-	        try {
-	            Log.i(getClass().getSimpleName(), "send  task - start");
-	            //
-	            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-	                    2);
-	            nameValuePairs.add(new BasicNameValuePair("user", "1"));
-	            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-	            ResponseHandler<String> responseHandler = new BasicResponseHandler();
-	            String responseBody = httpclient.execute(httppost,
-	                    responseHandler);
-	            // Parse
-	            JSONObject json = new JSONObject(responseBody);
-	            JSONArray jArray = json.getJSONArray("posts");
-	            ArrayList<HashMap<String, String>> mylist = 
-	                   new ArrayList<HashMap<String, String>>();
-
-	            for (int i = 0; i < jArray.length(); i++) {
-	                HashMap<String, String> map = new HashMap<String, String>();
-	                JSONObject e = jArray.getJSONObject(i);
-	                String s = e.getString("post");
-	                JSONObject jObject = new JSONObject(s);
-
-	                map.put("idusers", jObject.getString("idusers"));
-	                map.put("UserName", jObject.getString("UserName"));
-	                map.put("FullName", jObject.getString("FullName"));
-
-	                mylist.add(map);
-	            }
-	            //Toast.makeText(this, responseBody, Toast.LENGTH_LONG).show();
-
-	        } catch (ClientProtocolException e) {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	        }
-	        // Log.i(getClass().getSimpleName(), "send  task - end");
-
-	    } catch (Throwable t) {
-	       // Toast.makeText(this, "Request failed: " + t.toString(), Toast.LENGTH_LONG).show();
-	    }
+			// Content aus der Requestrückgabe herausholen und über InputStreamReader in String übernehmen
+			HttpEntity entity = response.getEntity();
+			InputStream instream = entity.getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) sb.append(line);
+			String result = sb.toString();
+			instream.close();
+			
+			Log.d("ServerConnection","Antwortstring: "+result);
+			
+			// Antwortstring in JSON Array verarbeiten			
+			JSONObject json =new JSONObject(result);
+			String status = json.getString(Constants.JSON_STATUS);
+			Log.d("ServerConnection", "Rückgabestatus: "+status);
+			
+			if(status != "ok"){
+				Log.d("ServerConnection", "Scriptproblem: "+json.getString(Constants.JSON_MESSAGE));
+				return null;
+			}
+			
+			JSONArray nameArray = json.names();
+			
+			Log.d("ServerConnection", "NameArray: "+nameArray.toString());
+			
+			return json.getJSONArray(Constants.JSON_DATEN);
+			
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			Log.d("ServerConnection",e.toString());
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			Log.d("ServerConnection",e.toString());
+			return null;
+		} catch (JSONException e) {
+			e.printStackTrace();
+			Log.d("ServerConnection",e.toString());
+			return null;
+		} catch (Exception e){
+			e.printStackTrace();
+			Log.d("ServerConnection",e.toString());
+			return null;
+		}finally{
+			httpGet.abort();
+		}
 	}
-	
 }
