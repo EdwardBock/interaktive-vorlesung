@@ -17,16 +17,15 @@ import android.widget.Toast;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
-import de.bockstallmann.interaktive.vorlesung.support.CoursesArrayAdapter;
-import de.bockstallmann.interaktive.vorlesung.support.ServerCommunication;
+import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
+import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
 
 public class ListCourses extends Activity implements OnItemClickListener, OnItemLongClickListener {
 
     private ListView list;
 	private CoursesArrayAdapter courseListAdapter;
-	private ArrayList<Course> courseList;
-	private Thread thread;
 	protected JSONArray serverDaten;
+	private JSONLoader jsonLoader;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,34 +33,21 @@ public class ListCourses extends Activity implements OnItemClickListener, OnItem
         setContentView(R.layout.activity_list_courses);
         
         list = (ListView)findViewById(R.id.lv_courses);
-        courseList = new ArrayList<Course>();
+        courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>() );
+        
+        jsonLoader = new JSONLoader();
+		jsonLoader.startGetCourses();
         
     }
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-		thread = new Thread(new Runnable() {
-			public void run() {			
-				serverDaten = ServerCommunication.getJSONDaten("script_all_courses.php");
-            }
-        });
-		
-    	thread.start();
-    	
-		if( courseList.size() < 1 ){
-			for (int i = 0; i < 20; i++) {
-				courseList.add(new Course(i,"Course: "+i, "Prof Dr. rer Nat Jedermann","WS 12/13", false));
-			}
-		}
-		
-		
-		courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, courseList );
-		
+    			
+		// Adapter an ListView übergeben
 		list.setAdapter(courseListAdapter);
         list.setOnItemClickListener(this);
         list.setOnItemLongClickListener(this);
-		
+		courseListAdapter.add(new Course(1, "Test", "KA", "WS12", false));
 	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
