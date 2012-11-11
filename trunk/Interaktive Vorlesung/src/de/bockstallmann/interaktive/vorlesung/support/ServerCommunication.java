@@ -52,32 +52,27 @@ public class ServerCommunication {
 			String status = json.getString(Constants.JSON_STATUS);
 			Log.d("ServerConnection", "Rückgabestatus: "+status);
 			
-			if(status != "ok"){
-				Log.d("ServerConnection", "Scriptproblem: "+json.getString(Constants.JSON_MESSAGE));
-				return null;
-			}
-			
 			JSONArray nameArray = json.names();
 			
 			Log.d("ServerConnection", "NameArray: "+nameArray.toString());
 			
-			return json.getJSONArray(Constants.JSON_DATEN);
+			JSONArray datenObj = json.getJSONArray(Constants.JSON_DATEN);
+			
+			Log.d("ServerConnection", "DatenObj: "+datenObj.toString());
+			
+			return datenObj;
 			
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
-			Log.d("ServerConnection",e.toString());
 			return null;
 		} catch (IOException e) {
 			e.printStackTrace();
-			Log.d("ServerConnection",e.toString());
 			return null;
 		} catch (JSONException e) {
 			e.printStackTrace();
-			Log.d("ServerConnection",e.toString());
 			return null;
 		} catch (Exception e){
 			e.printStackTrace();
-			Log.d("ServerConnection",e.toString());
 			return null;
 		}finally{
 			httpGet.abort();
