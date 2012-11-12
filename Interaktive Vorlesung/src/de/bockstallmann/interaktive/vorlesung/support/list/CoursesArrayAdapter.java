@@ -2,7 +2,10 @@ package de.bockstallmann.interaktive.vorlesung.support.list;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,5 +47,22 @@ public class CoursesArrayAdapter extends ArrayAdapter<Course> {
 
 	public ArrayList<Course> getCourseList(){
 		return items;
+	}
+
+	public void addCourses(JSONArray serverDaten) {
+		for (int i = 0; i < serverDaten.length(); i++) {
+			try {
+				items.add(new Course(
+						Integer.parseInt(serverDaten.getJSONObject(i).getString("_id")), 
+						serverDaten.getJSONObject(i).getString("titel"), 
+						serverDaten.getJSONObject(i).getString("user_id"),
+						serverDaten.getJSONObject(i).getString("semester"),
+						serverDaten.getJSONObject(i).getString("pw")));
+			} catch (Exception e) {
+				Log.d("CoursesAdapter", "problem bei i = "+i);
+				continue;
+			}
+		}
+		this.notifyDataSetChanged();
 	}
 }
