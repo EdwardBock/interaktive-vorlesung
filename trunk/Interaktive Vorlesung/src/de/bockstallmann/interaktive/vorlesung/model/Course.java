@@ -3,15 +3,18 @@ package de.bockstallmann.interaktive.vorlesung.model;
 public class Course {
 
 	private int id;
-	private String t,r, d, s;
-	private boolean pw;
+	private String t,r, d, s, pw;
 
-	public Course(final int _id, final String title, final String reader, final String semester,  final boolean hasPassword) {
+	public Course(final int _id, final String title, final String reader, final String semester,  final String password) {
 		id = _id;
 		t = title;
 		r = reader;
 		s = semester;
-		pw = hasPassword;
+		pw = password;
+	}
+	public Course(final int _id, final String title, final String description, final String reader, final String semester,  final String password) {
+		this(_id, title, reader, semester, password);
+		d = description;
 	}
 
 	public int getID(){
@@ -20,6 +23,9 @@ public class Course {
 	public String getTitle() {
 		return t;
 	}
+	public String getDescription(){
+		return d;
+	}
 	public String getReader(){
 		return r;
 	}
@@ -27,6 +33,7 @@ public class Course {
 		return s;
 	}
 	public boolean hasPassword(){
-		return pw;
+		if(pw == "") return false;
+		return true;
 	}
 }

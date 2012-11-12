@@ -14,5 +14,11 @@ public interface Constants {
 	public static final String JSON_STATUS = "status";
 	public static final String JSON_DATEN = "daten";
 	public static final String JSON_MESSAGE = "message";
+	
+	/**
+	 * Constants für Messenger message.
+	 */
+	public static final int MSG_ERROR = 0;
+	public static final int MSG_SUCCESS = 1;
 
 }

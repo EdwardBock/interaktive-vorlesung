@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Messenger;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +20,7 @@ import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
+import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 
 public class ListCourses extends Activity implements OnItemClickListener, OnItemLongClickListener {
 
@@ -35,9 +37,9 @@ public class ListCourses extends Activity implements OnItemClickListener, OnItem
         list = (ListView)findViewById(R.id.lv_courses);
         courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>() );
         
-        jsonLoader = new JSONLoader();
+        jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler(courseListAdapter)));
 		jsonLoader.startGetCourses();
-        
+		
     }
 	@Override
 	protected void onResume() {
@@ -46,8 +48,8 @@ public class ListCourses extends Activity implements OnItemClickListener, OnItem
 		// Adapter an ListView übergeben
 		list.setAdapter(courseListAdapter);
         list.setOnItemClickListener(this);
-        list.setOnItemLongClickListener(this);
-		courseListAdapter.add(new Course(1, "Test", "KA", "WS12", false));
+        list.setOnItemLongClickListener(this);		
+		
 	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
