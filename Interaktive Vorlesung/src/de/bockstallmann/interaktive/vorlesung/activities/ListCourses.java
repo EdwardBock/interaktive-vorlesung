@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import org.json.JSONArray;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Messenger;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,7 +22,7 @@ import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 
-public class ListCourses extends Activity implements OnItemClickListener, OnItemLongClickListener {
+public class ListCourses extends FragmentActivity implements OnItemClickListener, OnItemLongClickListener {
 
     private ListView list;
 	private CoursesArrayAdapter courseListAdapter;

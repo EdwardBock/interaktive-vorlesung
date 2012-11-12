@@ -2,7 +2,6 @@ package de.bockstallmann.interaktive.vorlesung.support;
 
 import org.json.JSONArray;
 
-import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
@@ -37,7 +36,6 @@ public class JSONLoader extends Thread {
 			// is finished
 			message.arg1 = Constants.MSG_SUCCESS;
 			message.obj = serverDaten;
-			
 		}
 		try {
 			m.send(message);
@@ -50,6 +48,10 @@ public class JSONLoader extends Thread {
 	 */
 	public void startGetCourses() {
 		scriptPath = "script_all_courses.php";
+		this.start();
+	}
+	public void startGetSessionsByCourse(final String id){
+		scriptPath = "script_all_courses.php?session_id="+id;
 		this.start();
 	}
 }
