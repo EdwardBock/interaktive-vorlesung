@@ -28,30 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.CourseDetails"
-            android:label="@string/title_activity_course_details" >
-        </activity>
-        <activity android:name=".activities.PdfReader" >
-        </activity>
-        <activity
-            android:name=".activities.CourseDetails_details"
-            android:label="@string/title_activity_course_details_details" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.CourseDetails_sessions"
-            android:label="@string/title_activity_course_details_sessions" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activities.CourseDetails" />
+        <activity android:name=".activities.PdfReader" />
+        <activity android:name=".activities.CourseDetails_details" />
+        <activity android:name=".activities.CourseDetails_sessions" />
     </application>
 
 </manifest>
