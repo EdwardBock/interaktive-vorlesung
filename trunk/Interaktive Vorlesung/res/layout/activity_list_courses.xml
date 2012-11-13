@@ -2,10 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+    
+    <RelativeLayout 
+    android:id="@+id/actionbar"
+    android:layout_alignParentTop="true"
+    style="@style/Titlebar"
+    >
+        <ImageView 
+        android:src="@drawable/ic_launcher"
+        android:contentDescription="@string/actionbar_icon_cd" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"   
+        />
+        <ImageView
+        android:id="@+id/actionbar_add"
+        android:src="@drawable/actionbar_add"
+        android:contentDescription="@string/actionbar_add_cd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        />
+        <ImageView 
+        android:src="@android:drawable/btn_plus"    
+        android:contentDescription="Plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@id/actionbar_add"
+        />
+    </RelativeLayout>
 
     <ListView 
 		android:layout_alignParentBottom="true"
-		android:layout_alignParentTop="true"
+		android:layout_below="@id/actionbar"
 		android:id="@+id/lv_courses" 
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
