@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
@@ -32,6 +34,9 @@ public class CourseDetails extends TabActivity {
 		String reader = getIntent().getExtras().getString(Constants.EXTRA_COURSE_READER);
         
 		//Log.d("STATE ede:", "Übergeben: "+String.valueOf(id));
+		
+		ImageButton back = (ImageButton) findViewById(R.id.actionbar_back);
+		back.setOnClickListener(back_handler);
 		
         //Sucht den TabHost aus dem Layout
         TabHost tabhost = getTabHost();
@@ -56,6 +61,12 @@ public class CourseDetails extends TabActivity {
         
         
     }
+    
+    View.OnClickListener back_handler = new View.OnClickListener() {
+        public void onClick(View v) {
+          finish();
+        }
+      };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

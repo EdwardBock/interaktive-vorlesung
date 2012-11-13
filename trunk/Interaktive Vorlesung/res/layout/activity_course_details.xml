@@ -3,25 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+   <RelativeLayout
+        android:id="@+id/actionbar"
+        style="@style/Titlebar"
+        android:layout_alignParentTop="true"
+        android:gravity="top" >
+
+        <ImageButton
+            android:id="@+id/actionbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@null"
+            android:contentDescription="@string/actionbar_back_cd"
+            android:src="@drawable/actionbar_back" />
+        
+    </RelativeLayout>
+    
+    
     <TabHost 
     android:id="@android:id/tabhost"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        >
+    android:layout_height="fill_parent"
+    android:layout_marginTop="42dp">
+
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="42dp"
+            />
         <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:padding="5dp" />
-    </LinearLayout>
+            android:paddingTop="65dp" 
+            
+            />
 </TabHost>
 
 </RelativeLayout>
