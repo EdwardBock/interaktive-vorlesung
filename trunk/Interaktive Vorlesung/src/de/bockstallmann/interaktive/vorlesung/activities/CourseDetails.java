@@ -43,7 +43,7 @@ public class CourseDetails extends TabActivity {
         
         //Tab für Details
         TabSpec detailsspec = tabhost.newTabSpec("DETAILS");
-        detailsspec.setIndicator("DATEILS");
+        detailsspec.setIndicator("DETAILS");
         Intent detailsIntent = new Intent(this, CourseDetails_details.class);
         detailsIntent.putExtra(Constants.EXTRA_COURSE_ID, id);
         detailsspec.setContent(detailsIntent);
