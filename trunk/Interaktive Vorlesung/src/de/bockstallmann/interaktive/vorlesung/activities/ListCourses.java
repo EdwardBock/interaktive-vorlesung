@@ -44,7 +44,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 	@Override
 	protected void onResume() {
 		super.onResume();
-    			
+    	
 		// Adapter an ListView übergeben
 		list.setAdapter(courseListAdapter);
         list.setOnItemClickListener(this);
@@ -59,7 +59,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 	@Override
 	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
-		Toast.makeText(this, "LongClick: Kontext action menü", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "LongClick: Kontext action menü Favoriten", Toast.LENGTH_SHORT).show();
 		return false;
 	}
 	@Override
@@ -70,5 +70,18 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 		intent.putExtra(Constants.EXTRA_COURSE_TITLE, course.getTitle());
 		intent.putExtra(Constants.EXTRA_COURSE_READER, course.getReader());
 		startActivity(intent);
-	}    
+	}
+	/**
+	 * Clickmethode für die Actionbaricons
+	 * @param view
+	 */
+	public void actionbarClick(final View view){
+		Toast.makeText(this, "ID: "+view.getId(), Toast.LENGTH_SHORT).show();
+		switch (view.getId()) {
+			case R.id.actionbar_add:
+				startActivity(new Intent(this,SearchCourse.class));
+				break;
+		}
+		
+	}
 }

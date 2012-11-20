@@ -8,6 +8,12 @@
 	    <item name="android:background">@drawable/titlebar</item>
 	    <item name="android:textColor">#ffffff</item>
 	 </style>
+	 <style name="Titlebar.Logo">
+	     <item name="android:layout_marginLeft">6dp</item>
+	 </style>
+	 <style name="Titlebar.Title">
+	     <item name="android:textColor">#ffffff</item>
+	 </style>
 	 
     <style name="CourseRow">
         <item name="android:layout_width">match_parent</item>

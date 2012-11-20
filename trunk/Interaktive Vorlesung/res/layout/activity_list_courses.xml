@@ -9,12 +9,23 @@
     style="@style/Titlebar"
     >
         <ImageView 
+        android:id="@+id/actionbar_logo"
+        style="@style/Titlebar.Logo"
         android:src="@drawable/actionbar_logo"
         android:contentDescription="@string/actionbar_icon_cd" 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"   
+        />
+        <TextView 
+        android:id="@+id/actionbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"  
+        android:layout_toRightOf="@id/actionbar_logo"
+        android:layout_alignBottom="@id/actionbar_logo"
+        android:text="@string/title_activity_list_courses"
+        style="@style/Titlebar.Title"
         />
         <ImageButton
         android:id="@+id/actionbar_add"
@@ -25,6 +36,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@null"
+        android:onClick="actionbarClick"
         />
         <ImageButton
         android:id="@+id/actionbar_search"
@@ -35,6 +47,7 @@
         android:layout_toLeftOf="@id/actionbar_add"
         android:layout_centerVertical="true"
         android:background="@null"
+        android:onClick="actionbarClick"
         />
     </RelativeLayout>
 
