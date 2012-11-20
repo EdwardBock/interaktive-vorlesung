@@ -3,10 +3,14 @@ package de.bockstallmann.interaktive.vorlesung.support;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.model.Session;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +25,7 @@ public class CourseDetailsFactory extends ArrayAdapter<Session>{
 	private Context context;
 	private LayoutInflater inflater;
 	private ArrayList<Session> sessions;
+	
 	
 	public CourseDetailsFactory(Context theContext, int textViewResourceId,ArrayList<Session> Sessions) {
 		super(theContext, textViewResourceId, Sessions);
@@ -42,12 +47,28 @@ public class CourseDetailsFactory extends ArrayAdapter<Session>{
 		Session session = sessions.get(position);
 		
 		((TextView) view.findViewById(R.id.tx_session_row_title)).setText(session.getTitle());
-		((TextView) view.findViewById(R.id.tx_session_row_description)).setText(session.getRoom()+"; "+session.getBegin()+"-"+session.getEnd()+" Uhr 08.11.2012");
+		((TextView) view.findViewById(R.id.tx_session_row_description)).setText(session.getRoom()+"; "+session.getBegin()+"-"+session.getEnd()+" Uhr");
 		
 		return view;
 		
 	}
 	
+	public void addSessions(JSONArray serverdaten){
+		for(int i = 0;i < serverdaten.length();i++){
+			try {
+				sessions.add(new Session(serverdaten.getJSONObject(i).getString("room"),
+						serverdaten.getJSONObject(i).getString("info"),
+						serverdaten.getJSONObject(i).getString("date_begin"),
+						serverdaten.getJSONObject(i).getString("date_end")));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				Log.d("CoursesDetailsFactory", "problem bei i = "+i);
+				continue;
+			}
+		}
+		this.notifyDataSetChanged();
+	}
 	
+
 
 }

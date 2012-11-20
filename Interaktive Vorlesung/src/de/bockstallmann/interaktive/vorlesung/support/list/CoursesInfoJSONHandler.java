@@ -8,20 +8,20 @@ import de.bockstallmann.interaktive.vorlesung.support.CourseDetailsFactory;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
-public class CoursesJSONHandler extends Handler {
+public class CoursesInfoJSONHandler extends Handler {
 	
-	private CoursesArrayAdapter adapter;
+	private CourseDetails_details coursedetails;
 
-
-	public CoursesJSONHandler(CoursesArrayAdapter arrayAdapter){
-		adapter = arrayAdapter;
+	public CoursesInfoJSONHandler(CourseDetails_details CourseDetails){
+		coursedetails = CourseDetails;
 	}
-
 	public void handleMessage(Message msg) {
+		Log.d("Handler","in FUnktion");
 		if(msg.arg1 == Constants.MSG_SUCCESS){
-			adapter.addCourses((JSONArray)msg.obj);
+			coursedetails.setCourseInfo((JSONArray) msg.obj);
 		}
 	};
-	
 }
+
