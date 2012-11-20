@@ -13,8 +13,8 @@ public class Session {
 	public Session(String Room, String Title, String Begin, String End){
 		this.room = Room;
 		this.title = Title;
-		this.begin = Begin;
-		this.end = End;
+		this.begin = Begin.substring(0, 16);
+		this.end = End.substring(11, 16); 
 	}
 	
 	

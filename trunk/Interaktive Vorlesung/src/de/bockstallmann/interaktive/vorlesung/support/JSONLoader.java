@@ -25,7 +25,7 @@ public class JSONLoader extends Thread {
 	public void run() {
 		// is loading
 		serverDaten = ServerCommunication.getJSONDaten(scriptPath);
-		Log.d("Loader", "serverDaten: "+serverDaten.toString());
+		//Log.d("Loader", "serverDaten: "+serverDaten.toString());
 		Message message = Message.obtain();
 		if(serverDaten == null){
 			// had error
@@ -50,8 +50,12 @@ public class JSONLoader extends Thread {
 		scriptPath = "script_all_courses.php";
 		this.start();
 	}
-	public void startGetSessionsByCourse(final String id){
-		scriptPath = "script_all_courses.php?session_id="+id;
+	public void startGetCoursesInfo(final int id){
+		scriptPath = "script_courses_info.php?id="+id;
+		this.start();
+	}
+	public void startGetSessionsByCourse(final int id){
+		scriptPath = "script_all_sessions.php?id="+id;
 		this.start();
 	}
 }

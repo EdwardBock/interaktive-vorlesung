@@ -5,23 +5,21 @@ import org.json.JSONArray;
 import de.bockstallmann.interaktive.vorlesung.activities.CourseDetails_details;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.CourseDetailsFactory;
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
-public class CoursesJSONHandler extends Handler {
+public class SessionsJSONHandler extends Handler {
 	
-	private CoursesArrayAdapter adapter;
+	private CourseDetailsFactory coursedetails;
 
-
-	public CoursesJSONHandler(CoursesArrayAdapter arrayAdapter){
-		adapter = arrayAdapter;
+	public SessionsJSONHandler(CourseDetailsFactory CourseDetails){
+		coursedetails = CourseDetails;
 	}
-
 	public void handleMessage(Message msg) {
+		Log.d("Handler","in FUnktion");
 		if(msg.arg1 == Constants.MSG_SUCCESS){
-			adapter.addCourses((JSONArray)msg.obj);
+			coursedetails.addSessions((JSONArray) msg.obj);
 		}
 	};
-	
 }
