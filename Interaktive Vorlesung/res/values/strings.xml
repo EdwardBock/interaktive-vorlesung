@@ -10,9 +10,13 @@
 
 
     <!-- ListCourses -->
-    <string name="title_activity_list_courses">Interaktive Vorlesung</string>
+    <string name="title_activity_list_courses">Meine Vorlesungen</string>
     <!-- ENDE ListCourses -->
-
+	
+	<!-- SearchCourse -->
+    <string name="title_activity_search_course">Vorlesung hinzufügen</string>
+    <string name="et_empty">Suchen</string>
+    <!-- ENDE SearchCourse -->
 
     <!-- CourseDetails -->
     <string name="title_activity_course_details">CourseDetails</string>
