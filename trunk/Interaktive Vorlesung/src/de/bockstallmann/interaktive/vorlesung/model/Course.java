@@ -1,5 +1,6 @@
 package de.bockstallmann.interaktive.vorlesung.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Course {
@@ -7,6 +8,7 @@ public class Course {
 	private int id;
 	private String t,r, d, s, pw;
 	private ArrayList<Session> sess;
+	private Date changed;
 
 	public Course(final int _id, final String title, final String reader, final String semester,  final String password) {
 		id = _id;
@@ -41,5 +43,8 @@ public class Course {
 	}
 	public void setSessions(ArrayList<Session> sessions){
 		sess = sessions;
+	}
+	public Date getChanged(){
+		return changed;
 	}
 }
