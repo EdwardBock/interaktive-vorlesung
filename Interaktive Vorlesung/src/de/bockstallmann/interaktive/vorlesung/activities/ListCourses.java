@@ -48,7 +48,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 		// Adapter an ListView übergeben
 		list.setAdapter(courseListAdapter);
         list.setOnItemClickListener(this);
-        list.setOnItemLongClickListener(this);		
+        list.setOnItemLongClickListener(this);
 		
 	}
     @Override
