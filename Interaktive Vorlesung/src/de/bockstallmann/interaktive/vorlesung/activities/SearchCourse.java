@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Messenger;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
@@ -19,6 +20,8 @@ public class SearchCourse extends Activity {
     private ListView list;
 	private CoursesArrayAdapter courseListAdapter;
 	private JSONLoader jsonLoader;
+	private EditText et_search;
+	private String search;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,10 +31,15 @@ public class SearchCourse extends Activity {
         list = (ListView)findViewById(R.id.lv_courses);
         courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>() );
         
-        jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler(courseListAdapter)));
-        
+        et_search = (EditText)findViewById(R.id.et_search);
     }
-
+	@Override
+	protected void onResume() {
+		list.setAdapter(courseListAdapter);
+		jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler(courseListAdapter)));
+		jsonLoader.startGetCourses();
+		super.onResume();
+	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_search_course, menu);
@@ -48,7 +56,20 @@ public class SearchCourse extends Activity {
 			case R.id.actionbar_logo:
 				finish();
 				break;
+			case R.id.btn_search:
+				searchCourses();
+				break;
 		}
 	}
-    
+    private void searchCourses(){
+    	search = et_search.getText().toString();
+    	if(search.length() < 1) return;
+    	if(jsonLoader != null && jsonLoader.isAlive()){
+    		jsonLoader.stop();
+    		jsonLoader.destroy();
+    	}
+    	jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler(courseListAdapter)));
+    	courseListAdapter.clear();
+		jsonLoader.searchCourses(search);
+    }
 }
