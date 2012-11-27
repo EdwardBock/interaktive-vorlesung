@@ -41,10 +41,21 @@
         />
 
     </RelativeLayout>
+    <ImageButton 
+	    android:id="@+id/btn_search"
+	    android:layout_width="48dp"
+	    android:layout_height="48dp"
+	    android:layout_alignParentRight="true"
+	    android:layout_below="@id/actionbar"
+	    android:src="@android:drawable/ic_menu_search"
+	    android:onClick="actionbarClick"
+	/>
 	<EditText 
 	android:id="@+id/et_search"
 	android:layout_below="@id/actionbar"
-	android:layout_width="match_parent"
+	android:layout_toLeftOf="@id/btn_search"
+	android:layout_alignParentLeft="true"
+	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:hint="@string/et_empty"
 	/>
