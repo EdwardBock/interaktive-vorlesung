@@ -16,6 +16,7 @@ public interface Constants {
 	public static final String EXTRA_SESSION_ID = "session_id";
 	
 	
+	
 	/**
 	 * JSON Serverresponse Namen.
 	 */

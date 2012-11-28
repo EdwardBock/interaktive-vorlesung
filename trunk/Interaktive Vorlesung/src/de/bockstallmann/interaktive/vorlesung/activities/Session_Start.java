@@ -3,24 +3,31 @@ package de.bockstallmann.interaktive.vorlesung.activities;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.R.layout;
 import de.bockstallmann.interaktive.vorlesung.R.menu;
+import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
 
-public class Session_start extends Activity {
+public class Session_Start extends FragmentActivity {
 
+	String pw;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_session_start);
+        setContentView(R.layout.activity_session__start);
+        pw = getIntent().getExtras().getString(Constants.EXTRA_COURSE_PW);
+       
     }
 
-    @Override
+    
+    
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_session_start, menu);
+        getMenuInflater().inflate(R.menu.activity_session__start, menu);
         return true;
     }
-
 }
