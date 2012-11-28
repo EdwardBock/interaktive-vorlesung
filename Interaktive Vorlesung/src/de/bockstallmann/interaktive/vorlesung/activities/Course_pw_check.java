@@ -54,7 +54,7 @@ public class Course_pw_check extends DialogFragment{
 	            		   }else startActivity(startIntent);
 	               }
 	           }); 
-	    builder.setTitle("Test");
+	    builder.setTitle("Die Vorlesung ist Passwortgeschützt!");
 	    return builder.create();
 	}
 }
