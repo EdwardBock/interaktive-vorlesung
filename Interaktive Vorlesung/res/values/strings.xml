@@ -12,11 +12,13 @@
     <!-- ListCourses -->
     <string name="title_activity_list_courses">Meine Vorlesungen</string>
     <!-- ENDE ListCourses -->
-	
-	<!-- SearchCourse -->
+
+
+    <!-- SearchCourse -->
     <string name="title_activity_search_course">Vorlesung hinzufügen</string>
     <string name="et_empty">Suchen</string>
     <!-- ENDE SearchCourse -->
+
 
     <!-- CourseDetails -->
     <string name="title_activity_course_details">CourseDetails</string>
@@ -37,5 +39,6 @@
     <string name="exit">App beenden</string>
     <string name="title_activity_course_details_details">CourseDetails_details</string>
     <string name="title_activity_course_details_sessions">CourseDetails_sessions</string>
+    <string name="title_activity_session_start">Session_start</string>
 
 </resources>

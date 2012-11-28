@@ -3,6 +3,7 @@ package de.bockstallmann.interaktive.vorlesung.activities;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.R.layout;
 import de.bockstallmann.interaktive.vorlesung.R.menu;
+import de.bockstallmann.interaktive.vorlesung.model.Session;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.CourseDetailsFactory;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TabHost;
@@ -21,7 +23,7 @@ import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
-public class CourseDetails extends TabActivity {
+public class CourseDetails extends TabActivity  implements OnItemClickListener{
 
 	
     @Override
@@ -32,6 +34,7 @@ public class CourseDetails extends TabActivity {
 		int id = getIntent().getExtras().getInt(Constants.EXTRA_COURSE_ID);
 		String title = getIntent().getExtras().getString(Constants.EXTRA_COURSE_TITLE);
 		String reader = getIntent().getExtras().getString(Constants.EXTRA_COURSE_READER);
+		String pw = getIntent().getExtras().getString(Constants.EXTRA_COURSE_PW);
         
 		//Log.d("STATE ede:", "Übergeben: "+String.valueOf(id));
 		
@@ -53,6 +56,7 @@ public class CourseDetails extends TabActivity {
         sessionsspec.setIndicator("TERMINE");
         Intent sessionIntent = new Intent(this, CourseDetails_sessions.class);
         sessionIntent.putExtra(Constants.EXTRA_COURSE_ID, id);
+        sessionIntent.putExtra(Constants.EXTRA_COURSE_PW, pw);
         sessionsspec.setContent(sessionIntent);
         
         //Tabs zum TabHost adden
@@ -73,7 +77,11 @@ public class CourseDetails extends TabActivity {
         getMenuInflater().inflate(R.menu.activity_course_details, menu);
         return true;
     }
-
+    @Override
+	public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+		Intent intent = new Intent(this, Session_start.class);
+		startActivity(intent);
+	}
 
     
 }

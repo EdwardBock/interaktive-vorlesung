@@ -56,7 +56,7 @@ public class CourseDetailsFactory extends ArrayAdapter<Session>{
 	public void addSessions(JSONArray serverdaten){
 		for(int i = 0;i < serverdaten.length();i++){
 			try {
-				sessions.add(new Session(serverdaten.getJSONObject(i).getString("room"),
+				sessions.add(new Session(serverdaten.getJSONObject(i).getInt("_id"),serverdaten.getJSONObject(i).getString("room"),
 						serverdaten.getJSONObject(i).getString("info"),
 						serverdaten.getJSONObject(i).getString("date_begin"),
 						serverdaten.getJSONObject(i).getString("date_end")));

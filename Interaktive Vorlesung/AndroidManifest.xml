@@ -33,6 +33,13 @@
         <activity android:name=".activities.CourseDetails_details" />
         <activity android:name=".activities.CourseDetails_sessions" />
         <activity android:name=".activities.SearchCourse" />
+        <activity
+            android:name=".activities.Session_start"
+            android:label="@string/title_activity_session_start" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.bockstallmann.interaktive.vorlesung.activities.CourseDetails_sessions" />
+        </activity>
     </application>
 
 </manifest>

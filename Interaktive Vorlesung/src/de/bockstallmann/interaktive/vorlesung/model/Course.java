@@ -41,6 +41,9 @@ public class Course {
 		if(pw == "") return false;
 		return true;
 	}
+	public String getPassword(){
+		return pw;
+	}
 	public void setSessions(ArrayList<Session> sessions){
 		sess = sessions;
 	}
