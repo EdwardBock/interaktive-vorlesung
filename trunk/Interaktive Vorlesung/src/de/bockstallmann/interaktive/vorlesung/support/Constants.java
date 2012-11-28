@@ -7,6 +7,14 @@ public interface Constants {
 	public static final String EXTRA_COURSE_ID = "course_id";
 	public static final String EXTRA_COURSE_TITLE = "course_title";
 	public static final String EXTRA_COURSE_READER = "course_reader";
+	public static final String EXTRA_COURSE_PW ="course_pw";
+	
+	
+	/**
+	 * Extras für die Sessionübergabe
+	 */
+	public static final String EXTRA_SESSION_ID = "session_id";
+	
 	
 	/**
 	 * JSON Serverresponse Namen.
@@ -14,6 +22,7 @@ public interface Constants {
 	public static final String JSON_STATUS = "status";
 	public static final String JSON_DATEN = "daten";
 	public static final String JSON_MESSAGE = "message";
+	
 	
 	/**
 	 * Constants für Messenger message.

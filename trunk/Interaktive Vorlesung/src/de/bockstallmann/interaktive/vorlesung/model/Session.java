@@ -8,15 +8,20 @@ public class Session {
 	private String begin;
 	private String end;
 	private String src;
+	private int id;
 	
 	
-	public Session(String Room, String Title, String Begin, String End){
+	public Session(int ID,String Room, String Title, String Begin, String End){
+		this.id = ID;
 		this.room = Room;
 		this.title = Title;
 		this.begin = Begin.substring(0, 16);
 		this.end = End.substring(11, 16); 
 	}
 	
+	public int getID(){
+		return id;
+	}
 	
 	public String getRoom() {
 		return room;

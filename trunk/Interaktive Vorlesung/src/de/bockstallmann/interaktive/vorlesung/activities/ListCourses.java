@@ -69,6 +69,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 		intent.putExtra(Constants.EXTRA_COURSE_ID, course.getID());
 		intent.putExtra(Constants.EXTRA_COURSE_TITLE, course.getTitle());
 		intent.putExtra(Constants.EXTRA_COURSE_READER, course.getReader());
+		intent.putExtra(Constants.EXTRA_COURSE_PW, course.getPassword());
 		startActivity(intent);
 	}
 	/**
