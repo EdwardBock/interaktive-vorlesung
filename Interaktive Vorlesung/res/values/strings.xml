@@ -40,5 +40,8 @@
     <string name="title_activity_course_details_details">CourseDetails_details</string>
     <string name="title_activity_course_details_sessions">CourseDetails_sessions</string>
     <string name="title_activity_session_start">Session_start</string>
-
+    <string name="title_activity_session__start">Session_Start</string>
+    
+    <string name="pw">Passwort</string>
+	
 </resources>

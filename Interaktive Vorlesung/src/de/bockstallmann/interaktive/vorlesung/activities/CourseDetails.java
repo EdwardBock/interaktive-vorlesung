@@ -23,7 +23,7 @@ import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
-public class CourseDetails extends TabActivity  implements OnItemClickListener{
+public class CourseDetails extends TabActivity  {
 
 	
     @Override
@@ -77,11 +77,6 @@ public class CourseDetails extends TabActivity  implements OnItemClickListener{
         getMenuInflater().inflate(R.menu.activity_course_details, menu);
         return true;
     }
-    @Override
-	public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-		Intent intent = new Intent(this, Session_start.class);
-		startActivity(intent);
-	}
 
     
 }

@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.os.Messenger;
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,7 +27,7 @@ import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 import de.bockstallmann.interaktive.vorlesung.support.list.SessionsJSONHandler;
 
-public class CourseDetails_sessions extends Activity implements OnItemClickListener {
+public class CourseDetails_sessions extends FragmentActivity implements OnItemClickListener {
 
     private ArrayList<Session> sessions;
     private ListView list;
@@ -53,7 +57,8 @@ public class CourseDetails_sessions extends Activity implements OnItemClickListe
     	//Abfrage hinzufügen
     	
     	
-    	list.setAdapter(cdf);    	
+    	list.setAdapter(cdf);
+    	list.setOnItemClickListener(this);
     }
     
 
@@ -65,10 +70,20 @@ public class CourseDetails_sessions extends Activity implements OnItemClickListe
     
 	@Override
 	public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-		Session session = (Session)parent.getItemAtPosition(position);
-		Intent intent = new Intent(this, Session_start.class);
-		intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
+		
+			Session session = (Session)parent.getItemAtPosition(position);
+			Intent intent = new Intent(this, Session_Start.class);
+			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
+			intent.putExtra(Constants.EXTRA_COURSE_PW, pw);
+			showPwCheck(intent);
+			
 
-		startActivity(intent);
+
+	}
+	
+	private void showPwCheck(Intent intent) {
+		FragmentManager fm = getSupportFragmentManager();
+		Course_pw_check check = new Course_pw_check(pw,intent);
+		check.show(fm, "Passwort checker");	
 	}
 }
