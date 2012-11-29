@@ -3,6 +3,7 @@ package de.bockstallmann.interaktive.vorlesung.activities;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Messenger;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
+import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
@@ -78,10 +80,32 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
 		Course course = (Course)parent.getItemAtPosition(position);
+		
 		if(course.hasPassword()){
 			Toast.makeText(this, "Brauche PW", Toast.LENGTH_SHORT).show();
 		} else {
 			Toast.makeText(this, "Füge zu SQL-Datenbank hinzu", Toast.LENGTH_SHORT).show();
 		}
+		Intent intent = new Intent(this, CourseDetails.class);
+		intent.putExtra(Constants.EXTRA_COURSE_ID, course.getID());
+		intent.putExtra(Constants.EXTRA_COURSE_TITLE, course.getTitle());
+		intent.putExtra(Constants.EXTRA_COURSE_READER, course.getReader());
+		intent.putExtra(Constants.EXTRA_COURSE_PW, course.getPassword());
+		startActivityForResult(intent, Constants.RC_ADD_COURSE);
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode == RESULT_OK){
+			switch (requestCode) {
+			case Constants.RC_ADD_COURSE:
+				Toast.makeText(this, 
+						"Zur Datenbank hinzufügen", 
+						Toast.LENGTH_SHORT).show();
+				break;
+			default:
+				break;
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 }

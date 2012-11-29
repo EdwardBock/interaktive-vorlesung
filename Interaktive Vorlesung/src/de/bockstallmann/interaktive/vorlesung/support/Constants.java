@@ -1,6 +1,9 @@
 package de.bockstallmann.interaktive.vorlesung.support;
 
 public interface Constants {
+	
+	public static final int RC_ADD_COURSE = 1;
+	
 	/**
 	 * Extras für die Activity übergabe
 	 */
