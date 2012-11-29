@@ -2,7 +2,7 @@ package de.bockstallmann.interaktive.vorlesung.support.list;
 
 import org.json.JSONArray;
 
-import de.bockstallmann.interaktive.vorlesung.activities.CourseDetails_details;
+import de.bockstallmann.interaktive.vorlesung.activities.CourseDetailsDetails;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.CourseDetailsFactory;
 import android.os.Handler;

@@ -18,7 +18,10 @@
     <string name="title_activity_search_course">Vorlesung hinzufügen</string>
     <string name="et_empty">Suchen</string>
     <!-- ENDE SearchCourse -->
-
+    
+    <!-- CoursePreview -->
+    <string name="btn_course_add">Vorlesung hinzufügen</string>
+	<!-- Ende CoursePreview -->
 
     <!-- CourseDetails -->
     <string name="title_activity_course_details">CourseDetails</string>
@@ -41,7 +44,7 @@
     <string name="title_activity_course_details_sessions">CourseDetails_sessions</string>
     <string name="title_activity_session_start">Session_start</string>
     <string name="title_activity_session__start">Session_Start</string>
-    
     <string name="pw">Passwort</string>
-	
+    <string name="title_activity_course_preview">CoursePreview</string>
+
 </resources>

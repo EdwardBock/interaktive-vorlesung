@@ -47,14 +47,14 @@ public class CourseDetails extends TabActivity  {
         //Tab für Details
         TabSpec detailsspec = tabhost.newTabSpec("DETAILS");
         detailsspec.setIndicator("DETAILS");
-        Intent detailsIntent = new Intent(this, CourseDetails_details.class);
+        Intent detailsIntent = new Intent(this, CourseDetailsDetails.class);
         detailsIntent.putExtra(Constants.EXTRA_COURSE_ID, id);
         detailsspec.setContent(detailsIntent);
         
         //Tab für TERMINE
         TabSpec sessionsspec = tabhost.newTabSpec("TERMINE");
         sessionsspec.setIndicator("TERMINE");
-        Intent sessionIntent = new Intent(this, CourseDetails_sessions.class);
+        Intent sessionIntent = new Intent(this, CourseDetailsSessions.class);
         sessionIntent.putExtra(Constants.EXTRA_COURSE_ID, id);
         sessionIntent.putExtra(Constants.EXTRA_COURSE_PW, pw);
         sessionsspec.setContent(sessionIntent);

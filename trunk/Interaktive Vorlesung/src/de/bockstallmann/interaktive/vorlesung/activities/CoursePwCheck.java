@@ -15,12 +15,12 @@ import android.view.inputmethod.InputBinding;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Course_pw_check extends DialogFragment{
+public class CoursePwCheck extends DialogFragment{
 
 	private static String PW;
 	private Intent startIntent;
 	
-	Course_pw_check(String pw, Intent intent){
+	CoursePwCheck(String pw, Intent intent){
 		PW="bla";
 		startIntent= intent;
 	} 
@@ -42,7 +42,7 @@ public class Course_pw_check extends DialogFragment{
 	           
 	           .setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
 	               public void onClick(DialogInterface dialog, int id) {
-	            	   Course_pw_check.this.getDialog().cancel();
+	            	   CoursePwCheck.this.getDialog().cancel();
 	               }
 	           })
 	           .setNeutralButton("Starten", new DialogInterface.OnClickListener() {

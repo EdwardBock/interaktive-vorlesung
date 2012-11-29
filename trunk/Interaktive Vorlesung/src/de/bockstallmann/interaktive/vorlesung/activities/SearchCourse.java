@@ -35,7 +35,7 @@ public class SearchCourse extends Activity implements OnItemClickListener {
         
         list = (ListView)findViewById(R.id.lv_courses);
         courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>() );
-        
+        list.setOnItemClickListener(this);
         et_search = (EditText)findViewById(R.id.et_search);
     }
 	@Override
@@ -86,7 +86,7 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 		} else {
 			Toast.makeText(this, "Füge zu SQL-Datenbank hinzu", Toast.LENGTH_SHORT).show();
 		}
-		Intent intent = new Intent(this, CourseDetails.class);
+		Intent intent = new Intent(this, CoursePreview.class);
 		intent.putExtra(Constants.EXTRA_COURSE_ID, course.getID());
 		intent.putExtra(Constants.EXTRA_COURSE_TITLE, course.getTitle());
 		intent.putExtra(Constants.EXTRA_COURSE_READER, course.getReader());
