@@ -7,15 +7,18 @@ import android.os.Bundle;
 import android.os.Messenger;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 
-public class SearchCourse extends Activity {
+public class SearchCourse extends Activity implements OnItemClickListener {
 
     private ListView list;
 	private CoursesArrayAdapter courseListAdapter;
@@ -72,4 +75,13 @@ public class SearchCourse extends Activity {
     	courseListAdapter.clear();
 		jsonLoader.searchCourses(search);
     }
+	@Override
+	public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+		Course course = (Course)parent.getItemAtPosition(position);
+		if(course.hasPassword()){
+			Toast.makeText(this, "Brauche PW", Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(this, "Füge zu SQL-Datenbank hinzu", Toast.LENGTH_SHORT).show();
+		}
+	}
 }
