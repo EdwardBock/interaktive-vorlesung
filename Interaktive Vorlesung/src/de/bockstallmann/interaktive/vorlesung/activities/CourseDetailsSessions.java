@@ -27,7 +27,7 @@ import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 import de.bockstallmann.interaktive.vorlesung.support.list.SessionsJSONHandler;
 
-public class CourseDetails_sessions extends FragmentActivity implements OnItemClickListener {
+public class CourseDetailsSessions extends FragmentActivity implements OnItemClickListener {
 
     private ArrayList<Session> sessions;
     private ListView list;
@@ -72,18 +72,15 @@ public class CourseDetails_sessions extends FragmentActivity implements OnItemCl
 	public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
 		
 			Session session = (Session)parent.getItemAtPosition(position);
-			Intent intent = new Intent(this, Session_Start.class);
+			Intent intent = new Intent(this, SessionStart.class);
 			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
 			intent.putExtra(Constants.EXTRA_COURSE_PW, pw);
-			showPwCheck(intent);
+			startActivity(intent);
+			//showPwCheck(intent);
 			
 
 
 	}
 	
-	private void showPwCheck(Intent intent) {
-		FragmentManager fm = getSupportFragmentManager();
-		Course_pw_check check = new Course_pw_check(pw,intent);
-		check.show(fm, "Passwort checker");	
-	}
+	
 }

@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class Session_Start extends FragmentActivity {
+public class SessionStart extends FragmentActivity {
 
 	String pw;
 	

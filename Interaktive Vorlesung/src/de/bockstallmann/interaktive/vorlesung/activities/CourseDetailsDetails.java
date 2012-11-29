@@ -20,7 +20,7 @@ import android.view.Menu;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CourseDetails_details extends Activity {
+public class CourseDetailsDetails extends Activity {
 
     private TextView short_info;
     private String courseInfo;
