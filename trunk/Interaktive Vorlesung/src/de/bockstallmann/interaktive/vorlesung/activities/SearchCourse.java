@@ -41,8 +41,10 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 	@Override
 	protected void onResume() {
 		list.setAdapter(courseListAdapter);
-		jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler(courseListAdapter)));
-		jsonLoader.startGetCourses();
+		if(courseListAdapter.getCount() < 1){
+			jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler(courseListAdapter)));
+			jsonLoader.startGetCourses();
+		}
 		super.onResume();
 	}
     @Override
@@ -99,8 +101,9 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 			switch (requestCode) {
 			case Constants.RC_ADD_COURSE:
 				Toast.makeText(this, 
-						"Zur Datenbank hinzufügen", 
+						"OK! Zur Datenbank hinzufügen", 
 						Toast.LENGTH_SHORT).show();
+				finish();
 				break;
 			default:
 				break;

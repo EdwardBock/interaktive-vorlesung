@@ -2,13 +2,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+    <RelativeLayout 
+    android:id="@+id/actionbar"
+    android:layout_alignParentTop="true"
+    style="@style/Titlebar"
+    >
+        <ImageView 
+        android:id="@+id/actionbar_logo"
+        style="@style/Titlebar.Logo"
+        android:src="@drawable/actionbar_logo"
+        android:contentDescription="@string/actionbar_icon_cd" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"   
+        />
+         <ImageButton
+            android:id="@+id/actionbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:contentDescription="@string/actionbar_back_cd"
+            android:src="@drawable/actionbar_up" 
+            android:onClick="actionbarClick"/>
+        <TextView 
+        android:id="@+id/actionbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"  
+        android:layout_toRightOf="@id/actionbar_logo"
+        android:layout_alignBottom="@id/actionbar_logo"
+        android:text="@string/title_activity_list_courses"
+        style="@style/Titlebar.Title"
+        />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/actionbar"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="22dp"
         android:text="@string/short_info"

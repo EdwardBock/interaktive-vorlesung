@@ -21,6 +21,10 @@
     
     <!-- CoursePreview -->
     <string name="btn_course_add">Vorlesung hinzufügen</string>
+    <string name="dialog_pw_title">Die Vorlesung ist Passwortgeschützt!</string>
+    <string name="dialog_pw_hint">Passwort</string>
+    <string name="dialog_btn_ok">Hinzufügen</string>
+    <string name="dialog_btn_cancel">Abbrechen</string>
 	<!-- Ende CoursePreview -->
 
     <!-- CourseDetails -->
