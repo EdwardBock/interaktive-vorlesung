@@ -6,22 +6,27 @@ import java.util.ArrayList;
 public class Course {
 
 	private int id;
-	private String t,r, d, s, pw;
+	private String t,r, d, s, pw, j;
 	private ArrayList<Session> sess;
 	private Date changed;
 
-	public Course(final int _id, final String title, final String reader, final String semester,  final String password) {
+	public Course(final int _id, final String title, final String reader, final String semester, final String jahr, final String password) {
 		id = _id;
 		t = title;
 		r = reader;
 		s = semester;
 		pw = password;
+		j = jahr;
 	}
-	public Course(final int _id, final String title, final String description, final String reader, final String semester,  final String password) {
-		this(_id, title, reader, semester, password);
+	public Course(final int _id, final String title, final String description, final String reader, final String semester,final String jahr,  final String password) {
+		this(_id, title, reader, semester,jahr, password);
 		d = description;
 	}
 
+	public String getJahr(){
+		return j;
+	}
+	
 	public int getID(){
 		return id;
 	}
