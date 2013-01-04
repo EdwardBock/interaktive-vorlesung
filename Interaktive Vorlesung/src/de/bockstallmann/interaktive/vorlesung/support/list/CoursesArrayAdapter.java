@@ -40,7 +40,7 @@ public class CoursesArrayAdapter extends ArrayAdapter<Course> {
 		Course course = items.get(position);
 
 		((TextView)view.findViewById(R.id.tx_course_row_title)).setText(course.getTitle());
-		((TextView)view.findViewById(R.id.tx_course_row_description)).setText(course.getSemester()+"; "+course.getReader());
+		((TextView)view.findViewById(R.id.tx_course_row_description)).setText(course.getSemester()+course.getJahr()+"; "+course.getReader());
 		
 		return view;
 	}
@@ -54,9 +54,10 @@ public class CoursesArrayAdapter extends ArrayAdapter<Course> {
 			try {
 				items.add(new Course(
 						Integer.parseInt(serverDaten.getJSONObject(i).getString("_id")), 
-						serverDaten.getJSONObject(i).getString("titel"), 
+						serverDaten.getJSONObject(i).getString("title"), 
 						serverDaten.getJSONObject(i).getString("user_id"),
 						serverDaten.getJSONObject(i).getString("semester"),
+						serverDaten.getJSONObject(i).getString("year"),
 						serverDaten.getJSONObject(i).getString("pw")));
 			} catch (Exception e) {
 				Log.d("CoursesAdapter", "problem bei i = "+i);
