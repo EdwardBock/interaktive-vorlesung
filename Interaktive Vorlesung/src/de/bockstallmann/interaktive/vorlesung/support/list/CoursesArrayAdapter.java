@@ -41,13 +41,14 @@ public class CoursesArrayAdapter extends ArrayAdapter<Course> {
 
 		((TextView)view.findViewById(R.id.tx_course_row_title)).setText(course.getTitle());
 		((TextView)view.findViewById(R.id.tx_course_row_description)).setText(course.getSemester()+course.getJahr()+"; "+course.getReader());
-		
+		Log.d("AdapterView", "jetzt ausgeführt");
 		return view;
 	}
 
 	public ArrayList<Course> getCourseList(){
 		return items;
 	}
+	
 
 	public void addCourses(JSONArray serverDaten) {
 		for (int i = 0; i < serverDaten.length(); i++) {

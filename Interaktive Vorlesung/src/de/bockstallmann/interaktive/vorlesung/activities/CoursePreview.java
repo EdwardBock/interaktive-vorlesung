@@ -27,6 +27,7 @@ public class CoursePreview extends FragmentActivity {
 	private JSONLoader jsonLoader;
 	private String courseInfo;
 	private String pw;
+	private int id;
 	private Builder builder;
 	private EditText pw_input;
 
@@ -35,9 +36,10 @@ public class CoursePreview extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_preview);
         short_info = (TextView)findViewById(R.id.short_info_content);
-        int id = getIntent().getExtras().getInt(Constants.EXTRA_COURSE_ID);
+        id = getIntent().getExtras().getInt(Constants.EXTRA_COURSE_ID);
         String title = getIntent().getExtras().getString(Constants.EXTRA_COURSE_TITLE);
         pw = getIntent().getExtras().getString(Constants.EXTRA_COURSE_PW);
+        
         
         ((TextView)findViewById(R.id.actionbar_title)).setText(title);
         
