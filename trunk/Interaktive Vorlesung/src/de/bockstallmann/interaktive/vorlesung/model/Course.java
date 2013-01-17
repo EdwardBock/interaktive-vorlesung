@@ -22,6 +22,13 @@ public class Course {
 		this(_id, title, reader, semester,jahr, password);
 		d = description;
 	}
+	public Course(final int _id, final String title, final String reader, final String semester,final String jahr){
+		id = _id;
+		t = title;
+		r = reader;
+		s = semester;
+		j = jahr;
+	}
 
 	public String getJahr(){
 		return j;

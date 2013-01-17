@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+style="@style/CourseRow"
+>
+     <TextView 
+     android:layout_alignParentTop="true"
+     android:layout_alignParentLeft="true"
+     android:id="@+id/tx_course_row_delete_title"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content" 
+     android:singleLine="true"
+     style="@style/CourseRowTitle"
+     />
+     <TextView 
+     android:layout_alignParentBottom="true"
+     android:id="@+id/tx_course_row_delete_description"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content" 
+     android:singleLine="true"
+     style="@style/CourseRowInfo"
+     />
+
+     <ImageButton
+         android:id="@+id/btn_course_row_delete"
+         android:layout_width="50dp"
+         android:layout_height="50dp"
+         android:layout_alignParentRight="true"
+         android:layout_below="@+id/tx_course_row_title"
+         android:layout_marginRight="3dp"
+         android:src="@android:drawable/ic_delete"/>
+     
+</RelativeLayout>

@@ -17,6 +17,7 @@ import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
+import de.bockstallmann.interaktive.vorlesung.support.SQLDataHandler;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 
@@ -27,11 +28,18 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 	private JSONLoader jsonLoader;
 	private EditText et_search;
 	private String search;
+	private SQLDataHandler db;
+	private int db_id ;
+	private String semester;
+	private String year;
+	private String title;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_course);
+        
+        db = new SQLDataHandler(this);
         
         list = (ListView)findViewById(R.id.lv_courses);
         courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>() );
@@ -80,7 +88,7 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 		jsonLoader.searchCourses(search);
     }
 	@Override
-	public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+	public void onItemClick(final AdapterView<?> parent, final View view, final int position, long id) {
 		Course course = (Course)parent.getItemAtPosition(position);
 		
 		if(course.hasPassword()){
@@ -91,8 +99,13 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 		Intent intent = new Intent(this, CoursePreview.class);
 		intent.putExtra(Constants.EXTRA_COURSE_ID, course.getID());
 		intent.putExtra(Constants.EXTRA_COURSE_TITLE, course.getTitle());
-		intent.putExtra(Constants.EXTRA_COURSE_READER, course.getReader());
 		intent.putExtra(Constants.EXTRA_COURSE_PW, course.getPassword());
+		db_id = course.getID();
+		title = course.getTitle();
+		semester = course.getSemester();
+		year = course.getJahr();
+		
+
 		startActivityForResult(intent, Constants.RC_ADD_COURSE);
 	}
 	@Override
@@ -103,6 +116,9 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 				Toast.makeText(this, 
 						"OK! Zur Datenbank hinzufügen", 
 						Toast.LENGTH_SHORT).show();
+				
+				//SQLite Datenbank füllen
+				db.addCourse(new Course(db_id,title,"Prof Müller",semester,year));
 				finish();
 				break;
 			default:

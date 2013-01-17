@@ -19,37 +19,36 @@ import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
+import de.bockstallmann.interaktive.vorlesung.support.SQLDataHandler;
+import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapterFavourite;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 
 public class ListCourses extends FragmentActivity implements OnItemClickListener, OnItemLongClickListener {
 
     private ListView list;
-	private CoursesArrayAdapter courseListAdapter;
-	protected JSONArray serverDaten;
-	private JSONLoader jsonLoader;
+	private CoursesArrayAdapterFavourite courseListAdapter;
+	private SQLDataHandler db;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_courses);
-        
+        db  = new SQLDataHandler(this);
+        //
         list = (ListView)findViewById(R.id.lv_courses);
-        courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>() );
-        
-        jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler(courseListAdapter)));
-		jsonLoader.startGetCourses();
+        courseListAdapter = new CoursesArrayAdapterFavourite(this, R.layout.course_row, new ArrayList<Course>() );
 		
     }
 	@Override
 	protected void onResume() {
 		super.onResume();
-    	
+		
 		// Adapter an ListView übergeben
 		list.setAdapter(courseListAdapter);
         list.setOnItemClickListener(this);
         list.setOnItemLongClickListener(this);
-		
+        courseListAdapter.setCourses(db.getCourses());
 	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
