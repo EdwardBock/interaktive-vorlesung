@@ -65,11 +65,14 @@ public class CoursePreview extends FragmentActivity {
 	}
     
     public void btn_add_click(final View view){
-    	if(pw == ""){
+    	if(pw.equals("")){
+    		Log.d("PASSWORT", "leer");
     		final Intent intent = new Intent();
 			setResult(RESULT_OK, intent);
 			finish();
+			
 			return;
+			
     	}
     	builder = new Builder(this);
     	builder.setTitle(R.string.dialog_pw_title);
