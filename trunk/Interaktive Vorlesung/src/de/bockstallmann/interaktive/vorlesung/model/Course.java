@@ -50,7 +50,7 @@ public class Course {
 		return s;
 	}
 	public boolean hasPassword(){
-		if(pw == "") return false;
+		if(pw.equals("")) return false;
 		return true;
 	}
 	public String getPassword(){
