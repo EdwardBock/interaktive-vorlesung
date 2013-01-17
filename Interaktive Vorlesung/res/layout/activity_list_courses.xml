@@ -47,5 +47,14 @@
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		android:fadeScrollbars="true"/>
+    <TextView 
+        android:id="@+id/tx_listcourses_emptyList"
+        android:layout_width="fill_parent" 
+   		android:layout_height="fill_parent" 
+        android:text="@string/list_courses_emptyList"
+        android:textSize="15sp"
+        android:textColor="#CCC"
+        android:gravity="center_horizontal|center_vertical"
+        />
 
 </RelativeLayout>
