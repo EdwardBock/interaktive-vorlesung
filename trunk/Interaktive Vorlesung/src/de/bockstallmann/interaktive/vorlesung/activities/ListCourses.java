@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
@@ -38,7 +39,8 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
         //
         list = (ListView)findViewById(R.id.lv_courses);
         courseListAdapter = new CoursesArrayAdapterFavourite(this, R.layout.course_row, new ArrayList<Course>() );
-		
+        TextView tv = (TextView) findViewById(R.id.tx_listcourses_emptyList);
+		list.setEmptyView(tv);
     }
 	@Override
 	protected void onResume() {

@@ -11,6 +11,7 @@
 
     <!-- ListCourses -->
     <string name="title_activity_list_courses">Meine Vorlesungen</string>
+    <string name="list_courses_emptyList">Zum hinzufügen einer Vorlesung, das + drücken!</string>
     <!-- ENDE ListCourses -->
 
 
