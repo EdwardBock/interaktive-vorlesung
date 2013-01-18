@@ -27,15 +27,107 @@
             android:background="@null"
             android:contentDescription="@string/actionbar_back_cd"
             android:src="@drawable/actionbar_up" />
+
+        <ImageButton
+            android:id="@+id/btn_session_start_reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:src="@android:drawable/ic_menu_help" />
         
     </RelativeLayout>
-    
-    <TextView
+
+    <ViewFlipper
+        android:id="@+id/viewFlipper1"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="#222222"
+        android:paddingTop="100dp" >
+
+    </ViewFlipper>
+
+    <ImageButton
+        android:id="@+id/btn_session_start_previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".Session_Start" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/viewFlipper1"
+        android:background="@null"
+        android:src="@android:drawable/ic_media_previous" />
+
+    <ImageButton
+        android:id="@+id/btn_session_start_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/viewFlipper1"
+        android:src="@android:drawable/ic_media_next" />
+
+    <TextView
+        android:id="@+id/tx_session_start_question"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btn_session_start_previous"
+        android:paddingTop="10dp"
+        android:background="#FFF"
+        android:text="TextView" />
+
+  
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tx_session_start_question"
+        android:orientation="horizontal"
+        android:weightSum="2" >
+
+        <Button
+            android:id="@+id/btn_session_start_a1"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_style"
+            android:text="Button1" />
+
+           <Button
+        android:id="@+id/btn_session_start_a2"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_weight="1"
+        android:background="@drawable/btn_style"
+        android:text="Button2" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+		android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:weightSum="2" >
+
+        <Button
+            android:id="@+id/btn_session_start_a3"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_style"
+            android:text="Button3" />
+
+           <Button
+        android:id="@+id/btn_session_start_a4"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_weight="1"
+        android:background="@drawable/btn_style"
+        android:text="Button4" />
+    </LinearLayout>
 
 </RelativeLayout>
