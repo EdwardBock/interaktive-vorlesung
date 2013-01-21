@@ -119,6 +119,7 @@ public class SessionStart extends Activity {
     public void addQuestions(JSONArray serverdaten){
     	try {
 	    		if(questions.size() > 0 && Integer.parseInt(serverdaten.getJSONObject(0).getString("_id")) == questions.get(0).getId()){
+	    			pd.dismiss();
 	    			return;
 	    		}
 	    		questions.clear();

@@ -23,7 +23,7 @@ public class QuestionJSONHandler extends Handler{
 		
 		if(msg.arg1 == Constants.MSG_SUCCESS && add == 1){
 			sessionStart.addQuestions((JSONArray) msg.obj);
-		}else{
+		}else if(add == 1 && msg.obj == null){
 			sessionStart.stoploading();
 		}
 	};
