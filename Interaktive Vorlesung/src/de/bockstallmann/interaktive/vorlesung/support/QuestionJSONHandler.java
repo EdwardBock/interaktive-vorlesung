@@ -23,6 +23,8 @@ public class QuestionJSONHandler extends Handler{
 		
 		if(msg.arg1 == Constants.MSG_SUCCESS && add == 1){
 			sessionStart.addQuestions((JSONArray) msg.obj);
+		}else{
+			sessionStart.stoploading();
 		}
 	};
 }
