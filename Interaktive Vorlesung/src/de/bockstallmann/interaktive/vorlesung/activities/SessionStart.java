@@ -19,6 +19,7 @@ import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 import android.os.Bundle;
 import android.os.Messenger;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -51,6 +52,8 @@ public class SessionStart extends Activity {
 	private ArrayList<Question> questions;
 	private int currentQuestion;
 	
+	ProgressDialog pd;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +61,12 @@ public class SessionStart extends Activity {
         pw = getIntent().getExtras().getString(Constants.EXTRA_COURSE_PW);
         id = getIntent().getExtras().getInt(Constants.EXTRA_SESSION_ID);
         questions = new ArrayList<Question>();
-		
+        
+        pd = new ProgressDialog(this);
+        pd.setMessage("Loading Questions!");
+        pd.setCancelable(true);
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER); 
+        
 		btn_a1 = (Button) findViewById(R.id.btn_session_start_a1);
 		btn_a2 = (Button) findViewById(R.id.btn_session_start_a2);
 		btn_a3 = (Button) findViewById(R.id.btn_session_start_a3);
@@ -70,6 +78,7 @@ public class SessionStart extends Activity {
 		
 			@Override
 			public void onClick(View v) {
+				pd.show();
 				jsonLoader = new JSONLoader(new Messenger(new QuestionJSONHandler(act,1)));
 				jsonLoader.startGetQuestionsBySessions(id);
 				
@@ -123,6 +132,7 @@ public class SessionStart extends Activity {
     	btn_a2.setText(questions.get(0).getAnswer2());
     	btn_a3.setText(questions.get(0).getAnswer3());
     	btn_a4.setText(questions.get(0).getAnswer4());
+    	pd.dismiss();
     }
     
     public void nextQuestion(){

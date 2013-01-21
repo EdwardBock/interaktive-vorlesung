@@ -67,15 +67,19 @@ public class JSONLoader extends Thread {
 		this.start();
 	}
 	public void countA(final int id){
-		
+		scriptPath = "script.app.question_count.php?id="+id+"&answer=a";
+		this.start();
 	}
 	public void countB(final int id){
-		
+		scriptPath = "script.app.question_count.php?id="+id+"&answer=b";
+		this.start();
 	}
 	public void countC(final int id){
-	
+		scriptPath = "script.app.question_count.php?id="+id+"&answer=c";
+		this.start();
 	}
 	public void countD(final int id){
-	
+		scriptPath = "script.app.question_count.php?id="+id+"&answer=d";
+		this.start();
 	}
 }
