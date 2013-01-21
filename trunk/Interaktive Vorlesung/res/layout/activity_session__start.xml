@@ -8,25 +8,36 @@
         style="@style/Titlebar"
         android:layout_alignParentTop="true"
         android:gravity="top" >
-		<ImageButton 
-		    android:id="@+id/actionbar_logo"
-		    android:src="@drawable/actionbar_logo"
-		    style="@style/Titlebar.Logo"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerVertical="true"
-		    android:contentDescription="@string/actionbar_icon_cd"
-		    android:layout_alignParentLeft="true"
-		/>
-        <ImageButton
-            android:id="@+id/actionbar_back"
+		<ImageView
+            android:id="@+id/actionbar_logo"
+            style="@style/Titlebar.Logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:contentDescription="@string/actionbar_icon_cd"
+            android:src="@drawable/actionbar_logo" />
+
+        <ImageButton
+            android:id="@+id/actionbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
             android:background="@null"
             android:contentDescription="@string/actionbar_back_cd"
+            android:onClick="actionbarClick"
             android:src="@drawable/actionbar_up" />
+
+        <TextView 
+        android:id="@+id/actionbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"  
+        android:layout_toRightOf="@id/actionbar_logo"
+        android:layout_alignBottom="@id/actionbar_logo"
+        android:text="@string/title_activity_search_course"
+        style="@style/Titlebar.Title"
+        />
 
         <ImageButton
             android:id="@+id/btn_session_start_reload"
@@ -35,6 +46,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="22dp"
+            android:background="@null"
             android:src="@android:drawable/ic_menu_help" />
         
     </RelativeLayout>
@@ -66,6 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/viewFlipper1"
+         android:background="@null"
         android:src="@android:drawable/ic_media_next" />
 
     <TextView
@@ -76,7 +89,7 @@
         android:layout_below="@+id/btn_session_start_previous"
         android:paddingTop="10dp"
         android:background="#FFF"
-        android:text="TextView" />
+        android:text="Frage" />
 
   
     <LinearLayout
@@ -94,7 +107,8 @@
             android:layout_height="55dp"
             android:layout_weight="1"
             android:background="@drawable/btn_style"
-            android:text="Button1" />
+            android:onClick="answeredHandler"
+            android:text="Antwort" />
 
            <Button
         android:id="@+id/btn_session_start_a2"
@@ -102,7 +116,8 @@
         android:layout_height="55dp"
         android:layout_weight="1"
         android:background="@drawable/btn_style"
-        android:text="Button2" />
+        android:onClick="answeredHandler"
+        android:text="Antwort" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
@@ -119,7 +134,8 @@
             android:layout_height="55dp"
             android:layout_weight="1"
             android:background="@drawable/btn_style"
-            android:text="Button3" />
+            android:onClick="answeredHandler"
+            android:text="Antwort" />
 
            <Button
         android:id="@+id/btn_session_start_a4"
@@ -127,7 +143,8 @@
         android:layout_height="55dp"
         android:layout_weight="1"
         android:background="@drawable/btn_style"
-        android:text="Button4" />
+        android:onClick="answeredHandler"
+        android:text="Antwort" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -12,13 +12,16 @@ import android.util.Log;
 public class QuestionJSONHandler extends Handler{
 
 	private SessionStart sessionStart;
+	private int add;
 	
-	public QuestionJSONHandler(SessionStart sStart){
+	public QuestionJSONHandler(SessionStart sStart, int ADD){
 		sessionStart = sStart;
+		add = ADD;
 	}
 	public void handleMessage(Message msg) {
 		Log.d("Handler Question","in FUnktion");
-		if(msg.arg1 == Constants.MSG_SUCCESS){
+		
+		if(msg.arg1 == Constants.MSG_SUCCESS && add == 1){
 			sessionStart.addQuestions((JSONArray) msg.obj);
 		}
 	};

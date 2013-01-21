@@ -66,4 +66,16 @@ public class JSONLoader extends Thread {
 		scriptPath = "script.app.all_active_questions.php?id="+id;
 		this.start();
 	}
+	public void countA(final int id){
+		
+	}
+	public void countB(final int id){
+		
+	}
+	public void countC(final int id){
+	
+	}
+	public void countD(final int id){
+	
+	}
 }
