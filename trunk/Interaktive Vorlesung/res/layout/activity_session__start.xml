@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"  
         android:layout_toRightOf="@id/actionbar_logo"
         android:layout_alignBottom="@id/actionbar_logo"
-        android:text="@string/title_activity_search_course"
+        android:text="@string/title_activity_session_start"
         style="@style/Titlebar.Title"
         />
 

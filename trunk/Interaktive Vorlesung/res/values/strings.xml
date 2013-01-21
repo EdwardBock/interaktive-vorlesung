@@ -36,6 +36,7 @@
     <!-- CourseDetailsDetails -->
     <string name="short_info">Kurzbeschreibung:</string>
     <!-- ENDE CourseDetailsDetails -->
+    
 
 
     <!-- PdfReader -->
@@ -47,8 +48,7 @@
     <string name="exit">App beenden</string>
     <string name="title_activity_course_details_details">CourseDetails_details</string>
     <string name="title_activity_course_details_sessions">CourseDetails_sessions</string>
-    <string name="title_activity_session_start">Session_start</string>
-    <string name="title_activity_session__start">Session_Start</string>
+    <string name="title_activity_session_start">Vorlesung läuft!</string>
     <string name="pw">Passwort</string>
     <string name="title_activity_course_preview">CoursePreview</string>
 
