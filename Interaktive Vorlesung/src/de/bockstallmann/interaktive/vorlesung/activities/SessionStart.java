@@ -19,6 +19,7 @@ import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 import android.os.Bundle;
 import android.os.Messenger;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -27,6 +28,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 import android.view.View.OnClickListener;
 
@@ -47,6 +49,7 @@ public class SessionStart extends Activity {
 	private SessionStart act;
 	
 	private ArrayList<Question> questions;
+	private int currentQuestion;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,8 +58,6 @@ public class SessionStart extends Activity {
         pw = getIntent().getExtras().getString(Constants.EXTRA_COURSE_PW);
         id = getIntent().getExtras().getInt(Constants.EXTRA_SESSION_ID);
         questions = new ArrayList<Question>();
-        ImageButton back = (ImageButton) findViewById(R.id.actionbar_back);
-		back.setOnClickListener(back_handler);
 		
 		btn_a1 = (Button) findViewById(R.id.btn_session_start_a1);
 		btn_a2 = (Button) findViewById(R.id.btn_session_start_a2);
@@ -69,32 +70,54 @@ public class SessionStart extends Activity {
 		
 			@Override
 			public void onClick(View v) {
-				jsonLoader = new JSONLoader(new Messenger(new QuestionJSONHandler((act))));
+				jsonLoader = new JSONLoader(new Messenger(new QuestionJSONHandler(act,1)));
 				jsonLoader.startGetQuestionsBySessions(id);
 				
 			}
 		});
 		btn_prev = (ImageButton) findViewById(R.id.btn_session_start_previous);
+		btn_prev.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				previousQuestion();				
+			}
+		});
 		
 		btn_next = (ImageButton) findViewById(R.id.btn_session_start_next);
+		btn_next.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				nextQuestion();
+				
+			}
+		});
     }
     
     public void addQuestions(JSONArray serverdaten){
-    	for(int i=0;i<serverdaten.length();i++){
-    		try {
-				questions.add(new Question(
-						Integer.parseInt(serverdaten.getJSONObject(i).getString("_id")),
-						serverdaten.getJSONObject(i).getString("question"),
-						serverdaten.getJSONObject(i).getString("a"),
-						serverdaten.getJSONObject(i).getString("b"),
-						serverdaten.getJSONObject(i).getString("c"),
-						serverdaten.getJSONObject(i).getString("d")));
-			
-			} catch (Exception e) {
+    	try {
+	    		if(questions.size() > 0 && Integer.parseInt(serverdaten.getJSONObject(0).getString("_id")) == questions.get(0).getId()){
+	    			return;
+	    		}
+	    		questions.clear();
+	    		btn_a1.setClickable(true);
+	    		btn_a2.setClickable(true);
+	    		btn_a3.setClickable(true);
+	    		btn_a4.setClickable(true);
+	    			for(int i=0;i<serverdaten.length();i++){
+	    				questions.add(new Question(
+							Integer.parseInt(serverdaten.getJSONObject(i).getString("_id")),
+							serverdaten.getJSONObject(i).getString("question"),
+							serverdaten.getJSONObject(i).getString("a"),
+							serverdaten.getJSONObject(i).getString("b"),
+							serverdaten.getJSONObject(i).getString("c"),
+							serverdaten.getJSONObject(i).getString("d")));
+	    			}
+			}catch (Exception e) {
 				Log.d("SessionStart",e.toString());
-				continue;
 			} 
-    	}
+    	
     	tv_q.setText(questions.get(0).getQuestion());
     	btn_a1.setText(questions.get(0).getAnswer1());
     	btn_a2.setText(questions.get(0).getAnswer2());
@@ -102,11 +125,90 @@ public class SessionStart extends Activity {
     	btn_a4.setText(questions.get(0).getAnswer4());
     }
     
-    View.OnClickListener back_handler = new View.OnClickListener() {
-        public void onClick(View v) {
-          finish();
-        }
-      };
+    public void nextQuestion(){
+    	if(currentQuestion < (questions.size()-1)){
+    		currentQuestion++;
+    	}
+    	
+    	tv_q.setText(questions.get(currentQuestion).getQuestion());
+    	btn_a1.setText(questions.get(currentQuestion).getAnswer1());
+    	btn_a2.setText(questions.get(currentQuestion).getAnswer2());
+    	btn_a3.setText(questions.get(currentQuestion).getAnswer3());
+    	btn_a4.setText(questions.get(currentQuestion).getAnswer4()); 
+    	
+    	if(questions.get(currentQuestion).getAnswered()){
+    		tv_q.setText(questions.get(currentQuestion).getQuestion()+"(bereits beantwortet)");
+    		btn_a1.setClickable(false);
+    		btn_a2.setClickable(false);
+    		btn_a3.setClickable(false);
+    		btn_a4.setClickable(false);
+    	}else{
+    		btn_a1.setClickable(true);
+    		btn_a2.setClickable(true);
+    		btn_a3.setClickable(true);
+    		btn_a4.setClickable(true);
+    	}
+    }
+    
+    public void previousQuestion(){
+    	if(currentQuestion > 0 ){
+    		currentQuestion--;
+    	}
+    	tv_q.setText(questions.get(currentQuestion).getQuestion());
+    	btn_a1.setText(questions.get(currentQuestion).getAnswer1());
+    	btn_a2.setText(questions.get(currentQuestion).getAnswer2());
+    	btn_a3.setText(questions.get(currentQuestion).getAnswer3());
+    	btn_a4.setText(questions.get(currentQuestion).getAnswer4());    
+    	
+    	if(questions.get(currentQuestion).getAnswered()){
+    		tv_q.setText(questions.get(currentQuestion).getQuestion()+"(bereits beantwortet)");
+    		btn_a1.setClickable(false);
+    		btn_a2.setClickable(false);
+    		btn_a3.setClickable(false);
+    		btn_a4.setClickable(false);
+    	}
+    }
+    
+    public void answeredHandler(final View view){
+    	jsonLoader = new JSONLoader(new Messenger(new QuestionJSONHandler(this,0)));
+		
+    	switch (view.getId()) {
+    	case R.id.btn_session_start_a1:
+    		questions.get(currentQuestion).setAnswered(true);
+    		jsonLoader.countA(questions.get(currentQuestion).getId());
+    		nextQuestion();
+    		break;
+    	case R.id.btn_session_start_a2:
+    		questions.get(currentQuestion).setAnswered(true);
+    		jsonLoader.countB(questions.get(currentQuestion).getId());
+    		nextQuestion();
+    		break;
+    	case R.id.btn_session_start_a3:
+    		questions.get(currentQuestion).setAnswered(true);
+    		jsonLoader.countC(questions.get(currentQuestion).getId());
+    		nextQuestion();
+    		break;
+    	case R.id.btn_session_start_a4:
+    		questions.get(currentQuestion).setAnswered(true);
+    		jsonLoader.countD(questions.get(currentQuestion).getId());
+    		nextQuestion();
+    		break;
+    	}
+    }
+    
+    /**
+   	 * Clickmethode für die Actionbaricons
+   	 * @param view
+   	 */
+   	public void actionbarClick(final View view){
+   		switch (view.getId()) {
+   			case R.id.actionbar_back:
+   			case R.id.actionbar_logo:
+   				finish();
+   				break;
+   		}
+   	}
+    
     
     
 

@@ -2,6 +2,9 @@ package de.bockstallmann.interaktive.vorlesung.model;
 
 public class Question {
 	private int id;
+	private boolean answered = false;
+	
+
 	private String q, a1, a2, a3, a4;
 
 	public Question(int id, String question, String answer1, String answer2, String answer3, String answer4) {
@@ -11,6 +14,22 @@ public class Question {
 		this.a2 = answer2;
 		this.a3 = answer3;
 		this.a4 = answer4;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public boolean getAnswered() {
+		return answered;
+	}
+
+	public void setAnswered(boolean answered) {
+		this.answered = answered;
 	}
 
 	public String getQuestion() {
