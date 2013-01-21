@@ -71,6 +71,10 @@ public class SessionStart extends Activity {
 		btn_a2 = (Button) findViewById(R.id.btn_session_start_a2);
 		btn_a3 = (Button) findViewById(R.id.btn_session_start_a3);
 		btn_a4 = (Button) findViewById(R.id.btn_session_start_a4);
+		btn_a1.setClickable(false);
+		btn_a2.setClickable(false);
+		btn_a3.setClickable(false);
+		btn_a4.setClickable(false);
 		tv_q = (TextView) findViewById(R.id.tx_session_start_question);
 		act = this;
 		btn_reload = (ImageButton) findViewById(R.id.btn_session_start_reload);
@@ -85,23 +89,31 @@ public class SessionStart extends Activity {
 			}
 		});
 		btn_prev = (ImageButton) findViewById(R.id.btn_session_start_previous);
+		btn_prev.setClickable(false);
 		btn_prev.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				previousQuestion();				
+				if(questions.size()>0){
+					previousQuestion();		
+				}
 			}
 		});
 		
 		btn_next = (ImageButton) findViewById(R.id.btn_session_start_next);
+		btn_next.setClickable(false);
 		btn_next.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				nextQuestion();
-				
+				if(questions.size()>0){
+					nextQuestion();
+				}
 			}
 		});
+    }
+    public void stoploading(){
+    	pd.dismiss();
     }
     
     public void addQuestions(JSONArray serverdaten){
@@ -114,6 +126,8 @@ public class SessionStart extends Activity {
 	    		btn_a2.setClickable(true);
 	    		btn_a3.setClickable(true);
 	    		btn_a4.setClickable(true);
+	    		btn_prev.setClickable(true);
+	    		btn_next.setClickable(true);
 	    			for(int i=0;i<serverdaten.length();i++){
 	    				questions.add(new Question(
 							Integer.parseInt(serverdaten.getJSONObject(i).getString("_id")),
