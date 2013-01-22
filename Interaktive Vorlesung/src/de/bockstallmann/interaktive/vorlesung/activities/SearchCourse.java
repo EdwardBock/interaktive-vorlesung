@@ -33,6 +33,7 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 	private String semester;
 	private String year;
 	private String title;
+	private String reader;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +105,7 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 		title = course.getTitle();
 		semester = course.getSemester();
 		year = course.getJahr();
+		reader = course.getReader();
 		
 
 		startActivityForResult(intent, Constants.RC_ADD_COURSE);
@@ -118,7 +120,7 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 						Toast.LENGTH_SHORT).show();
 				
 				//SQLite Datenbank füllen
-				db.addCourse(new Course(db_id,title,"Prof Müller",semester,year));
+				db.addCourse(new Course(db_id,title,reader,semester,year));
 				finish();
 				break;
 			default:
@@ -127,4 +129,5 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
+	
 }
