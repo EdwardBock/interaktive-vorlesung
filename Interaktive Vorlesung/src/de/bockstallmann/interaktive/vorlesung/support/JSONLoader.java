@@ -2,6 +2,7 @@ package de.bockstallmann.interaktive.vorlesung.support;
 
 import org.json.JSONArray;
 
+import android.net.Uri;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
@@ -51,7 +52,7 @@ public class JSONLoader extends Thread {
 		this.start();
 	}
 	public void searchCourses(final String search) {
-		scriptPath = "script_search_courses.php?search="+search;
+		scriptPath = "script_search_courses.php?search="+Uri.encode(search);
 		this.start();
 	}
 	public void startGetCoursesInfo(final int id){
