@@ -8,6 +8,7 @@
         android:targetSdkVersion="15" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <supports-screens
@@ -26,12 +27,14 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>       
         <activity android:name=".activities.CourseDetails" />
         <activity android:name=".activities.PdfReader" />
         <activity android:name=".activities.CourseDetailsDetails" />
         <activity android:name=".activities.CourseDetailsSessions" />
-        <activity android:name=".activities.SearchCourse" />
+        <activity android:name=".activities.SearchCourse" >
+            
+    </activity>
         <activity android:name=".activities.SessionStart" />
         <activity android:name=".activities.CoursePreview" />
     </application>

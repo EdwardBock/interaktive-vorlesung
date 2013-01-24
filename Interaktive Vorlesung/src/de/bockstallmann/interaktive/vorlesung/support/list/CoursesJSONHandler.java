@@ -8,6 +8,7 @@ import de.bockstallmann.interaktive.vorlesung.support.CourseDetailsFactory;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 public class CoursesJSONHandler extends Handler {
 	
@@ -21,6 +22,7 @@ public class CoursesJSONHandler extends Handler {
 	public void handleMessage(Message msg) {
 		if(msg.arg1 == Constants.MSG_SUCCESS){
 			adapter.addCourses((JSONArray)msg.obj);
+			Log.d("handler", "drinne");
 		}
 	};
 	

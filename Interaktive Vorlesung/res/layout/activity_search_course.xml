@@ -40,6 +40,15 @@
         style="@style/Titlebar.Title"
         />
 
+        <ImageButton
+            android:id="@+id/btn_search_course_qr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@null"
+            android:src="@android:drawable/ic_menu_camera" />
+
     </RelativeLayout>
     <ImageButton 
 	    android:id="@+id/btn_search"
