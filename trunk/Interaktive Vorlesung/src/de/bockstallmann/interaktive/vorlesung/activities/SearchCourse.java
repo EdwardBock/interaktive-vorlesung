@@ -3,13 +3,19 @@ package de.bockstallmann.interaktive.vorlesung.activities;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Messenger;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
@@ -34,6 +40,7 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 	private String year;
 	private String title;
 	private String reader;
+	private boolean qrcode_read = false;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,11 +53,28 @@ public class SearchCourse extends Activity implements OnItemClickListener {
         courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>() );
         list.setOnItemClickListener(this);
         et_search = (EditText)findViewById(R.id.et_search);
+        //QR-Code lesen
+        try {
+        	ImageButton scanner = (ImageButton)findViewById(R.id.btn_search_course_qr);
+            scanner.setOnClickListener(new OnClickListener() {
+                
+                public void onClick(View v) {
+                    Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+                    intent.putExtra("com.google.zxing.client.android.SCAN.SCAN_MODE", "QR_CODE_MODE");
+                    startActivityForResult(intent, 0);
+                }
+ 
+            });
+             
+        } catch (ActivityNotFoundException anfe) {
+            Log.e("onCreate", "Scanner Not Found", anfe);
+        }
+        
     }
 	@Override
 	protected void onResume() {
 		list.setAdapter(courseListAdapter);
-		if(courseListAdapter.getCount() < 1){
+		if(courseListAdapter.getCount() < 1 && !qrcode_read){
 			jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler(courseListAdapter)));
 			jsonLoader.startGetCourses();
 		}
@@ -73,20 +97,21 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 				finish();
 				break;
 			case R.id.btn_search:
-				searchCourses();
+				search = et_search.getText().toString();
+				searchCourses(search);
 				break;
 		}
 	}
-    private void searchCourses(){
-    	search = et_search.getText().toString();
-    	if(search.length() < 1) return;
+    private void searchCourses(String search1){
+    	//Toast.makeText(this, search1, Toast.LENGTH_LONG).show();
+    	//if(search1.length() < 1) return;
     	if(jsonLoader != null && jsonLoader.isAlive()){
     		jsonLoader.stop();
     		jsonLoader.destroy();
     	}
     	jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler(courseListAdapter)));
     	courseListAdapter.clear();
-		jsonLoader.searchCourses(search);
+		jsonLoader.searchCourses(search1);
     }
 	@Override
 	public void onItemClick(final AdapterView<?> parent, final View view, final int position, long id) {
@@ -123,6 +148,16 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 				db.addCourse(new Course(db_id,title,reader,semester,year));
 				finish();
 				break;
+			case 0:
+				String contents = data.getStringExtra("SCAN_RESULT");
+                String format = data.getStringExtra("SCAN_RESULT_FORMAT");
+                // Handle successful scan
+               Toast toast = Toast.makeText(this, ":"+contents+":", Toast.LENGTH_LONG);
+               toast.setGravity(Gravity.TOP, 25, 400);
+               toast.show();
+                qrcode_read = true;
+               searchCourses("noch ");
+                break;
 			default:
 				break;
 			}
