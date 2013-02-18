@@ -59,9 +59,9 @@ public class SearchCourse extends Activity implements OnItemClickListener {
             scanner.setOnClickListener(new OnClickListener() {
                 
                 public void onClick(View v) {
-                    Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-                    intent.putExtra("com.google.zxing.client.android.SCAN.SCAN_MODE", "QR_CODE_MODE");
-                    startActivityForResult(intent, 0);
+                	Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+    				intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+    				startActivityForResult(intent, 0);
                 }
  
             });
@@ -152,11 +152,11 @@ public class SearchCourse extends Activity implements OnItemClickListener {
 				String contents = data.getStringExtra("SCAN_RESULT");
                 String format = data.getStringExtra("SCAN_RESULT_FORMAT");
                 // Handle successful scan
-               Toast toast = Toast.makeText(this, ":"+contents+":", Toast.LENGTH_LONG);
-               toast.setGravity(Gravity.TOP, 25, 400);
-               toast.show();
+               //Toast toast = Toast.makeText(this, ":"+contents+":", Toast.LENGTH_LONG);
+               //toast.setGravity(Gravity.TOP, 25, 400);
+               //toast.show();
                 qrcode_read = true;
-               searchCourses("noch ");
+               searchCourses(contents);
                 break;
 			default:
 				break;
