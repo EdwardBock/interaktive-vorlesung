@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Global -->
@@ -19,14 +20,16 @@
     <string name="title_activity_search_course">Vorlesung hinzufügen</string>
     <string name="et_empty">Suchen</string>
     <!-- ENDE SearchCourse -->
-    
+
+
     <!-- CoursePreview -->
     <string name="btn_course_add">Vorlesung hinzufügen</string>
     <string name="dialog_pw_title">Die Vorlesung ist Passwortgeschützt!</string>
     <string name="dialog_pw_hint">Passwort</string>
     <string name="dialog_btn_ok">Hinzufügen</string>
     <string name="dialog_btn_cancel">Abbrechen</string>
-	<!-- Ende CoursePreview -->
+    <!-- Ende CoursePreview -->
+
 
     <!-- CourseDetails -->
     <string name="title_activity_course_details">CourseDetails</string>
@@ -36,7 +39,6 @@
     <!-- CourseDetailsDetails -->
     <string name="short_info">Kurzbeschreibung:</string>
     <!-- ENDE CourseDetailsDetails -->
-    
 
 
     <!-- PdfReader -->
@@ -51,5 +53,6 @@
     <string name="title_activity_session_start">Vorlesung läuft!</string>
     <string name="pw">Passwort</string>
     <string name="title_activity_course_preview">CoursePreview</string>
+    <string name="title_activity_transaction_type">Vorgansart wählen</string>
 
 </resources>
