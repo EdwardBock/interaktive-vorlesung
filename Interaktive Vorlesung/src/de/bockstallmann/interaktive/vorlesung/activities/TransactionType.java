@@ -20,27 +20,14 @@ public class TransactionType extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_transaction_type);
-		
-		ImageButton btn_qr = (ImageButton) findViewById(R.id.btn_transactiontype_qrcode);
-		ImageButton btn_fav = (ImageButton) findViewById(R.id.btn_transactiontype_favourite);
-		final Intent intent = new Intent(this, ListCourses.class);
-		
-		btn_qr.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-				intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-				startActivityForResult(intent, 0);
-			}
-		});
-		btn_fav.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(intent);				
-			}
-		});
 	}
-
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+		intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+		startActivityForResult(intent, 0);
+	}
 	
 	
 	@Override
