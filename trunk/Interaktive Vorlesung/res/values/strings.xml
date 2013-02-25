@@ -3,6 +3,8 @@
 
     <!-- Global -->
     <string name="app_name">Interaktive Vorlesung</string>
+    <string name="launcher_title_fav">Interaktive Vorlesung</string>
+    <string name="launcher_title_qr">IV QR-Code</string>
     <string name="hello_world">Hello world!</string>
     <string name="actionbar_icon_cd">@string/app_name</string>
     <string name="actionbar_add_cd">Hinzufügen</string>
