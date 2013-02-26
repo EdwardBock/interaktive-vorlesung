@@ -16,17 +16,22 @@ import android.widget.Toast;
 
 public class TransactionType extends Activity {
 
+	private  Intent intent;
+	private boolean scan_done = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_transaction_type);
+		intent = new Intent(this, SessionStart.class);
 	}
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-		intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-		startActivityForResult(intent, 0);
+		if(!scan_done){
+			Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+			intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+			startActivityForResult(intent, 0);
+		}
 	}
 	
 	
@@ -38,10 +43,11 @@ public class TransactionType extends Activity {
             String format = data.getStringExtra("SCAN_RESULT_FORMAT");
                 // Handle successful scan
            Toast.makeText(this, contents.substring(contents.indexOf("|")+1), Toast.LENGTH_LONG).show();
-           Intent intent = new Intent(this, SessionStart.class);
+           scan_done = true;
            intent.putExtra(Constants.EXTRA_SESSION_ID, Integer.parseInt(contents.substring(contents.indexOf("|")+1)));
 
            startActivity(intent);
+           finish();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
