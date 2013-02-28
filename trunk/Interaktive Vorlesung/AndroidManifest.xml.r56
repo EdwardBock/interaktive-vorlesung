@@ -38,7 +38,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.google.zxing.client.android.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -50,11 +49,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.google.zxing.client.android.SCAN.private" />
+                <action android:name="com.google.zxing.client.android.SCAN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         
         <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.CourseDetails" />
         <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.PdfReader" />

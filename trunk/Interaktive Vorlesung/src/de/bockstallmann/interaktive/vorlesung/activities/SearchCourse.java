@@ -59,7 +59,7 @@ public class SearchCourse extends Activity implements OnItemClickListener {
             scanner.setOnClickListener(new OnClickListener() {
                 
                 public void onClick(View v) {
-                	Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+                	Intent intent = new Intent("com.google.zxing.client.android.SCAN.private");
     				intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
     				startActivityForResult(intent, 0);
                 }
