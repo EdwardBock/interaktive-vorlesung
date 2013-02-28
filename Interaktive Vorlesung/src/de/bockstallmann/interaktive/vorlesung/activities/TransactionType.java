@@ -42,12 +42,14 @@ public class TransactionType extends Activity {
 			String contents = data.getStringExtra("SCAN_RESULT");
             String format = data.getStringExtra("SCAN_RESULT_FORMAT");
                 // Handle successful scan
-           Toast.makeText(this, contents.substring(contents.indexOf("|")+1), Toast.LENGTH_LONG).show();
-           scan_done = true;
-           intent.putExtra(Constants.EXTRA_SESSION_ID, Integer.parseInt(contents.substring(contents.indexOf("|")+1)));
-
-           startActivity(intent);
-           finish();
+           Toast.makeText(this, contents, Toast.LENGTH_LONG).show();
+           if(contents.contains("|")){
+        	   scan_done = true;
+               intent.putExtra(Constants.EXTRA_SESSION_ID, Integer.parseInt(contents.substring(contents.indexOf("|")+1)));
+               startActivity(intent);
+               finish(); 
+           }
+           
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
