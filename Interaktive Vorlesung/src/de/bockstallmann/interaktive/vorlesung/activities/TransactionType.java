@@ -28,7 +28,7 @@ public class TransactionType extends Activity {
 	protected void onResume() {
 		super.onResume();
 		if(!scan_done){
-			Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+			Intent intent = new Intent("com.google.zxing.client.android.SCAN.private");
 			intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
 			startActivityForResult(intent, 0);
 		}
