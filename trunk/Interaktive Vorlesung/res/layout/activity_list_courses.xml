@@ -11,7 +11,7 @@
         <ImageView 
         android:id="@+id/actionbar_logo"
         style="@style/Titlebar.Logo"
-        android:src="@drawable/actionbar_logo"
+        android:src="@drawable/ic_menu_iv"
         android:contentDescription="@string/actionbar_icon_cd" 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         />
         <ImageButton
         android:id="@+id/actionbar_add"
-        android:src="@drawable/actionbar_add"
+        android:src="@drawable/ic_menu_search"
         android:contentDescription="@string/actionbar_add_cd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,6 +37,18 @@
         android:layout_centerVertical="true"
         android:background="@null"
         android:onClick="actionbarClick"
+        android:layout_marginRight="4dp"
+        />
+        <ImageButton
+        android:id="@+id/actionbar_qr"
+        android:src="@drawable/ic_menu_qr"
+        android:contentDescription="@string/actionbar_add_cd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/actionbar_add"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:layout_marginRight="4dp"
         />
     </RelativeLayout>
 

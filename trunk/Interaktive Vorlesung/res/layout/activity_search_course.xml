@@ -17,18 +17,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/actionbar_icon_cd"
-            android:src="@drawable/actionbar_logo" />
-
-        <ImageButton
-            android:id="@+id/actionbar_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:background="@null"
-            android:contentDescription="@string/actionbar_back_cd"
-            android:onClick="actionbarClick"
-            android:src="@drawable/actionbar_up" />
+            android:src="@drawable/ic_menu_iv" />
 
         <TextView 
         android:id="@+id/actionbar_title"
