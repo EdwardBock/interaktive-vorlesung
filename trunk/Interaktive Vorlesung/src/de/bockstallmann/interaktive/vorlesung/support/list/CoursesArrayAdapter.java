@@ -49,6 +49,14 @@ public class CoursesArrayAdapter extends ArrayAdapter<Course> {
 		return items;
 	}
 	
+	public void setCourses(ArrayList<Course> course){
+		//items = course;
+		items.clear();
+		for(int i = 0; i< course.size();i++){
+			items.add(course.get(i));
+		}
+		this.notifyDataSetChanged();
+	}
 
 	public void addCourses(JSONArray serverDaten) {
 		for (int i = 0; i < serverDaten.length(); i++) {
@@ -66,5 +74,8 @@ public class CoursesArrayAdapter extends ArrayAdapter<Course> {
 			}
 		}
 		this.notifyDataSetChanged();
+	}
+	public Course getCourseAtPosition(int position){
+		return items.get(position);
 	}
 }
