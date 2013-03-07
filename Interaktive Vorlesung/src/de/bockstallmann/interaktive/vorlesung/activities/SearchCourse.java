@@ -50,7 +50,7 @@ public class SearchCourse extends Activity implements OnItemClickListener {
         db = new SQLDataHandler(this);
         
         list = (ListView)findViewById(R.id.lv_courses);
-        courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>() );
+        courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>() , db);
         list.setOnItemClickListener(this);
         et_search = (EditText)findViewById(R.id.et_search);
         //QR-Code lesen

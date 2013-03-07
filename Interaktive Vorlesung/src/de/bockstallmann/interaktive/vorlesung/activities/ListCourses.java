@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Messenger;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -21,8 +22,10 @@ import android.widget.Toast;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
+import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.SQLDataHandler;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
+import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 
 public class ListCourses extends FragmentActivity implements OnItemClickListener, OnItemLongClickListener {
 
@@ -30,6 +33,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 	private CoursesArrayAdapter courseListAdapter;
 	private SQLDataHandler db;
 	private EditText et_search;
+	private JSONLoader jsonLoader;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
         db  = new SQLDataHandler(this);
         //
         list = (ListView)findViewById(R.id.lv_courses);
-        courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>() );
+        courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>(), db );
         TextView tv = (TextView) findViewById(R.id.tx_listcourses_emptyList);
 		list.setEmptyView(tv);
 		et_search = (EditText)findViewById(R.id.et_search);
@@ -51,6 +55,10 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
         list.setOnItemClickListener(this);
         list.setOnItemLongClickListener(this);
         courseListAdapter.setCourses(db.getCourses());
+        
+        jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler(courseListAdapter)));
+		jsonLoader.startGetCourses();
+        
 	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -129,7 +137,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 				String contents = data.getStringExtra("SCAN_RESULT");
                 String format = data.getStringExtra("SCAN_RESULT_FORMAT");
                 // Handle successful scan
-               Toast toast = Toast.makeText(this, ":"+contents+":", Toast.LENGTH_LONG);
+               Toast.makeText(this, format+":"+contents+":", Toast.LENGTH_LONG).show();
                //toast.setGravity(Gravity.TOP, 25, 400);
                //toast.show();
                 //qrcode_read = true;
