@@ -2,21 +2,15 @@ package de.bockstallmann.interaktive.vorlesung.activities;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Messenger;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -27,16 +21,13 @@ import android.widget.Toast;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
-import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.SQLDataHandler;
-import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapterFavourite;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
-import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 
 public class ListCourses extends FragmentActivity implements OnItemClickListener, OnItemLongClickListener {
 
     private ListView list;
-	private CoursesArrayAdapterFavourite courseListAdapter;
+	private CoursesArrayAdapter courseListAdapter;
 	private SQLDataHandler db;
 	private EditText et_search;
 
@@ -47,7 +38,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
         db  = new SQLDataHandler(this);
         //
         list = (ListView)findViewById(R.id.lv_courses);
-        courseListAdapter = new CoursesArrayAdapterFavourite(this, R.layout.course_row, new ArrayList<Course>() );
+        courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>() );
         TextView tv = (TextView) findViewById(R.id.tx_listcourses_emptyList);
 		list.setEmptyView(tv);
 		et_search = (EditText)findViewById(R.id.et_search);
@@ -55,7 +46,6 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
 		// Adapter an ListView übergeben
 		list.setAdapter(courseListAdapter);
         list.setOnItemClickListener(this);
