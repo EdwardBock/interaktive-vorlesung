@@ -69,6 +69,12 @@ public class SQLDataHandler extends SQLiteOpenHelper {
 		return courses;
 	}
 	
+	public boolean hasCourseId(int id){
+		Cursor c = this.getReadableDatabase().rawQuery("SELECT * FROM "+TABLE_COURSES+" WHERE "+TABLE_COURSE_ID+" = ?", new String[]{id+""});
+		if(c.getCount() > 0) return true;
+		return false;
+	}
+	
 	public void deleteCourse(Course course){
 		SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_COURSES, TABLE_COURSE_ID + " = ?",
