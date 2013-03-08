@@ -4,7 +4,7 @@
     
     <style name="Titlebar">
 	    <item name="android:layout_width">match_parent</item>
-	    <item name="android:layout_height">48dp</item>
+	    <item name="android:layout_height">56dp</item>
 	    <item name="android:background">@drawable/titlebar</item>
 	    <item name="android:textColor">#ffffff</item>
 	 </style>
@@ -13,6 +13,8 @@
 	 </style>
 	 <style name="Titlebar.Title">
 	     <item name="android:textColor">#ffffff</item>
+	     <item name="android:layout_marginLeft">1dp</item>
+	     <item name="android:textSize">18sp</item>
 	 </style>
 	 
     <style name="CourseRow">
@@ -30,12 +32,5 @@
         <item name="android:textColor">@android:color/secondary_text_light</item>
     </style>
     
-    <style name="TabStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">35dp</item>
-        <item name="android:background">@drawable/tabs</item>
-        <item name="android:textColor">#ffffff</item>
-
-    </style>
     
 </resources>
