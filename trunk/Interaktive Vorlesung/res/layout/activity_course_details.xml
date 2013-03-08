@@ -52,8 +52,7 @@
 	<RelativeLayout android:orientation="vertical"
             android:layout_width="fill_parent" android:layout_height="fill_parent">
         <TabWidget
-            android:id="@android:id/tabs"
-            style="@style/TabStyle"            
+            android:id="@android:id/tabs"        
             android:layout_width="fill_parent" 
             android:layout_height="wrap_content"
              />
