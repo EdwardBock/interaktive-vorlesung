@@ -34,6 +34,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 	private SQLDataHandler db;
 	private EditText et_search;
 	private JSONLoader jsonLoader;
+	private  Intent intent;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
         TextView tv = (TextView) findViewById(R.id.tx_listcourses_emptyList);
 		list.setEmptyView(tv);
 		et_search = (EditText)findViewById(R.id.et_search);
+		intent = new Intent(this, SessionStart.class);
     }
 	@Override
 	protected void onResume() {
@@ -138,6 +140,10 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
                 String format = data.getStringExtra("SCAN_RESULT_FORMAT");
                 // Handle successful scan
                Toast.makeText(this, format+":"+contents+":", Toast.LENGTH_LONG).show();
+               if(contents.contains("|")){
+                   intent.putExtra(Constants.EXTRA_SESSION_ID, Integer.parseInt(contents.substring(contents.indexOf("|")+1)));
+                   startActivity(intent);
+               }
                //toast.setGravity(Gravity.TOP, 25, 400);
                //toast.show();
                 //qrcode_read = true;
