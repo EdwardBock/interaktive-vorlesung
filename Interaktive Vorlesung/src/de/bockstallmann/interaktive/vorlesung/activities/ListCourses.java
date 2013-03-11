@@ -56,8 +56,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
         
         // Alle Datenbank Kurse anzeigen
         db  = new SQLDataHandler(this);
-        courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>(), db );
-        courseListAdapter.setCourses(db.getCourses());
+        courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, db.getCourses(), db );
         
         // Adapter und Listener übergeben
  		list.setAdapter(courseListAdapter);
