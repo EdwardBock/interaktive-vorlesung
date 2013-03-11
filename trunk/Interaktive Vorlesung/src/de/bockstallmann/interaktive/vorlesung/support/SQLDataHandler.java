@@ -69,13 +69,18 @@ public class SQLDataHandler extends SQLiteOpenHelper {
 			courses.add(course);
 			}while(cursor.moveToNext());
 		}
+		db.close();
 		return courses;
 	}
 	
 	public boolean hasCourseId(int id){
-		Cursor c = this.getReadableDatabase().rawQuery("SELECT * FROM "+TABLE_COURSES+" WHERE "+TABLE_COURSE_ID+" = ?", new String[]{id+""});
+		boolean bool = false;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT * FROM "+TABLE_COURSES+" WHERE "+TABLE_COURSE_ID+" = ?", new String[]{id+""});
 		if(c.getCount() > 0) return true;
-		return false;
+		c.close();
+		db.close();
+		return bool;
 	}
 	
 	public boolean deleteCourse(Course course){

@@ -29,11 +29,11 @@ public class CourseListListener implements OnScrollListener, TextWatcher {
 	// Methoden für Scroll Listener
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		if( lv_courses.getAdapter().getCount() < 1 || jsonLoader.isAlive()) return;
+		/*if( lv_courses.getAdapter().getCount() < 1 || jsonLoader.isAlive()) return;
 		if(firstVisibleItem + visibleItemCount >= totalItemCount){
 			//loadContent();
 			Log.d("ScrollListener", "Muss nachladen?!");
-		}
+		}*/
 	}
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
