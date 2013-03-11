@@ -112,6 +112,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 	        activateView.setVisibility(View.VISIBLE);
 	        final Animation fadeInFromTopAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in_from_top);
 	        activateView.startAnimation(fadeInFromTopAnimation);
+	        et_search.requestFocus();
 	    } else {
 	    	//fade outfrom bottom
 	        final Animation fadeInFromTopAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out_from_bottom);
@@ -164,6 +165,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 			if(et_search.getVisibility() == View.VISIBLE){
+				et_search.setText("");
 				toogleViewSlide(et_search);
 				return true;
 			}
