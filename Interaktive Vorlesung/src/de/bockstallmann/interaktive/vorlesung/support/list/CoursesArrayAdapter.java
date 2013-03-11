@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import de.bockstallmann.interaktive.vorlesung.R;
+import de.bockstallmann.interaktive.vorlesung.listeners.FavorizeClickListener;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.support.SQLDataHandler;
 
@@ -57,10 +58,10 @@ public class CoursesArrayAdapter extends ArrayAdapter<Course> {
 		((TextView)view.findViewById(R.id.tx_course_row_description)).setText(course.getSemester()+course.getJahr()+"; "+course.getReader());
 
 		// Favicon
-		ImageView favicon = (ImageView) view.findViewById(R.id.ic_fav);
-		if(sqlData.hasCourseId(course.getID()))	favicon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_on));
+		ImageView favicon = (ImageView) view.findViewById(R.id.ic_fav);	
+
+		favicon.setOnClickListener(new FavorizeClickListener(course, favicon, sqlData));
 		
-		Log.d("AdapterView", "jetzt ausgeführt");
 		return view;
 	}
 

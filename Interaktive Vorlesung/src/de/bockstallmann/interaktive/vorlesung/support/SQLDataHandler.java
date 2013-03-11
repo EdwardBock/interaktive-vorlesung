@@ -36,7 +36,8 @@ public class SQLDataHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
-	public void addCourse(Course course){
+	public boolean addCourse(Course course){
+		long ret = -1;
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		String sqlQuery = "SELECT _id FROM " + TABLE_COURSES+" WHERE _id="+course.getID();
@@ -49,9 +50,11 @@ public class SQLDataHandler extends SQLiteOpenHelper {
 			values.put(TABLE_COURSE_SEMESTER , course.getSemester());
 			values.put(TABLE_COURSE_YEAR , course.getJahr());
 			
-			db.insert(TABLE_COURSES, null, values);
+			ret = db.insert(TABLE_COURSES, null, values);
 			db.close();
 		}
+		if(ret > 0) return true;
+		return false;
 	}
 	
 	public ArrayList<Course> getCourses(){
@@ -75,10 +78,13 @@ public class SQLDataHandler extends SQLiteOpenHelper {
 		return false;
 	}
 	
-	public void deleteCourse(Course course){
+	public boolean deleteCourse(Course course){
+		int ret = 0;
 		SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_COURSES, TABLE_COURSE_ID + " = ?",
+        ret = db.delete(TABLE_COURSES, TABLE_COURSE_ID + " = ?",
                 new String[] { String.valueOf(course.getID()) });
         db.close();
+        if(ret > 0) return true;
+        return false;
 	}
 }

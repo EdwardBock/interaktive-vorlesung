@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Messenger;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -20,12 +20,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.bockstallmann.interaktive.vorlesung.R;
+import de.bockstallmann.interaktive.vorlesung.listeners.CourseListListener;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.SQLDataHandler;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
-import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 
 public class ListCourses extends FragmentActivity implements OnItemClickListener, OnItemLongClickListener {
 
@@ -34,32 +34,36 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 	private SQLDataHandler db;
 	private EditText et_search;
 	private JSONLoader jsonLoader;
-	private  Intent intent;
+	private CoursesArrayAdapter listAdapter;
+	private CourseListListener courseListListener;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_courses);
-        db  = new SQLDataHandler(this);
-        //
+        
+        // Dynamische und interaktive Views heraussuchen
         list = (ListView)findViewById(R.id.lv_courses);
-        courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>(), db );
         TextView tv = (TextView) findViewById(R.id.tx_listcourses_emptyList);
 		list.setEmptyView(tv);
 		et_search = (EditText)findViewById(R.id.et_search);
-		intent = new Intent(this, SessionStart.class);
+		
     }
 	@Override
 	protected void onResume() {
 		super.onResume();
-		// Adapter an ListView übergeben
-		list.setAdapter(courseListAdapter);
-        list.setOnItemClickListener(this);
-        list.setOnItemLongClickListener(this);
+		
+        
+        // Alle Datenbank Kurse anzeigen
+        db  = new SQLDataHandler(this);
+        courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row, new ArrayList<Course>(), db );
         courseListAdapter.setCourses(db.getCourses());
         
-        jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler(courseListAdapter)));
-		jsonLoader.startGetCourses();
+        // Adapter und Listener übergeben
+ 		list.setAdapter(courseListAdapter);
+		list.setOnItemClickListener(this);
+		list.setOnItemLongClickListener(this);
+		courseListListener = new CourseListListener(list, et_search);
         
 	}
     @Override
@@ -140,6 +144,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
                 String format = data.getStringExtra("SCAN_RESULT_FORMAT");
                 // Handle successful scan
                Toast.makeText(this, format+":"+contents+":", Toast.LENGTH_LONG).show();
+       			Intent	intent = new Intent(this, SessionStart.class);
                if(contents.contains("|")){
                    intent.putExtra(Constants.EXTRA_SESSION_ID, Integer.parseInt(contents.substring(contents.indexOf("|")+1)));
                    startActivity(intent);
