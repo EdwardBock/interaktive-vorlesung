@@ -1,17 +1,13 @@
 package de.bockstallmann.interaktive.vorlesung.activities;
 
-import java.util.ArrayList;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -91,7 +87,6 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 	 * @param view
 	 */
 	public void actionbarClick(final View view){
-		Toast.makeText(this, "ID: "+view.getId(), Toast.LENGTH_SHORT).show();
 		switch (view.getId()) {
 			case R.id.actionbar_add:
 				//startActivity(new Intent(this,SearchCourse.class));
@@ -110,12 +105,14 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 	    {
 	        //fade in from top
 	        activateView.setVisibility(View.VISIBLE);
-	        final Animation fadeInFromTopAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in_from_top);
-	        activateView.startAnimation(fadeInFromTopAnimation);
+	        //final Animation fadeInFromTopAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in_from_top);
+	        //activateView.startAnimation(fadeInFromTopAnimation);
 	        et_search.requestFocus();
+	        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+	        imm.showSoftInput(et_search, InputMethodManager.SHOW_IMPLICIT);
 	    } else {
 	    	//fade outfrom bottom
-	        final Animation fadeInFromTopAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out_from_bottom);
+	       /* final Animation fadeInFromTopAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out_from_bottom);
 	        fadeInFromTopAnimation.setAnimationListener(new AnimationListener()
             {
                 public void onAnimationStart(Animation anim){}
@@ -123,7 +120,8 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
                 public void onAnimationRepeat(Animation anim) {}
             });
 	        activateView.startAnimation(fadeInFromTopAnimation);
-	        
+	        */
+	        activateView.setVisibility(View.GONE);
 	    }
 	}
 	
