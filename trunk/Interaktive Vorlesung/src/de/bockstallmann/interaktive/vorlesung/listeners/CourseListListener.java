@@ -36,22 +36,13 @@ public class CourseListListener implements OnScrollListener, TextWatcher {
 	}
 	// Methoden für TextWatcher
 	@Override
-	public void afterTextChanged(Editable s) {
-		if (jsonLoader != null && jsonLoader.isAlive()) {
-			jsonLoader.stop();
-		}
-		page = 1;
-		loadNextCourses();
-	}
-
+	public void afterTextChanged(Editable s) {}
 	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
-		
-	}
-
+	public void beforeTextChanged(CharSequence s, int start, int count,	int after) {}
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		
+		CoursesArrayAdapter adapter = (CoursesArrayAdapter)this.lv_courses.getAdapter();
+		adapter.getFilter().filter(s);
 	}
 	
 	private void loadNextCourses(){
