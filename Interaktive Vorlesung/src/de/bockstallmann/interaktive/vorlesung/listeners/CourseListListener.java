@@ -1,15 +1,16 @@
 package de.bockstallmann.interaktive.vorlesung.listeners;
 
-import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
-import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
-import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 import android.os.Messenger;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.EditText;
 import android.widget.ListView;
+import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
+import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
+import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
 
 public class CourseListListener implements OnScrollListener, TextWatcher {
 	
@@ -28,7 +29,11 @@ public class CourseListListener implements OnScrollListener, TextWatcher {
 	// Methoden für Scroll Listener
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		
+		if( lv_courses.getAdapter().getCount() < 1 || jsonLoader.isAlive()) return;
+		if(firstVisibleItem + visibleItemCount >= totalItemCount){
+			//loadContent();
+			Log.d("ScrollListener", "Muss nachladen?!");
+		}
 	}
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
