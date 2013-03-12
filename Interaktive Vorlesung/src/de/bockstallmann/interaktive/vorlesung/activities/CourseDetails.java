@@ -1,32 +1,26 @@
 package de.bockstallmann.interaktive.vorlesung.activities;
 
-import de.bockstallmann.interaktive.vorlesung.R;
-import de.bockstallmann.interaktive.vorlesung.R.layout;
-import de.bockstallmann.interaktive.vorlesung.R.menu;
-import de.bockstallmann.interaktive.vorlesung.model.Session;
-import de.bockstallmann.interaktive.vorlesung.support.Constants;
-import de.bockstallmann.interaktive.vorlesung.support.CourseDetailsFactory;
-import android.os.Bundle;
-import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
-import android.widget.Toast;
-import android.support.v4.app.NavUtils;
+import de.bockstallmann.interaktive.vorlesung.R;
+import de.bockstallmann.interaktive.vorlesung.listeners.FavorizeActionbarListener;
+import de.bockstallmann.interaktive.vorlesung.model.Course;
+import de.bockstallmann.interaktive.vorlesung.support.Constants;
+import de.bockstallmann.interaktive.vorlesung.support.SQLDataHandler;
 
 public class CourseDetails extends TabActivity  {
 
 	
-    @Override
+    private Course courseObj;
+	private FavorizeActionbarListener actionbar_fav_listener;
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
@@ -35,11 +29,9 @@ public class CourseDetails extends TabActivity  {
 		String title = getIntent().getExtras().getString(Constants.EXTRA_COURSE_TITLE);
 		String reader = getIntent().getExtras().getString(Constants.EXTRA_COURSE_READER);
 		String pw = getIntent().getExtras().getString(Constants.EXTRA_COURSE_PW);
-        
-		//Log.d("STATE ede:", "Übergeben: "+String.valueOf(id));
 		
-		ImageButton back = (ImageButton) findViewById(R.id.actionbar_back);
-		back.setOnClickListener(back_handler);
+		// TODO: Semester und Jahr sind noch Dummie Werte
+		courseObj = new Course(id, title, reader, "WS", "2013");
 		
         //Sucht den TabHost aus dem Layout
         TabHost tabhost = getTabHost();
@@ -63,14 +55,34 @@ public class CourseDetails extends TabActivity  {
         tabhost.addTab(detailsspec);
         tabhost.addTab(sessionsspec);
         
-        
     }
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// Favbutton zum Leben erwecken
+		actionbar_fav_listener = new FavorizeActionbarListener(courseObj, (ImageButton)findViewById(R.id.btn_action_fav), new SQLDataHandler(this));
+		
+	}
+	@Override
+	protected void onPause() {
+		actionbar_fav_listener.destroy();
+		super.onPause();
+	}
     
-    View.OnClickListener back_handler = new View.OnClickListener() {
-        public void onClick(View v) {
-          finish();
-        }
-      };
+    // Clickhandler für die Actionbar
+    public void actionbarClick(final View view){
+    	switch (view.getId()) {
+		case R.id.btn_action_fav:
+			// wird von FavorizeActionbarListener verwaltet
+			break;
+		case R.id.btn_action_info:
+			// info einblenden
+			break;
+		case R.id.actionbar_back:
+			finish();
+			break;
+    	}
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
