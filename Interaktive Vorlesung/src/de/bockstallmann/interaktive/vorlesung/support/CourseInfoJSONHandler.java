@@ -1,9 +1,8 @@
-package de.bockstallmann.interaktive.vorlesung.support.list;
+package de.bockstallmann.interaktive.vorlesung.support;
 
 import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
-import de.bockstallmann.interaktive.vorlesung.support.Constants;
 
 public class CourseInfoJSONHandler extends Handler {
 
