@@ -21,24 +21,26 @@
         android:icon="@drawable/ic_launcher_1"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
-        <activity 
-            android:name="de.bockstallmann.interaktive.vorlesung.activities.ListCourses" 
-            android:label="@string/launcher_title_fav">
+        <activity
+            android:name="de.bockstallmann.interaktive.vorlesung.activities.ListCourses"
+            android:label="@string/launcher_title_fav" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="de.bockstallmann.interaktive.vorlesung.activities.TransactionType"
-            android:label="@string/launcher_title_qr" android:icon="@drawable/ic_launcher_qr_1">
+            android:icon="@drawable/ic_launcher_qr_1"
+            android:label="@string/launcher_title_qr" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-       <activity
+        <activity
             android:name="com.google.zxing.client.android.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape"
@@ -46,24 +48,17 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
                 <action android:name="com.google.zxing.client.android.SCAN.private" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
-        <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.CourseDetails" />
-        <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.PdfReader" />
-        <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.CourseDetailsDetails" />
-        <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.CourseDetailsSessions" />
-        <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.SearchCourse" >
-        </activity>
+        <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.ListSessions" />
         <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.SessionStart" />
-        <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.CoursePreview" />
-        
-
     </application>
 
 </manifest>

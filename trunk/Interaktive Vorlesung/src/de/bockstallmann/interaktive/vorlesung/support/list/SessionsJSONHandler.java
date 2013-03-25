@@ -2,24 +2,20 @@ package de.bockstallmann.interaktive.vorlesung.support.list;
 
 import org.json.JSONArray;
 
-import de.bockstallmann.interaktive.vorlesung.activities.CourseDetailsDetails;
-import de.bockstallmann.interaktive.vorlesung.support.Constants;
-import de.bockstallmann.interaktive.vorlesung.support.CourseDetailsFactory;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+import de.bockstallmann.interaktive.vorlesung.support.Constants;
 
 public class SessionsJSONHandler extends Handler {
 	
-	private CourseDetailsFactory coursedetails;
+	private SessionsArrayAdapter saa;
 
-	public SessionsJSONHandler(CourseDetailsFactory CourseDetails){
-		coursedetails = CourseDetails;
+	public SessionsJSONHandler(SessionsArrayAdapter sessionsArrayAdapter){
+		saa = sessionsArrayAdapter;
 	}
 	public void handleMessage(Message msg) {
-		Log.d("Handler","in FUnktion");
 		if(msg.arg1 == Constants.MSG_SUCCESS){
-			coursedetails.addSessions((JSONArray) msg.obj);
+			saa.addSessions((JSONArray) msg.obj);
 		}
 	};
 }

@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-   <RelativeLayout
+    android:layout_height="match_parent">
+    
+    <RelativeLayout
         android:id="@+id/actionbar"
         style="@style/Titlebar"
         android:layout_alignParentTop="true"
@@ -59,29 +59,21 @@
         
     </RelativeLayout>
     
+    <ListView 
+		android:layout_alignParentBottom="true"
+		android:layout_below="@id/actionbar"
+		android:id="@+id/lv_sessions" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:fadeScrollbars="true"/>
+    <TextView 
+        android:id="@+id/tx_course_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#ffffff"
+        android:layout_below="@id/actionbar"
+        />
     
-    <TabHost 
-    android:id="@android:id/tabhost"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_alignParentBottom="true"
-	android:layout_below="@id/actionbar">
-	<RelativeLayout android:orientation="vertical"
-            android:layout_width="fill_parent" android:layout_height="fill_parent">
-        <TabWidget
-            android:id="@android:id/tabs"        
-            android:layout_width="fill_parent" 
-            android:layout_height="wrap_content"
-             />
-
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:paddingTop="65dp" 
-            
-            />
-     </RelativeLayout>
-</TabHost>
 
 </RelativeLayout>

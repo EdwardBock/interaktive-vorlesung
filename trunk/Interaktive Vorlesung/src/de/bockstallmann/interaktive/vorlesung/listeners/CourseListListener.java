@@ -3,7 +3,6 @@ package de.bockstallmann.interaktive.vorlesung.listeners;
 import android.os.Messenger;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.EditText;
@@ -58,5 +57,9 @@ public class CourseListListener implements OnScrollListener, TextWatcher {
 			jsonLoader.searchCourses(et_search.getText().toString(), page++);
 		}
 		
+	}
+	public void destroyListener(){
+		et_search.removeTextChangedListener(this);
+		lv_courses.setOnScrollListener(null);
 	}
 }
