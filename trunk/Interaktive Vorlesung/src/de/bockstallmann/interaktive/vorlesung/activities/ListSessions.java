@@ -21,6 +21,7 @@ import de.bockstallmann.interaktive.vorlesung.listeners.FavorizeActionbarListene
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.model.Session;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
+import de.bockstallmann.interaktive.vorlesung.support.CourseInfoJSONHandler;
 import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.SQLDataHandler;
 import de.bockstallmann.interaktive.vorlesung.support.list.SessionsArrayAdapter;
@@ -98,7 +99,9 @@ public class ListSessions extends Activity implements OnItemClickListener {
 	private void toggleInfo() {
 		
 		if (tx_details.getText().length() < 1) {
-			tx_details.setText("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.");
+			tx_details.setText("Lädt Daten");
+			jsonLoader = new JSONLoader(new Messenger(new CourseInfoJSONHandler(tx_details)));
+			jsonLoader.startGetCoursesInfo(id);
 		}
 		if (tx_details.getVisibility() == View.GONE) {
 			Log.d("Toggle", "Visible");
