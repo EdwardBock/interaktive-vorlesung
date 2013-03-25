@@ -19,7 +19,6 @@ import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.listeners.CourseListListener;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
-import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.SQLDataHandler;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
 
@@ -29,8 +28,6 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 	private CoursesArrayAdapter courseListAdapter;
 	private SQLDataHandler db;
 	private EditText et_search;
-	private JSONLoader jsonLoader;
-	private CoursesArrayAdapter listAdapter;
 	private CourseListListener courseListListener;
 
 	@Override
@@ -61,6 +58,11 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 		courseListListener = new CourseListListener(list, et_search);
         
 	}
+	@Override
+	protected void onStop() {
+		courseListListener.destroyListener();
+		super.onStop();
+	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_list_courses, menu);
@@ -75,7 +77,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 	@Override
 	public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
 		Course course = (Course)parent.getItemAtPosition(position);
-		Intent intent = new Intent(this, CourseDetails.class);
+		Intent intent = new Intent(this, ListSessions.class);
 		intent.putExtra(Constants.EXTRA_COURSE_ID, course.getID());
 		intent.putExtra(Constants.EXTRA_COURSE_TITLE, course.getTitle());
 		intent.putExtra(Constants.EXTRA_COURSE_READER, course.getReader());
