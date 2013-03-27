@@ -1,4 +1,4 @@
-package de.bockstallmann.interaktive.vorlesung.support.list;
+package de.bockstallmann.interaktive.vorlesung.support;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import de.bockstallmann.interaktive.vorlesung.interfaces.CollectionObserver;
+import de.bockstallmann.interaktive.vorlesung.interfaces.CollectionObserverInterface;
 import de.bockstallmann.interaktive.vorlesung.model.Question;
 
 public class CollectionObservable {
@@ -17,7 +15,7 @@ public class CollectionObservable {
 	private List<Question> questions;
 	private JSONObject jsonCollection;
 	private JSONObject temp_json;
-	private List<CollectionObserver> collection_observers;
+	private List<CollectionObserverInterface> collection_observers;
 	private Question activeQuestion;
 	private String chosenAnswer;
 	public static final String A = "a", B = "b", C = "c", D = "d", NONE = "none";
@@ -25,8 +23,12 @@ public class CollectionObservable {
 
 	public CollectionObservable() {
 		questions = new ArrayList<Question>();
-		collection_observers = new ArrayList<CollectionObserver>();
+		collection_observers = new ArrayList<CollectionObserverInterface>();
 		chosenAnswer = NONE;
+	}
+
+	public void addObserver(CollectionObserverInterface co){
+		collection_observers.add(co);
 	}
 
 	public void addQuestions(JSONArray serverdaten) {
@@ -58,9 +60,6 @@ public class CollectionObservable {
 	public int size() {
 		return questions.size();
 	}
-	public void addObserver(CollectionObserver co){
-		collection_observers.add(co);
-	}
 	public boolean preventAndNext() {
 		if(this.size() < 2) return false;
 		questions.remove(0);
@@ -90,8 +89,8 @@ public class CollectionObservable {
 		notifyAll(CMD_ANSWER);
 	}
 	private void notifyAll(final String cmd){
-		for (CollectionObserver co : collection_observers) {
-			co.update(cmd);
+		for (CollectionObserverInterface co : collection_observers) {
+			co.update(cmd, this);
 		}
 	}
 }
