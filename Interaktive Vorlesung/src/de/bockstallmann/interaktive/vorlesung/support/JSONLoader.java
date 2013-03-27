@@ -95,4 +95,8 @@ public class JSONLoader extends Thread {
 		scriptPath = "script.app.question_count.php?id="+id+"&answer=d";
 		this.start();
 	}
+	public void countAnswer(final int id, final String answer){
+		scriptPath = "script.app.question_count.php?id="+id+"&answer="+answer;
+		this.start();
+	}
 }

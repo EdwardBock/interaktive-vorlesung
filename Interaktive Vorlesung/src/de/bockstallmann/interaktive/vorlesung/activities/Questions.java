@@ -3,7 +3,6 @@ package de.bockstallmann.interaktive.vorlesung.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Messenger;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -41,8 +40,6 @@ public class Questions extends Activity implements OnClickListener,
 		sv_question = (ScrollView) findViewById(R.id.sv_question);
 		btn_reload = (ImageButton) findViewById(R.id.btn_reload_questions);
 		btn_reload.setOnClickListener(this);
-		
-		Log.d("Questions", "Layout Elemente geladen");
 		
 
 		// Observable wird erstellt und Observer hinzugefügt

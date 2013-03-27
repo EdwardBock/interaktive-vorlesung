@@ -77,18 +77,19 @@ public class QuestionObserver implements CollectionObserverInterface, OnClickLis
 				btn_d.setBackgroundDrawable(res_selected);
 				btn_d.setTextColor(res_selected_font_color);
 			}
-			if (collection.getAnswer() == CollectionObservable.NONE) {
-				btn_skip.setText(R.string.questions_btn_skip);
-			} else {
-				btn_skip.setText(R.string.questions_btn_send);
-			}
-		} else if (command == CollectionObservable.CMD_LIST) {
+			
+		} else if (command == CollectionObservable.CMD_LIST && collection.size()> 0) {
 			tx_question.setText(collection.getQuestion().getQuestion());
 			resetButtons();
 			btn_a.setText(collection.getQuestion().getAnswer1());
 			btn_b.setText(collection.getQuestion().getAnswer2());
 			btn_c.setText(collection.getQuestion().getAnswer3());
 			btn_d.setText(collection.getQuestion().getAnswer4());
+		}
+		if (collection.getAnswer() == CollectionObservable.NONE) {
+			btn_skip.setText(R.string.questions_btn_skip);
+		} else {
+			btn_skip.setText(R.string.questions_btn_send);
 		}
 	}
 
@@ -127,6 +128,7 @@ public class QuestionObserver implements CollectionObserverInterface, OnClickLis
 				}
 			} else {
 				Log.d("Questions", "Antwort abschicken");
+				collection.saveAnswerAndNext();
 			}
 			break;
 		default:
