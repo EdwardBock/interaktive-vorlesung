@@ -1,18 +1,12 @@
 package de.bockstallmann.interaktive.vorlesung.activities;
 
-import de.bockstallmann.interaktive.vorlesung.R;
-import de.bockstallmann.interaktive.vorlesung.R.layout;
-import de.bockstallmann.interaktive.vorlesung.R.menu;
-import de.bockstallmann.interaktive.vorlesung.model.Course;
-import de.bockstallmann.interaktive.vorlesung.support.Constants;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageButton;
 import android.widget.Toast;
+import de.bockstallmann.interaktive.vorlesung.R;
+import de.bockstallmann.interaktive.vorlesung.support.Constants;
 
 public class TransactionType extends Activity {
 
@@ -22,7 +16,7 @@ public class TransactionType extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_transaction_type);
-		intent = new Intent(this, SessionStart.class);
+		intent = new Intent(this, Questions.class);
 	}
 	@Override
 	protected void onResume() {

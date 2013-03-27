@@ -38,24 +38,17 @@
     <string name="course_details_sessiontab">DETAILS</string>
     <string name="course_details_detailstab">TERMINE</string>
     <!-- ENDE CourseDetails -->
+    
     <!-- CourseDetailsDetails -->
     <string name="short_info">Kurzbeschreibung:</string>
     <!-- ENDE CourseDetailsDetails -->
-
-
-    <!-- PdfReader -->
-    <string name="title_activity_pdf_reader">PdfReader</string>
-    <!-- ENDE PdfReader -->
-
-    <string name="menu_settings">Settings</string>
-    <string name="openPDF">PDF-Viewer starten</string>
-    <string name="exit">App beenden</string>
-    <string name="title_activity_course_details_details">CourseDetails_details</string>
-    <string name="title_activity_course_details_sessions">CourseDetails_sessions</string>
-    <string name="title_activity_session_start">Vorlesung läuft!</string>
-    <string name="pw">Passwort</string>
-    <string name="title_activity_course_preview">CoursePreview</string>
-    <string name="title_activity_transaction_type">Vorgansart wählen</string>
-    <string name="title_activity_list_sessions">ListSessions</string>
+    
+    
+    <!-- Questions -->
+    <string name="questions_btn_skip">Frage zurückstellen</string>
+    <string name="questions_btn_send">Antwort abgeben</string>
+    <string name="question_answer">Antwort</string>
+    <string name="question">Frage?</string>
+    <!-- Questions ENDE -->
 
 </resources>

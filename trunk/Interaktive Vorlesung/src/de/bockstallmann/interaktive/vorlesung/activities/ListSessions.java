@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Messenger;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.listeners.FavorizeActionbarListener;
@@ -39,6 +41,8 @@ public class ListSessions extends Activity implements OnItemClickListener {
 	private SessionsArrayAdapter sessionListAdapter;
 	private JSONLoader jsonLoader;
 	private TextView tx_details;
+	private ScrollView sv_details;
+	private ImageButton btn_action_info;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,8 @@ public class ListSessions extends Activity implements OnItemClickListener {
 
 		lv_sessions = (ListView) findViewById(R.id.lv_sessions);
 		tx_details = (TextView) findViewById(R.id.tx_course_details);
+		sv_details = (ScrollView) findViewById(R.id.sv_course_details);
+		btn_action_info = (ImageButton) findViewById(R.id.btn_action_info);
 
 		sessionListAdapter = new SessionsArrayAdapter(this,
 				R.layout.session_row, new ArrayList<Session>());
@@ -103,14 +109,14 @@ public class ListSessions extends Activity implements OnItemClickListener {
 			jsonLoader = new JSONLoader(new Messenger(new CourseInfoJSONHandler(tx_details)));
 			jsonLoader.startGetCoursesInfo(id);
 		}
-		if (tx_details.getVisibility() == View.GONE) {
+		if (sv_details.getVisibility() == View.GONE) {
 			Log.d("Toggle", "Visible");
-			tx_details.setVisibility(View.VISIBLE);
+			sv_details.setVisibility(View.VISIBLE);
 			final Animation fadeInFromTopAnimation = AnimationUtils
 					.loadAnimation(this, R.anim.slide_in_from_top);
-			tx_details.startAnimation(fadeInFromTopAnimation);
+			sv_details.startAnimation(fadeInFromTopAnimation);
+			btn_action_info.setImageResource(R.drawable.ic_menu_close);
 		} else {
-			
 			final Animation fadeInFromTopAnimation = AnimationUtils
 					.loadAnimation(this, R.anim.slide_out_from_bottom);
 			fadeInFromTopAnimation
@@ -118,14 +124,14 @@ public class ListSessions extends Activity implements OnItemClickListener {
 						public void onAnimationStart(Animation anim) {
 						}
 						public void onAnimationEnd(Animation anim) {
-							tx_details.setVisibility(View.GONE);
+							sv_details.setVisibility(View.GONE);
+							btn_action_info.setImageResource(R.drawable.ic_menu_info);
 						}
 						public void onAnimationRepeat(Animation anim) {
 						}
 					});
-			tx_details.startAnimation(fadeInFromTopAnimation);
-			tx_details.setVisibility(View.GONE);
-			Log.d("Toggle", "Gone");
+			sv_details.startAnimation(fadeInFromTopAnimation);
+			sv_details.setVisibility(View.GONE);
 		}
 	}
 
@@ -133,11 +139,20 @@ public class ListSessions extends Activity implements OnItemClickListener {
 	public void onItemClick(final AdapterView<?> parent, final View view,
 			final int position, final long id) {
 		Session session = (Session) parent.getItemAtPosition(position);
-		Intent intent = new Intent(this, SessionStart.class);
+		Intent intent = new Intent(this, Questions.class);
 		intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
 		intent.putExtra(Constants.EXTRA_COURSE_PW, pw);
 		startActivity(intent);
 		// showPwCheck(intent);
 	}
-
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+			if(sv_details.getVisibility() == View.VISIBLE){
+				toggleInfo();
+				return true;
+			}
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 }
