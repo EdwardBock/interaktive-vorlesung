@@ -6,18 +6,18 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.util.Log;
+import android.os.Messenger;
 import de.bockstallmann.interaktive.vorlesung.interfaces.CollectionObserverInterface;
 import de.bockstallmann.interaktive.vorlesung.model.Question;
 
 public class CollectionObservable {
 
 	private List<Question> questions;
-	private JSONObject jsonCollection;
 	private JSONObject temp_json;
 	private List<CollectionObserverInterface> collection_observers;
 	private Question activeQuestion;
 	private String chosenAnswer;
+	//private JSONObject jsonCollection;
 	public static final String A = "a", B = "b", C = "c", D = "d", NONE = "none";
 	public static final String CMD_LIST = "list", CMD_ANSWER = "answer";
 
@@ -33,12 +33,12 @@ public class CollectionObservable {
 
 	public void addQuestions(JSONArray serverdaten) {
 		questions.clear();
-		Log.d("CollectionObservable","füge daten hinzu:"+serverdaten.toString());
 		try {
 			//jsonCollection = (JSONObject) serverdaten.get(0);
+			//collection_id = jsonCollection.getInt("_id");
+			//Log.d("CollectionObservable", jsonCollection.toString());
 			JSONArray jsonQuestions = (JSONArray) serverdaten.get(1);
 			for (int i = 0; i < jsonQuestions.length(); i++){
-				Log.d("CollectionObservable",jsonQuestions.get(i).toString());
 				temp_json = jsonQuestions.getJSONObject(i);
 				questions.add(new Question(
 					Integer.parseInt(temp_json.getString("_id")),
@@ -49,12 +49,13 @@ public class CollectionObservable {
 					temp_json.getString("d")));
 			}
 		}catch (Exception e) {
-			Log.d("QuestionsObservable",e.toString());
+			//Log.d("QuestionsObservable",e.toString());
+			e.toString();
 		}
 		notifyListChanged();
 	}
 	public Question getQuestion(){
-		if(activeQuestion == null) activeQuestion = questions.get(0);
+		if(activeQuestion == null && size() > 0) activeQuestion = questions.get(0);
 		return activeQuestion;
 	}
 	public int size() {
@@ -80,6 +81,18 @@ public class CollectionObservable {
 			chosenAnswer = answer;
 		}
 		notifyAnswerChanged();
+	}
+
+	public void saveAnswerAndNext() {
+		new JSONLoader(new Messenger(new QuestionSaveJSONHandler(this))).countAnswer(activeQuestion.getId(), chosenAnswer);
+	}
+
+	public void activeQuestionSaved() {
+		questions.remove(0);
+		// TODO: In eigene Datenbank übernehmen und dann löschen
+		chosenAnswer = NONE;
+		activeQuestion = null;
+		notifyListChanged();
 	}
 
 	private void notifyListChanged(){
