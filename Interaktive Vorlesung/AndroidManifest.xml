@@ -48,7 +48,6 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
@@ -57,8 +56,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.ListSessions" />
-        <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.SessionStart" />
+        
+        <activity android:name="de.bockstallmann.interaktive.vorlesung.activities.ListSessions" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="de.bockstallmann.interaktive.vorlesung.activities.ListCourses" />
+        </activity>
+        <activity android:name=".activities.Questions">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="de.bockstallmann.interaktive.vorlesung.activities.ListSessions" />
+        </activity>
     </application>
 
 </manifest>

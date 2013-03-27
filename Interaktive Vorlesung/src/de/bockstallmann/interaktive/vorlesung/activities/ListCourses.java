@@ -92,7 +92,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 		switch (view.getId()) {
 			case R.id.actionbar_add:
 				//startActivity(new Intent(this,SearchCourse.class));
-				toogleViewSlide(et_search);
+				toggleViewSlide(et_search);
 				break;
 			case R.id.actionbar_qr:
 				Intent intent = new Intent("com.google.zxing.client.android.SCAN.private");
@@ -102,7 +102,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 		}
 		
 	}
-	private void toogleViewSlide(final View activateView) {
+	private void toggleViewSlide(final View activateView) {
 		if (activateView.getVisibility() == View.GONE)
 	    {
 	        //fade in from top
@@ -144,7 +144,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
                 String format = data.getStringExtra("SCAN_RESULT_FORMAT");
                 // Handle successful scan
                Toast.makeText(this, format+":"+contents+":", Toast.LENGTH_LONG).show();
-       			Intent	intent = new Intent(this, SessionStart.class);
+       			Intent	intent = new Intent(this, Questions.class);
                if(contents.contains("|")){
                    intent.putExtra(Constants.EXTRA_SESSION_ID, Integer.parseInt(contents.substring(contents.indexOf("|")+1)));
                    startActivity(intent);
@@ -166,7 +166,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 			if(et_search.getVisibility() == View.VISIBLE){
 				et_search.setText("");
-				toogleViewSlide(et_search);
+				toggleViewSlide(et_search);
 				return true;
 			}
 		}
