@@ -1,7 +1,5 @@
 package de.bockstallmann.interaktive.vorlesung.support;
 
-import org.json.JSONArray;
-
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
