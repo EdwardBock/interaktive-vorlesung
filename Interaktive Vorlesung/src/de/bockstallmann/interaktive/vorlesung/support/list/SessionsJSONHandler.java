@@ -13,6 +13,7 @@ public class SessionsJSONHandler extends Handler {
 	public SessionsJSONHandler(SessionsArrayAdapter sessionsArrayAdapter){
 		saa = sessionsArrayAdapter;
 	}
+	@Override
 	public void handleMessage(Message msg) {
 		if(msg.arg1 == Constants.MSG_SUCCESS){
 			saa.addSessions((JSONArray) msg.obj);

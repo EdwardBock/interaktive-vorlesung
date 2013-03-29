@@ -11,6 +11,7 @@ public class QuestionSaveJSONHandler extends Handler{
 	public QuestionSaveJSONHandler(CollectionObservable questions){
 		qal= questions;
 	}
+	@Override
 	public void handleMessage(Message msg) {
 		Log.d("Handler Questions","läuft");
 		if(msg.arg1 == Constants.MSG_SUCCESS){
