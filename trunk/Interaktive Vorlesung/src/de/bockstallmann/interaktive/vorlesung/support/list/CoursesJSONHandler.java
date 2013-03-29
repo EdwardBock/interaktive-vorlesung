@@ -15,6 +15,7 @@ public class CoursesJSONHandler extends Handler {
 		adapter = arrayAdapter;
 	}
 
+	@Override
 	public void handleMessage(Message msg) {
 		if(msg.arg1 == Constants.MSG_SUCCESS){
 			adapter.addCourses((JSONArray)msg.obj);

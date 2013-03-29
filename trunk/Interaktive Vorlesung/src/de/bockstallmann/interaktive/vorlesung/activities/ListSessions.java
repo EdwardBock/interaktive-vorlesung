@@ -121,12 +121,15 @@ public class ListSessions extends Activity implements OnItemClickListener {
 					.loadAnimation(this, R.anim.slide_out_from_bottom);
 			fadeInFromTopAnimation
 					.setAnimationListener(new AnimationListener() {
+						@Override
 						public void onAnimationStart(Animation anim) {
 						}
+						@Override
 						public void onAnimationEnd(Animation anim) {
 							sv_details.setVisibility(View.GONE);
 							btn_action_info.setImageResource(R.drawable.ic_menu_info);
 						}
+						@Override
 						public void onAnimationRepeat(Animation anim) {
 						}
 					});

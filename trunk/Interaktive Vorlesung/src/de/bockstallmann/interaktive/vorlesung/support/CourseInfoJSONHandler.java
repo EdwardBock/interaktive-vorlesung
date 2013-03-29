@@ -12,6 +12,7 @@ public class CourseInfoJSONHandler extends Handler {
 		cd = courseDetails;
 	}
 
+	@Override
 	public void handleMessage(Message msg) {
 		if (msg.arg1 == Constants.MSG_SUCCESS) {
 			cd.setText( msg.obj.toString());

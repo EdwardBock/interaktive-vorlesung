@@ -115,7 +115,8 @@ public class CoursesArrayAdapter extends ArrayAdapter<Course> implements Filtera
 	        notifyDataSetChanged();
 	    }
 	    
-	    protected FilterResults performFiltering(CharSequence prefix) {
+	    @Override
+		protected FilterResults performFiltering(CharSequence prefix) {
 	          // NOTE: this function is *always* called from a background thread, and
 	          // not the UI thread. 
 

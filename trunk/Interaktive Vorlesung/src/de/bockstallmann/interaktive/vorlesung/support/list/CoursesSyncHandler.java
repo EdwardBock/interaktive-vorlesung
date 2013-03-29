@@ -15,6 +15,7 @@ public class CoursesSyncHandler extends Handler {
 		adapter = arrayAdapter;
 	}
 
+	@Override
 	public void handleMessage(Message msg) {
 		if(msg.arg1 == Constants.MSG_SUCCESS){
 			// msg.obj enthält zeitstempel und course ids. 
