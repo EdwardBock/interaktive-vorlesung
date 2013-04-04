@@ -73,11 +73,22 @@
 	        >  
 	     </ScrollView>
 	     <ImageButton 
-	         android:id="@+id/btn_reload_questions"
+	         android:id="@+id/btn_reload_arrows"
 	         android:layout_width="wrap_content"
 	         android:layout_height="wrap_content"
 	         android:layout_centerInParent="true" 
-	         android:src="@drawable/ic_reload_big"
+	         android:src="@drawable/ic_reload_arrows"
+	         android:contentDescription="Fragen laden"
+	         android:background="@null"
+	         />
+	     <ImageButton 
+	         android:id="@+id/btn_reload_text"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_below="@id/btn_reload_arrows"
+	         android:layout_marginTop="15dp" 
+	         android:layout_centerHorizontal="true"
+	         android:src="@drawable/ic_reload_text"
 	         android:contentDescription="Fragen laden"
 	         android:background="@null"
 	         />
