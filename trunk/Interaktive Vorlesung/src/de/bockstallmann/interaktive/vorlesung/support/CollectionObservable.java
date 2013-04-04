@@ -17,14 +17,16 @@ public class CollectionObservable {
 	private List<CollectionObserverInterface> collection_observers;
 	private Question activeQuestion;
 	private String chosenAnswer;
+	private SQLDataHandler dataHander;
 	//private JSONObject jsonCollection;
 	public static final String A = "a", B = "b", C = "c", D = "d", NONE = "none";
 	public static final String CMD_LIST = "list", CMD_ANSWER = "answer";
 
-	public CollectionObservable() {
+	public CollectionObservable(SQLDataHandler dh) {
 		questions = new ArrayList<Question>();
 		collection_observers = new ArrayList<CollectionObserverInterface>();
 		chosenAnswer = NONE;
+		dataHander = dh;
 	}
 
 	public void addObserver(CollectionObserverInterface co){
@@ -40,13 +42,15 @@ public class CollectionObservable {
 			JSONArray jsonQuestions = (JSONArray) serverdaten.get(1);
 			for (int i = 0; i < jsonQuestions.length(); i++){
 				temp_json = jsonQuestions.getJSONObject(i);
+				if( dataHander.hasQuestion(Integer.parseInt(temp_json.getString("_id"))) ) continue;
 				questions.add(new Question(
 					Integer.parseInt(temp_json.getString("_id")),
 					temp_json.getString("question"),
 					temp_json.getString("a"),
 					temp_json.getString("b"),
 					temp_json.getString("c"),
-					temp_json.getString("d")));
+					temp_json.getString("d"),
+					temp_json.getString("correct").charAt(0)));
 			}
 		}catch (Exception e) {
 			//Log.d("QuestionsObservable",e.toString());
@@ -63,7 +67,7 @@ public class CollectionObservable {
 	}
 	public boolean preventAndNext() {
 		if(this.size() < 2) return false;
-		questions.remove(0);
+		questions.remove(activeQuestion);
 		questions.add(activeQuestion);
 		activeQuestion = null;
 		notifyListChanged();
@@ -88,8 +92,8 @@ public class CollectionObservable {
 	}
 
 	public void activeQuestionSaved() {
-		questions.remove(0);
-		// TODO: In eigene Datenbank übernehmen und dann löschen
+		dataHander.addQuestion(activeQuestion);
+		questions.remove(activeQuestion);
 		chosenAnswer = NONE;
 		activeQuestion = null;
 		notifyListChanged();
