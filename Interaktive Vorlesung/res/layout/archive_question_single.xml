@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+>
+	
+     <TextView 
+     android:layout_alignParentTop="true"
+     android:layout_alignParentLeft="true"
+     android:id="@+id/tx_question"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content" 
+     android:text="@string/question"
+     style="@style/Question"
+     />
+     <TextView 
+     android:layout_below="@id/tx_question"
+     android:id="@+id/tx_answer"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content" 
+     android:text="@string/correct_answer"
+     style="@style/CorrectAnswer"
+         />
+     <Button
+     android:layout_below="@id/tx_answer"
+     android:layout_alignParentLeft="true"
+     android:id="@+id/btn_answer_prev"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content" 
+     android:singleLine="true"
+     android:text="@string/archive_btn_prev"
+     android:onClick="navigationClick"
+     />
+     <Button
+     android:layout_below="@id/tx_answer"
+     android:layout_alignParentRight="true"
+     android:id="@+id/btn_answer_next"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content" 
+     android:singleLine="true"
+     android:text="@string/archive_btn_next"
+     android:onClick="navigationClick"
+     />
+     
+</RelativeLayout>

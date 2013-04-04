@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_light_grey">
     
     <RelativeLayout
         android:id="@+id/actionbar"
@@ -65,7 +66,10 @@
 		android:id="@+id/lv_sessions" 
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
-		android:fadeScrollbars="true"/>
+		android:fadeScrollbars="true"
+		android:background="@drawable/listview_rounded_corner"
+		android:layout_margin="5dp"
+		/>
     <ScrollView
         android:id="@+id/sv_course_details"
         android:layout_width="match_parent"
