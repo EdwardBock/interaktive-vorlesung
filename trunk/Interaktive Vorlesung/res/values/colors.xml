@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="white">#ffffff</color>
+    
     <color name="btn_answer_selected">#ff0000</color>
     <color name="btn_answer_selected_font">#000000</color>
     <color name="btn_answer_unselected_font">#ffffff</color>
+    
+    <color name="bg_light_grey">#dedede</color>
+    
+    <color name="bg_sessionlist">@color/white</color>
 </resources>

@@ -46,5 +46,7 @@
         <item name="android:textColor">@color/btn_answer_unselected_font</item>
     </style>
     
-    
+    <style name="CorrectAnswer" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">#ffff00</item>
+    </style>
 </resources>

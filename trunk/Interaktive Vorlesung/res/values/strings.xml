@@ -38,17 +38,27 @@
     <string name="course_details_sessiontab">DETAILS</string>
     <string name="course_details_detailstab">TERMINE</string>
     <!-- ENDE CourseDetails -->
-    
+
+
     <!-- CourseDetailsDetails -->
     <string name="short_info">Kurzbeschreibung:</string>
     <!-- ENDE CourseDetailsDetails -->
-    
-    
+
+
     <!-- Questions -->
     <string name="questions_btn_skip">Frage zurückstellen</string>
     <string name="questions_btn_send">Antwort abgeben</string>
     <string name="question_answer">Antwort</string>
     <string name="question">Frage?</string>
     <!-- Questions ENDE -->
+    
+ 	<!-- Questions Archive -->
+    <string name="archive_btn_next">Weiter</string>
+    <string name="archive_btn_prev">Zurück</string>
+    <string name="correct_answer">Richtige Antwort</string>
+    <!-- Questions Archive ENDE -->
+    
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_question_archive">QuestionArchive</string>
 
 </resources>
