@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import de.bockstallmann.interaktive.vorlesung.R;
 
-public class QuestionArchive extends Activity {
+public class QuestionsArchive extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question_archive);
+        setContentView(R.layout.activity_questions_archive);
 
     }
     /**
@@ -23,6 +23,20 @@ public class QuestionArchive extends Activity {
 		case R.id.btn_answer_next:
 			break;
 		case R.id.btn_answer_prev:
+			break;
+		}
+	}
+	
+	/**
+	 * Clickmethode für die Actionbaricons
+	 * 
+	 * @param view
+	 */
+	public void actionbarClick(final View view) {
+		switch (view.getId()) {
+		case R.id.actionbar_back:
+		case R.id.actionbar_logo:
+			finish();
 			break;
 		}
 	}
