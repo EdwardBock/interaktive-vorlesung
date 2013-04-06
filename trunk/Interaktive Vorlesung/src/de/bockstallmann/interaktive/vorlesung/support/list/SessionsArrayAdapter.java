@@ -42,6 +42,12 @@ public class SessionsArrayAdapter extends ArrayAdapter<Session> {
 		((TextView)view.findViewById(R.id.tx_session_row_title)).setText(session.getTitle());
 		((TextView)view.findViewById(R.id.tx_session_row_description)).setText(session.getRoom()+"; "+session.getBegin()+"-"+session.getEnd());
 		
+		if(session.isArchived()){
+			((TextView)view.findViewById(R.id.tx_session_state)).setText("archiv");
+		} else {
+			((TextView)view.findViewById(R.id.tx_session_state)).setText("Zustand");
+		}
+		
 		return view;
 	}
 	
@@ -51,7 +57,8 @@ public class SessionsArrayAdapter extends ArrayAdapter<Session> {
 				items.add(new Session(serverDaten.getJSONObject(i).getInt("_id"),serverDaten.getJSONObject(i).getString("room"),
 						serverDaten.getJSONObject(i).getString("info"),
 						serverDaten.getJSONObject(i).getString("date_begin"),
-						serverDaten.getJSONObject(i).getString("date_end") ));
+						serverDaten.getJSONObject(i).getString("date_end"),
+						serverDaten.getJSONObject(i).getBoolean("archived")));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

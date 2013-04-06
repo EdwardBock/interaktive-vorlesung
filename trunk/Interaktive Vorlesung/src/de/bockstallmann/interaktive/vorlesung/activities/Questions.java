@@ -76,12 +76,14 @@ public class Questions extends Activity implements OnClickListener,
 		if (btn_reload.getVisibility() == View.GONE) {
 			sv_question.setVisibility(View.GONE);
 			btn_reload.setVisibility(View.VISIBLE);
+			btn_reload_text.setVisibility(View.VISIBLE);
 		}
 	}
 
 	private void showQuestion(Question question) {
 		if (sv_question.getVisibility() == View.GONE) {
 			btn_reload.setVisibility(View.GONE);
+			btn_reload_text.setVisibility(View.GONE);
 			sv_question.setVisibility(View.VISIBLE);
 		}		
 	}
@@ -122,7 +124,7 @@ public class Questions extends Activity implements OnClickListener,
 		btn_reload.startAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
 	}
 	private void stopLoadingState(){
-		btn_reload_text.setVisibility(View.VISIBLE);
+		if(btn_reload.getVisibility() == View.VISIBLE) btn_reload_text.setVisibility(View.VISIBLE);
 		btn_reload.clearAnimation();
 	}
 }
