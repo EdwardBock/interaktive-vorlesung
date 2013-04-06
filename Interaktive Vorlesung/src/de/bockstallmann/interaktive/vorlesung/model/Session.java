@@ -9,14 +9,16 @@ public class Session {
 	private String end;
 	private String src;
 	private int id;
+	private boolean arch;
 	
 	
-	public Session(int ID,String Room, String Title, String Begin, String End){
+	public Session(int ID,String Room, String Title, String Begin, String End, boolean archived){
 		this.id = ID;
 		this.room = Room;
 		this.title = Title;
 		this.begin = Begin.substring(0, 16);
 		this.end = End.substring(11, 16); 
+		this.arch = archived;
 	}
 	
 	public int getID(){
@@ -55,5 +57,8 @@ public class Session {
 		this.end = end;
 	}
 	
+	public boolean isArchived(){
+		return this.arch;
+	}
 
 }

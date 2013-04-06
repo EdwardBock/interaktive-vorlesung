@@ -26,5 +26,12 @@ android:layout_height="wrap_content"
          android:textColor="#AAA"
          android:padding="5dp"
          android:textSize="12sp" />
+     <TextView 
+         android:id="@+id/tx_session_state"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentRight="true"
+         android:layout_centerVertical="true"
+         />
      
 </RelativeLayout>
