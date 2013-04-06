@@ -142,11 +142,17 @@ public class ListSessions extends Activity implements OnItemClickListener {
 	public void onItemClick(final AdapterView<?> parent, final View view,
 			final int position, final long id) {
 		Session session = (Session) parent.getItemAtPosition(position);
-		Intent intent = new Intent(this, Questions.class);
-		intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
-		intent.putExtra(Constants.EXTRA_COURSE_PW, pw);
-		startActivity(intent);
-		// showPwCheck(intent);
+		if(session.isArchived()){
+			Intent intent = new Intent(this, QuestionsArchive.class);
+			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
+			intent.putExtra(Constants.EXTRA_COURSE_PW, pw);
+			startActivity(intent);
+		} else {
+			Intent intent = new Intent(this, Questions.class);
+			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
+			intent.putExtra(Constants.EXTRA_COURSE_PW, pw);
+			startActivity(intent);
+		}
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

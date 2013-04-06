@@ -64,6 +64,12 @@
         android:layout_alignParentBottom="true"
         android:background="#dedede"
         >
+        <TextView 
+            android:id="@+id/tx_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Archiv"
+            />
 	</ScrollView>
 
 </RelativeLayout>
