@@ -14,33 +14,44 @@ android:layout_height="wrap_content"
      android:text="@string/question"
      style="@style/Question"
      />
-     <TextView 
+     <TextView
      android:layout_below="@id/tx_question"
-     android:id="@+id/tx_answer"
+     android:id="@+id/tx_correct_answer"
      android:layout_width="match_parent"
      android:layout_height="wrap_content" 
-     android:text="@string/correct_answer"
-     style="@style/CorrectAnswer"
-         />
-     <Button
-     android:layout_below="@id/tx_answer"
-     android:layout_alignParentLeft="true"
-     android:id="@+id/btn_answer_prev"
+     android:singleLine="false"
+     android:text="@string/question_answer"
+     />
+     <TextView
+     android:layout_below="@id/tx_correct_answer"
+     android:id="@+id/tx_a1"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content" 
      android:singleLine="true"
-     android:text="@string/archive_btn_prev"
-     android:onClick="navigationClick"
+     android:text="A"
      />
-     <Button
-     android:layout_below="@id/tx_answer"
-     android:layout_alignParentRight="true"
-     android:id="@+id/btn_answer_next"
+     <TextView
+     android:layout_below="@id/tx_a1"
+     android:id="@+id/tx_a2"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content" 
      android:singleLine="true"
-     android:text="@string/archive_btn_next"
-     android:onClick="navigationClick"
+     android:text="B"
      />
-     
+     <TextView
+     android:layout_below="@id/tx_a2"
+     android:id="@+id/tx_a3"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content" 
+     android:singleLine="true"
+     android:text="C"
+     />
+     <TextView
+     android:layout_below="@id/tx_a3"
+     android:id="@+id/tx_a4"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content" 
+     android:singleLine="true"
+     android:text="D"
+     />
 </RelativeLayout>

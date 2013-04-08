@@ -28,6 +28,13 @@
             android:src="@drawable/actionbar_up" 
             android:onClick="actionbarClick"
             />
+       	<TextView 
+       	    android:id="@+id/tx_actionbar"
+       	    android:layout_width="wrap_content"
+       	    android:layout_height="wrap_content"
+       	    android:layout_toRightOf="@id/actionbar_logo"
+       	    style="@style/Titlebar.Title"
+       	    />
         <RelativeLayout 
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -56,20 +63,76 @@
                 />
         </RelativeLayout>
     </RelativeLayout>
-    <ScrollView
-        android:id="@+id/sv_content"
+    
+	<RelativeLayout 
+	    android:id="@+id/navigation_wrapper"
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:layout_alignParentBottom="true"
+	    android:visibility="gone"
+	    android:background="#dedede"
+	    >
+	    <Button 
+	        android:id="@+id/btn_prev"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Vorherige"
+	        android:layout_alignParentLeft="true"
+	        android:onClick="navigationClick"
+	        />
+	    <Button 
+	        android:id="@+id/btn_next"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Nächste"
+	        android:layout_alignParentRight="true"
+	        android:onClick="navigationClick"
+	        />
+	</RelativeLayout>
+	
+	<RelativeLayout 
+        android:id="@+id/v_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/actionbar"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/navigation_wrapper"
         android:background="#dedede"
         >
-        <TextView 
-            android:id="@+id/tx_question"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Archiv"
-            />
-	</ScrollView>
+	    <ScrollView
+	        android:id="@+id/sv_content"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentBottom="true"
+	        android:background="#dedede"
+	        android:visibility="gone"
+	        >
+	        <TextView 
+	            android:id="@+id/tx_question"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="Archiv"
+	            />
+		</ScrollView>
+	     <ImageView
+	         android:id="@+id/img_reload_arrows"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_centerInParent="true" 
+	         android:src="@drawable/ic_reload_arrows"
+	         android:contentDescription="Archiv laden"
+	         android:background="@null"
+	         android:visibility="gone"
+	         />
+	     <TextView 
+	         android:id="@+id/tx_empty_info"
+	         android:layout_height="wrap_content"
+	         android:layout_width="wrap_content"
+	         android:layout_centerInParent="true"
+	         android:visibility="gone"
+	         android:text="Das Archiv ist leer"
+	         />
+	</RelativeLayout>
+	
 
 </RelativeLayout>
