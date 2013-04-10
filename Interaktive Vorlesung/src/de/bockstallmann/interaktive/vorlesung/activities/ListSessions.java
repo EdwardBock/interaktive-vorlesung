@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.listeners.FavorizeActionbarListener;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
@@ -147,11 +148,13 @@ public class ListSessions extends Activity implements OnItemClickListener {
 			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
 			intent.putExtra(Constants.EXTRA_COURSE_PW, pw);
 			startActivity(intent);
-		} else {
+		} else if(session.isActive()) {
 			Intent intent = new Intent(this, Questions.class);
 			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
 			intent.putExtra(Constants.EXTRA_COURSE_PW, pw);
 			startActivity(intent);
+		} else {
+			Toast.makeText(this, "Vorlesung wurde noch nicht gestartet.", Toast.LENGTH_SHORT).show();
 		}
 	}
 	@Override

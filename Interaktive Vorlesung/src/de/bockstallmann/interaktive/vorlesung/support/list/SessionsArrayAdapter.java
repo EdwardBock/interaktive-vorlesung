@@ -44,8 +44,10 @@ public class SessionsArrayAdapter extends ArrayAdapter<Session> {
 		
 		if(session.isArchived()){
 			((TextView)view.findViewById(R.id.tx_session_state)).setText("archiv");
+		} else if(session.isActive()){
+			((TextView)view.findViewById(R.id.tx_session_state)).setText("active");
 		} else {
-			((TextView)view.findViewById(R.id.tx_session_state)).setText("Zustand");
+			((TextView)view.findViewById(R.id.tx_session_state)).setText("inactive");
 		}
 		
 		return view;
@@ -58,6 +60,7 @@ public class SessionsArrayAdapter extends ArrayAdapter<Session> {
 						serverDaten.getJSONObject(i).getString("info"),
 						serverDaten.getJSONObject(i).getString("date_begin"),
 						serverDaten.getJSONObject(i).getString("date_end"),
+						serverDaten.getJSONObject(i).getInt("active"),
 						serverDaten.getJSONObject(i).getBoolean("archived")));
 			} catch (JSONException e) {
 				e.printStackTrace();
