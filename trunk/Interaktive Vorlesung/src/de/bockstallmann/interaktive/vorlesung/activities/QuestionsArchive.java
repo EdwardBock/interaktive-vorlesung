@@ -7,15 +7,12 @@ import android.os.Messenger;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.interfaces.ArchiveObserverInterface;
 import de.bockstallmann.interaktive.vorlesung.observer.ArchiveCounterObserver;
-import de.bockstallmann.interaktive.vorlesung.observer.CounterObserver;
 import de.bockstallmann.interaktive.vorlesung.support.ArchiveObservable;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
@@ -28,12 +25,12 @@ public class QuestionsArchive extends Activity implements
 	private String pw;
 	private int id;
 	private ArchiveObservable archiveObservable;
-	private ImageView ic_reload;
 	private TextView tx_empty_info;
 	private ScrollView sv_content;
 	private RelativeLayout nav_wrapper;
 	private View question_view;
 	private TextView tx_actionbar;
+	private RelativeLayout rl_progressbar;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +48,7 @@ public class QuestionsArchive extends Activity implements
 		
 		tx_actionbar = (TextView) findViewById(R.id.tx_actionbar);
 		
-		ic_reload = (ImageView) findViewById(R.id.img_reload_arrows);
+		rl_progressbar = (RelativeLayout) findViewById(R.id.rl_progressbar);
 		tx_empty_info = (TextView) findViewById(R.id.tx_empty_info);
 		sv_content = (ScrollView) findViewById(R.id.sv_content);
 		nav_wrapper = (RelativeLayout) findViewById(R.id.navigation_wrapper);
@@ -117,9 +114,7 @@ public class QuestionsArchive extends Activity implements
 
 	private void showLoading() {
 		hideContentViews();
-		ic_reload.setVisibility(View.VISIBLE);
-		ic_reload.startAnimation(AnimationUtils.loadAnimation(this,
-				R.anim.rotation));
+		rl_progressbar.setVisibility(View.VISIBLE);
 	}
 
 	private void showContent() {
@@ -134,8 +129,7 @@ public class QuestionsArchive extends Activity implements
 	}
 
 	private void hideContentViews() {
-		ic_reload.setVisibility(View.GONE);
-		ic_reload.clearAnimation();
+		rl_progressbar.setVisibility(View.GONE);
 		tx_empty_info.setVisibility(View.GONE);
 		sv_content.setVisibility(View.GONE);
 		nav_wrapper.setVisibility(View.GONE);
