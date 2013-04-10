@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/bg_light_grey" >
 	<RelativeLayout
         android:id="@+id/actionbar"
         style="@style/Titlebar"
@@ -28,14 +29,9 @@
             android:src="@drawable/actionbar_up" 
             android:onClick="actionbarClick"
             />
-       	<TextView 
-       	    android:id="@+id/tx_actionbar"
-       	    android:layout_width="wrap_content"
-       	    android:layout_height="wrap_content"
-       	    android:layout_toRightOf="@id/actionbar_logo"
-       	    style="@style/Titlebar.Title"
-       	    />
+        
         <RelativeLayout 
+            android:id="@+id/counter_wrapper"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentRight="true"
@@ -62,6 +58,18 @@
                 style="@style/QuestionOverall"
                 />
         </RelativeLayout>
+        
+       	<TextView 
+       	    android:id="@+id/tx_actionbar"
+       	    android:layout_width="wrap_content"
+       	    android:layout_height="wrap_content"
+       	    android:layout_toRightOf="@id/actionbar_logo"
+       	    android:layout_toLeftOf="@id/counter_wrapper"
+       	    android:layout_alignBottom="@id/actionbar_logo"
+       	    android:singleLine="true"
+       	    style="@style/Titlebar.Title"
+       	    />
+        
     </RelativeLayout>
     
 	<RelativeLayout 
@@ -70,7 +78,6 @@
 	    android:layout_width="match_parent"
 	    android:layout_alignParentBottom="true"
 	    android:visibility="gone"
-	    android:background="#dedede"
 	    >
 	    <Button 
 	        android:id="@+id/btn_prev"

@@ -15,8 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 public class ServerCommunication {
 	
 	private final static String BASE_URL = "http://iv.jstallmann.com/";
@@ -33,7 +31,7 @@ public class ServerCommunication {
 			response = httpClient.execute(httpGet);
 			
 			// TODO: Response überprüfen: "z.B. 200 ok" oder "404"
-			Log.d("ServerConnection","Response: "+response.getStatusLine().toString());
+			//Log.d("ServerConnection","Response: "+response.getStatusLine().toString());
 
 			// Content aus der Requestrückgabe herausholen und über InputStreamReader in String übernehmen
 			HttpEntity entity = response.getEntity();
@@ -45,20 +43,20 @@ public class ServerCommunication {
 			String result = sb.toString();
 			instream.close();
 			
-			Log.d("ServerConnection","Antwortstring: "+result);
+			//Log.d("ServerConnection","Antwortstring: "+result);
 			
 			// Antwortstring in JSON Array verarbeiten			
 			JSONObject json =new JSONObject(result);
-			String status = json.getString(Constants.JSON_STATUS);
-			Log.d("ServerConnection", "Rückgabestatus: "+status);
+			//String status = json.getString(Constants.JSON_STATUS);
+			//Log.d("ServerConnection", "Rückgabestatus: "+status);
 			
-			JSONArray nameArray = json.names();
+			//JSONArray nameArray = json.names();
 			
-			Log.d("ServerConnection", "NameArray: "+nameArray.toString());
+			//Log.d("ServerConnection", "NameArray: "+nameArray.toString());
 			
 			JSONArray datenObj = json.getJSONArray(Constants.JSON_DATEN);
 			
-			Log.d("ServerConnection", "DatenObj: "+datenObj.toString());
+			//Log.d("ServerConnection", "DatenObj: "+datenObj.toString());
 			
 			return datenObj;
 			
