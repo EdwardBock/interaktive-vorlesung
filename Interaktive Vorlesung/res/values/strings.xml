@@ -58,6 +58,8 @@
     <string name="archive_btn_next">Weiter</string>
     <string name="archive_btn_prev">Zurück</string>
     <string name="correct_answer">Richtige Antwort</string>
+    <string name="archive_empty">Das Archiv ist leer</string>
+    <string name="progress_archive_loading">Daten werden geladen&#8230;</string>
     <!-- Questions Archive ENDE -->
     
     <string name="menu_settings">Settings</string>

@@ -11,8 +11,8 @@ style="@style/CourseRow"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content" 
      android:singleLine="true"
+     android:layout_marginRight="40dp"
      style="@style/CourseRowTitle"
-     android:text="Das ist ein Testtitel"
      />
      <TextView 
      android:layout_below="@id/tx_course_row_title"
@@ -21,7 +21,6 @@ style="@style/CourseRow"
      android:layout_height="wrap_content" 
      android:singleLine="true"
      style="@style/CourseRowInfo"
-     android:text="Das ist eine Testinfo"
      />
      
      <ImageView 

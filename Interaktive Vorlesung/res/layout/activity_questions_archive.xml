@@ -43,7 +43,6 @@
                 android:id="@+id/question_counter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 style="@style/QuestionCounter"
@@ -52,7 +51,6 @@
                 android:id="@+id/question_overall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 style="@style/QuestionOverall"
@@ -83,7 +81,7 @@
 	        android:id="@+id/btn_prev"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="Vorherige"
+	        android:text="@string/archive_btn_prev"
 	        android:layout_alignParentLeft="true"
 	        android:onClick="navigationClick"
 	        />
@@ -91,7 +89,7 @@
 	        android:id="@+id/btn_next"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="Nächste"
+	        android:text="@string/archive_btn_next"
 	        android:layout_alignParentRight="true"
 	        android:onClick="navigationClick"
 	        />
@@ -118,28 +116,38 @@
 	            android:id="@+id/tx_question"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:text="Archiv"
 	            />
 		</ScrollView>
-	     <ImageView
-	         android:id="@+id/img_reload_arrows"
-	         android:layout_width="wrap_content"
-	         android:layout_height="wrap_content"
-	         android:layout_centerInParent="true" 
-	         android:src="@drawable/ic_reload_arrows"
-	         android:contentDescription="Archiv laden"
-	         android:background="@null"
-	         android:visibility="gone"
-	         />
 	     <TextView 
 	         android:id="@+id/tx_empty_info"
 	         android:layout_height="wrap_content"
 	         android:layout_width="wrap_content"
 	         android:layout_centerInParent="true"
 	         android:visibility="gone"
-	         android:text="Das Archiv ist leer"
+	         android:text="@string/archive_empty"
 	         />
 	</RelativeLayout>
-	
+	<RelativeLayout
+	    android:layout_alignParentBottom="true"
+	    android:id="@+id/rl_progressbar"
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+
+	    style="@style/ProgressbarList"
+	    >
+	    <ProgressBar
+	        android:id="@+id/progressbar"
+	        android:layout_alignParentLeft="true"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        style="@android:style/Widget.ProgressBar.Small"/>
+	    <TextView 
+	        android:layout_toRightOf="@id/progressbar"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/progress_archive_loading"
+	        style="@style/ProgressbarText"
+	        />
+	</RelativeLayout>
 
 </RelativeLayout>
