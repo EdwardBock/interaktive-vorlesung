@@ -57,20 +57,27 @@ public class ListSessions extends Activity implements OnItemClickListener {
 		pw = getIntent().getExtras().getString(Constants.EXTRA_COURSE_PW);
 
 		// TODO: Semester und Jahr sind noch Dummie Werte
-		courseObj = new Course(id, title, reader, "WS", "2013");
+		courseObj = new Course(id, title, reader, "", "");
 
 		lv_sessions = (ListView) findViewById(R.id.lv_sessions);
 		tx_details = (TextView) findViewById(R.id.tx_course_details);
 		sv_details = (ScrollView) findViewById(R.id.sv_course_details);
 		btn_action_info = (ImageButton) findViewById(R.id.btn_action_info);
-
+		lv_sessions.setEmptyView(findViewById(R.id.tx_listsessions_emptyList));
+		
 		sessionListAdapter = new SessionsArrayAdapter(this,
 				R.layout.session_row, new ArrayList<Session>());
 		lv_sessions.setAdapter(sessionListAdapter);
 		jsonLoader = new JSONLoader(new Messenger(new SessionsJSONHandler(
-				(SessionsArrayAdapter) lv_sessions.getAdapter())));
+				(SessionsArrayAdapter) lv_sessions.getAdapter(),findViewById(R.id.rl_progressbar))));
 		jsonLoader.startGetSessionsByCourse(id);
-
+		
+		if (tx_details.getText().length() < 1) {
+			tx_details.setText("Lädt Daten");
+			jsonLoader = new JSONLoader(new Messenger(new CourseInfoJSONHandler(tx_details)));
+			jsonLoader.startGetCoursesInfo(id);
+		}
+		
 	}
 
 	@Override
@@ -98,18 +105,13 @@ public class ListSessions extends Activity implements OnItemClickListener {
 			toggleInfo();
 			break;
 		case R.id.actionbar_back:
+		case R.id.actionbar_logo:
 			finish();
 			break;
 		}
 	}
 
 	private void toggleInfo() {
-		
-		if (tx_details.getText().length() < 1) {
-			tx_details.setText("Lädt Daten");
-			jsonLoader = new JSONLoader(new Messenger(new CourseInfoJSONHandler(tx_details)));
-			jsonLoader.startGetCoursesInfo(id);
-		}
 		if (sv_details.getVisibility() == View.GONE) {
 			Log.d("Toggle", "Visible");
 			sv_details.setVisibility(View.VISIBLE);

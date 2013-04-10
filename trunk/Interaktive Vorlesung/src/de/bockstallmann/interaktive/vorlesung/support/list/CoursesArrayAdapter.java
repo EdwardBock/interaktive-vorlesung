@@ -28,10 +28,12 @@ public class CoursesArrayAdapter extends ArrayAdapter<Course> implements Filtera
 	private SQLDataHandler sqlData;
 	private Comparator<Course> comperator;
 	private Filter filter;
+	
 
 	public CoursesArrayAdapter(final Context theContext, final int resourceId, final ArrayList<Course> dbItems, SQLDataHandler data) {
 		super(theContext, resourceId, dbItems);
 		this.context = theContext;
+		
 		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);	
 		comperator = new Comparator<Course>() {
 			@Override

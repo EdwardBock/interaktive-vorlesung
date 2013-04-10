@@ -59,9 +59,30 @@
         />
         
     </RelativeLayout>
-    
+    <RelativeLayout
+	    android:layout_alignParentBottom="true"
+	    android:id="@+id/rl_progressbar"
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:visibility="gone"
+	    style="@style/ProgressbarList"
+	    >
+	    <ProgressBar
+	        android:id="@+id/progressbar"
+	        android:layout_alignParentLeft="true"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        style="@android:style/Widget.ProgressBar.Small"/>
+	    <TextView 
+	        android:layout_toRightOf="@id/progressbar"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/progress_sessions_loading"
+	        style="@style/ProgressbarText"
+	        />
+	</RelativeLayout>
     <ListView 
-		android:layout_alignParentBottom="true"
+		android:layout_above="@id/rl_progressbar"
 		android:layout_below="@id/actionbar"
 		android:id="@+id/lv_sessions" 
 		android:layout_width="fill_parent" 
@@ -70,19 +91,29 @@
 		android:background="@drawable/listview_rounded_corner"
 		android:layout_margin="5dp"
 		/>
+    <TextView 
+        android:id="@+id/tx_listsessions_emptyList"
+        android:layout_width="fill_parent" 
+   		android:layout_height="fill_parent" 
+        android:text="@string/list_sessions_emtpyList"
+        android:textSize="15sp"
+        android:textColor="@color/font_on_bg_lgiht_grey"
+        android:gravity="center_horizontal|center_vertical"
+        />
     <ScrollView
         android:id="@+id/sv_course_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/actionbar"
         android:layout_alignParentBottom="true"
-        android:background="#ffffff"
         android:visibility="gone"
+        style="@style/SVSessionDetails"
         >
 	    <TextView 
 	        android:id="@+id/tx_course_details"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
+	        style="@style/SessionDetails"
 	        />
     </ScrollView>
     

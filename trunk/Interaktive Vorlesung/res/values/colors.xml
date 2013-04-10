@@ -7,6 +7,7 @@
     <color name="btn_answer_unselected_font">#ffffff</color>
     
     <color name="bg_light_grey">#dedede</color>
+    <color name="font_on_bg_lgiht_grey">#868695</color>
     
     <color name="bg_sessionlist">@color/white</color>
 </resources>

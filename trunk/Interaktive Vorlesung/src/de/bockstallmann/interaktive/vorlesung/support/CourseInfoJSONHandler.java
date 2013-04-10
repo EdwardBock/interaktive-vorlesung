@@ -1,5 +1,8 @@
 package de.bockstallmann.interaktive.vorlesung.support;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
@@ -15,7 +18,13 @@ public class CourseInfoJSONHandler extends Handler {
 	@Override
 	public void handleMessage(Message msg) {
 		if (msg.arg1 == Constants.MSG_SUCCESS) {
-			cd.setText( msg.obj.toString());
+			JSONArray json = (JSONArray) msg.obj;
+			try {
+				cd.setText( json.getJSONObject(0).getString("info"));
+			} catch (JSONException e) {
+				cd.setText( msg.obj.toString());
+				e.printStackTrace();
+			}
 		}
 	};
 }

@@ -56,7 +56,8 @@ public class SessionsArrayAdapter extends ArrayAdapter<Session> {
 	public void addSessions(JSONArray serverDaten) {
 		for (int i = 0; i < serverDaten.length(); i++) {
 			try {
-				items.add(new Session(serverDaten.getJSONObject(i).getInt("_id"),serverDaten.getJSONObject(i).getString("room"),
+				items.add(new Session(serverDaten.getJSONObject(i).getInt("_id"),
+						serverDaten.getJSONObject(i).getString("room"),
 						serverDaten.getJSONObject(i).getString("info"),
 						serverDaten.getJSONObject(i).getString("date_begin"),
 						serverDaten.getJSONObject(i).getString("date_end"),

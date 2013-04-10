@@ -13,6 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.bockstallmann.interaktive.vorlesung.R;
@@ -55,7 +56,7 @@ public class ListCourses extends FragmentActivity implements OnItemClickListener
  		list.setAdapter(courseListAdapter);
 		list.setOnItemClickListener(this);
 		list.setOnItemLongClickListener(this);
-		courseListListener = new CourseListListener(list, et_search);
+		courseListListener = new CourseListListener(list, et_search, findViewById(R.id.rl_progressbar));
         
 	}
 	@Override
