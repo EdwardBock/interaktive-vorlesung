@@ -14,24 +14,26 @@
 
     <!-- ListCourses -->
     <string name="title_activity_list_courses">Meine Vorlesungen</string>
-    <string name="list_courses_emptyList">Zum hinzufügen einer Vorlesung, das + drücken!</string>
+    <string name="list_courses_emptyList">Es wurden keine Kurse gefunden</string>
     <!-- ENDE ListCourses -->
-
+	
 
     <!-- SearchCourse -->
     <string name="title_activity_search_course">Vorlesung hinzufügen</string>
     <string name="et_empty">Suchen</string>
     <!-- ENDE SearchCourse -->
-
-
+	
+	<string name="list_sessions_emtpyList">Es wurden keine Termine gefunden</string>
+	<string name="progress_sessions_loading">Termine werden geladen&#8230;</string>
+	
     <!-- CoursePreview -->
+    <string name="progress_courses_loading">Kurse werden geladen&#8230;</string>
     <string name="btn_course_add">Vorlesung hinzufügen</string>
     <string name="dialog_pw_title">Die Vorlesung ist Passwortgeschützt!</string>
     <string name="dialog_pw_hint">Passwort</string>
     <string name="dialog_btn_ok">Hinzufügen</string>
     <string name="dialog_btn_cancel">Abbrechen</string>
     <!-- Ende CoursePreview -->
-
 
     <!-- CourseDetails -->
     <string name="title_activity_course_details">CourseDetails</string>

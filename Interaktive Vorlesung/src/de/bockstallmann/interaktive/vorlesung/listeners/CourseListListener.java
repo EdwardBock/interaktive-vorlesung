@@ -3,10 +3,12 @@ package de.bockstallmann.interaktive.vorlesung.listeners;
 import android.os.Messenger;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesJSONHandler;
@@ -17,11 +19,15 @@ public class CourseListListener implements OnScrollListener, TextWatcher {
 	private EditText et_search;
 	private JSONLoader jsonLoader;
 	private int page = 1;
-	public CourseListListener(final ListView list, EditText search) {
+	private RelativeLayout rl_progressbar;
+	
+	
+	public CourseListListener(final ListView list, EditText search, View progressbar) {
 		lv_courses = list;
 		lv_courses.setOnScrollListener(this);
 		et_search = search;
 		et_search.addTextChangedListener(this);
+		rl_progressbar = (RelativeLayout)progressbar;
 		loadNextCourses();
 		
 	}
@@ -50,7 +56,8 @@ public class CourseListListener implements OnScrollListener, TextWatcher {
 	}
 	
 	private void loadNextCourses(){
-		jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler((CoursesArrayAdapter)lv_courses.getAdapter())));
+		rl_progressbar.setVisibility(View.VISIBLE);
+		jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler((CoursesArrayAdapter)lv_courses.getAdapter(), rl_progressbar)));
 		if(et_search.getText().toString() == ""){
 			jsonLoader.startGetCourses(page++);
 		} else {

@@ -32,7 +32,7 @@ public class TransactionType extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode == RESULT_OK){
-
+			// TODO: PW abfragen und favorit speichern
 			String contents = data.getStringExtra("SCAN_RESULT");
             String format = data.getStringExtra("SCAN_RESULT_FORMAT");
                 // Handle successful scan
