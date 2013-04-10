@@ -44,6 +44,8 @@ public class TransactionType extends Activity {
                finish(); 
            }
            
+		} else if(resultCode == RESULT_CANCELED){
+			finish();		
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
