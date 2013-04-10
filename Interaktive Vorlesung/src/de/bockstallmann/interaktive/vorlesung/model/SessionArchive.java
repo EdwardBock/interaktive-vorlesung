@@ -13,12 +13,12 @@ public class SessionArchive {
 
 	public SessionArchive() {
 		collections = new ArrayList<Collection>();
-		active_collection = 0;
-		active_question = 0;
+		active_collection = -1;
+		active_question = -1;
 		count_overall_questions = -1;
 	}
 
-	public void setCollection(JSONObject jsonObject) {
+	public void addCollection(JSONObject jsonObject) {
 		ArrayList<ArchiveQuestion> questions = new ArrayList<ArchiveQuestion>();
 		try {
 			JSONArray questionsJSON = jsonObject.getJSONArray("questions");

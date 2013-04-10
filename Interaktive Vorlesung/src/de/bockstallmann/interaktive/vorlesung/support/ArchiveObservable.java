@@ -26,7 +26,7 @@ public class ArchiveObservable {
 		session_archive = new SessionArchive();
 		for (int i = 0; i < serverDaten.length(); i++) {
 			try {
-				session_archive.setCollection(serverDaten.getJSONObject(i));
+				session_archive.addCollection(serverDaten.getJSONObject(i));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
