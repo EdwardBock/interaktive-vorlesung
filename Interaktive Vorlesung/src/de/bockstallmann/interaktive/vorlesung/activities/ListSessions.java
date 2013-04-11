@@ -58,7 +58,9 @@ public class ListSessions extends Activity implements OnItemClickListener {
 
 		// TODO: Semester und Jahr sind noch Dummie Werte
 		courseObj = new Course(id, title, reader, "", "");
-
+		
+		((TextView)findViewById(R.id.actionbar_title)).setText(title);
+		
 		lv_sessions = (ListView) findViewById(R.id.lv_sessions);
 		tx_details = (TextView) findViewById(R.id.tx_course_details);
 		sv_details = (ScrollView) findViewById(R.id.sv_course_details);

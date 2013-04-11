@@ -57,6 +57,11 @@ public class Questions extends Activity implements OnClickListener,
 				(TextView)findViewById(R.id.question_counter),
 				(TextView)findViewById(R.id.question_overall)));
 	}
+	@Override
+	protected void onResume() {
+		loadQuestions();
+		super.onResume();
+	}
 
 	@Override
 	public void update(String command, CollectionObservable collectionObservable) {
@@ -69,6 +74,9 @@ public class Questions extends Activity implements OnClickListener,
 				showReloadButton();
 				Toast.makeText(this, "Es sind aktuell keine Fragen für dich vorhanden.", Toast.LENGTH_SHORT).show();
 			}
+		} else if(command == CollectionObservable.CMD_CLOSED){
+			showReloadButton();
+			Toast.makeText(this, "Die Fragerunde wurde bereits geschlossen.", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -94,16 +102,18 @@ public class Questions extends Activity implements OnClickListener,
 		case R.id.btn_reload_arrows:
 		case R.id.btn_reload_text:
 			if(loading) break;
-			loading = true;
-			startLoadingState();
-			jsonLoader = new JSONLoader(new Messenger(
-					new CollectionJSONHandler(collection)));
-			jsonLoader.startGetCollectionBySession(id);
-			
+			loadQuestions();
 			break;
 		default:
 			break;
 		}
+	}
+	private void loadQuestions(){
+		loading = true;
+		startLoadingState();
+		jsonLoader = new JSONLoader(new Messenger(
+				new CollectionJSONHandler(collection)));
+		jsonLoader.startGetCollectionBySession(id);
 	}
 
 	/**

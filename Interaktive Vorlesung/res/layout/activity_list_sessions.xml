@@ -32,7 +32,6 @@
             />
         
         
-        
         <ImageButton
         android:id="@+id/btn_action_info"
         android:src="@drawable/ic_menu_info"
@@ -57,7 +56,15 @@
         android:layout_marginRight="4dp"
         android:onClick="actionbarClick"
         />
-        
+        <TextView
+            android:id="@+id/actionbar_title" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/actionbar_logo"
+        	android:layout_toLeftOf="@id/btn_action_fav"
+        	android:layout_alignBottom="@id/actionbar_logo"
+        	style="@style/Titlebar.Title"
+            />
     </RelativeLayout>
     <RelativeLayout
 	    android:layout_alignParentBottom="true"
