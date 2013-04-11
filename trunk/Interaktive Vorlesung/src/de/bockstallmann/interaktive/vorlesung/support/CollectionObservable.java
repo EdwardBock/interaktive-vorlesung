@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.os.Messenger;
+import android.widget.Toast;
 import de.bockstallmann.interaktive.vorlesung.interfaces.CollectionObserverInterface;
 import de.bockstallmann.interaktive.vorlesung.model.Question;
 
@@ -20,7 +21,7 @@ public class CollectionObservable {
 	private SQLDataHandler dataHander;
 	//private JSONObject jsonCollection;
 	public static final String A = "a", B = "b", C = "c", D = "d", NONE = "none";
-	public static final String CMD_LIST = "list", CMD_ANSWER = "answer";
+	public static final String CMD_LIST = "list", CMD_ANSWER = "answer", CMD_CLOSED = "closed";
 
 	public CollectionObservable(SQLDataHandler dh) {
 		questions = new ArrayList<Question>();
@@ -97,6 +98,17 @@ public class CollectionObservable {
 		chosenAnswer = NONE;
 		activeQuestion = null;
 		notifyListChanged();
+	}
+
+	public void closeCollection() {
+		chosenAnswer = NONE;
+		activeQuestion = null;
+		questions.clear();
+		notifyCollectionClosed();
+	}
+
+	private void notifyCollectionClosed() {
+		notifyAll(CMD_CLOSED);		
 	}
 
 	private void notifyListChanged(){

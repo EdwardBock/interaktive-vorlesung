@@ -19,7 +19,7 @@ public class CounterObserver implements CollectionObserverInterface {
 
 	@Override
 	public void update(String command, CollectionObservable collection) {
-		if(command == CollectionObservable.CMD_LIST){
+		if(command == CollectionObservable.CMD_LIST || command == CollectionObservable.CMD_CLOSED){
 			o = collection.size();
 			if(c >= o){
 				if(o == 0){

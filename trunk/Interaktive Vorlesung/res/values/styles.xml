@@ -11,10 +11,10 @@
 	 <style name="Titlebar.Logo">
 	     <item name="android:layout_marginLeft">14dp</item>
 	 </style>
-	 <style name="Titlebar.Title">
+	 <style name="Titlebar.Title" parent="@android:style/TextAppearance.Small">
 	     <item name="android:textColor">#ffffff</item>
 	     <item name="android:layout_marginLeft">1dp</item>
-	     <item name="android:textSize">18sp</item>
+	     <item name="android:singleLine">true</item>
 	 </style>
 	 
     <style name="CourseRow">
