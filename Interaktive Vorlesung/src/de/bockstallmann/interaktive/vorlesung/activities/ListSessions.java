@@ -152,14 +152,16 @@ public class ListSessions extends Activity implements OnItemClickListener {
 			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
 			intent.putExtra(Constants.EXTRA_COURSE_PW, pw);
 			startActivity(intent);
-		} else if(session.isActive()) {
+		} else{
+			if(!session.isActive()) {
+				Toast.makeText(this, "Vorlesung wurde noch nicht gestartet.", Toast.LENGTH_SHORT).show();
+			}
 			Intent intent = new Intent(this, Questions.class);
 			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
 			intent.putExtra(Constants.EXTRA_COURSE_PW, pw);
 			startActivity(intent);
-		} else {
-			Toast.makeText(this, "Vorlesung wurde noch nicht gestartet.", Toast.LENGTH_SHORT).show();
-		}
+		} 
+		
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

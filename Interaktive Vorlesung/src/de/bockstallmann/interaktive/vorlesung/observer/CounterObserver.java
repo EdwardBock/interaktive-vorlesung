@@ -10,10 +10,10 @@ public class CounterObserver implements CollectionObserverInterface {
 
 	public CounterObserver(TextView counter, TextView overall){
 		tx_counter = counter;
-		tx_counter.setText("");
+		tx_counter.setText("0");
 		c = 0;
 		tx_overview = overall;
-		tx_overview.setText("");
+		tx_overview.setText("0");
 		o = 0;
 	}
 
