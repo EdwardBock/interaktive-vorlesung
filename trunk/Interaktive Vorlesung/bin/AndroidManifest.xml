@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.bockstallmann.interaktive.vorlesung.activities.TransactionType"
+            android:name=".activities.QRHandle"
             android:icon="@drawable/ic_launcher_qr_1"
             android:label="@string/launcher_title_qr" >
             <intent-filter>
