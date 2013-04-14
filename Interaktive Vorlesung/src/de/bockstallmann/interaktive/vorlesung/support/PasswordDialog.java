@@ -14,7 +14,7 @@ public class PasswordDialog extends AlertDialog {
 	    this.setMessage("Bitte gib das Passwort ein:");
 	    this.setView(pw);
 	    this.setButton("Ok", okClick);
-	    this.setButton("Abbrechen",new OnClickListener() {
+	    this.setButton2("Abbrechen",new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 			}
