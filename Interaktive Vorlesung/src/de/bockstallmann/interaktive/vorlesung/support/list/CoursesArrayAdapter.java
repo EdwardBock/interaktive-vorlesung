@@ -62,12 +62,24 @@ public class CoursesArrayAdapter extends ArrayAdapter<Course> implements Filtera
 		Course course = displayItems.get(position);
 
 		((TextView)view.findViewById(R.id.tx_course_row_title)).setText(course.getTitle());
-		((TextView)view.findViewById(R.id.tx_course_row_description)).setText(course.getSemester()+course.getJahr()+"; "+course.getReader());
+		((TextView)view.findViewById(R.id.tx_course_row_description)).setText(course.getSemester()+course.getYear()+"; "+course.getReader());
 
+		// lockicon
+		ImageView ic_lock = (ImageView)view.findViewById(R.id.ic_lock);
+		if(course.hasPassword()){ 
+			ic_lock.setVisibility(View.VISIBLE);
+			if(sqlData.hasCourseId(course.getID())){
+				ic_lock.setImageResource(R.drawable.ic_lock_open);
+			}
+		}
+		
 		// Favicon
 		ImageView favicon = (ImageView) view.findViewById(R.id.ic_fav);	
-
-		favicon.setOnClickListener(new FavorizeClickListener(course, favicon, sqlData));
+		
+		
+		favicon.setOnClickListener(new FavorizeClickListener(context,course, favicon, ic_lock, sqlData));
+		
+		
 		
 		return view;
 	}
@@ -145,5 +157,12 @@ public class CoursesArrayAdapter extends ArrayAdapter<Course> implements Filtera
 
 	          return results;
 	    }
-	  }	
+	  }
+
+	public Course getCourseById(int course_id) {
+		for (Course course : allItems) {
+			if(course_id == course.getID()) return course;
+		}
+		return null;
+	}	
 }

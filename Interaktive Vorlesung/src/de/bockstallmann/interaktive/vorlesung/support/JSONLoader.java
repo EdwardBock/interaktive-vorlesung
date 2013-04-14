@@ -67,6 +67,10 @@ public class JSONLoader extends Thread {
 		scriptPath = "script_courses_info.php?id="+id;
 		this.start();
 	}
+	public void startGetCourse(final int id){
+		scriptPath = "script_get_course.php?id="+id;
+		this.start();
+	}
 	public void startGetSessionsByCourse(final int id){
 		scriptPath = "script_all_sessions.php?id="+id;
 		this.start();

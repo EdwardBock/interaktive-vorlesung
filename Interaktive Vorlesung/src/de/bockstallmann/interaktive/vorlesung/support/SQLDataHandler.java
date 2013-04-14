@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLDataHandler extends SQLiteOpenHelper {
 
-	private final static int DB_VERSION = 4;
+	private final static int DB_VERSION = 5;
 
 	public SQLDataHandler(final Context context) {
 		super(context, Constants.DB_NAME, null, DB_VERSION);
@@ -28,8 +28,11 @@ public class SQLDataHandler extends SQLiteOpenHelper {
 	public void onUpgrade(final SQLiteDatabase db, final int oldVersion,
 			final int newVersion) {
 		// erst bei einem Update von notwendig
-		if(oldVersion == 3){ 
+		if(oldVersion < 4){ 
 			db.execSQL(Constants.CREATE_TABLE_QUESTS);
+		}
+		if(oldVersion < 5){
+			db.execSQL("ALTER TABLE "+Constants.TABLE_COURSES+" ADD "+Constants.TABLE_COURSE_PW+" VARCHAR(30)" );
 		}
 		onCreate(db);
 	}
@@ -51,7 +54,8 @@ public class SQLDataHandler extends SQLiteOpenHelper {
 			values.put(Constants.TABLE_COURSE_TITLE, course.getTitle());
 			values.put(Constants.TABLE_COURSE_READER, course.getReader());
 			values.put(Constants.TABLE_COURSE_SEMESTER, course.getSemester());
-			values.put(Constants.TABLE_COURSE_YEAR, course.getJahr());
+			values.put(Constants.TABLE_COURSE_YEAR, course.getYear());
+			values.put(Constants.TABLE_COURSE_PW, course.getPassword());
 
 			ret = db.insert(Constants.TABLE_COURSES, null, values);
 			db.close();
@@ -64,7 +68,7 @@ public class SQLDataHandler extends SQLiteOpenHelper {
 	public ArrayList<Course> getCourses() {
 		SQLiteDatabase db = this.getReadableDatabase();
 		ArrayList<Course> courses = new ArrayList<Course>();
-		String sqlQuery = "SELECT _id,title,reader,semester,year FROM "
+		String sqlQuery = "SELECT _id,title,reader,semester,year,pw FROM "
 				+ Constants.TABLE_COURSES;
 
 		Cursor cursor = db.rawQuery(sqlQuery, null);
@@ -73,7 +77,8 @@ public class SQLDataHandler extends SQLiteOpenHelper {
 				Course course = new Course(
 						Integer.parseInt(cursor.getString(0)),
 						cursor.getString(1), cursor.getString(2),
-						cursor.getString(3), cursor.getString(4));
+						cursor.getString(3), cursor.getString(4),
+						cursor.getString(5));
 				courses.add(course);
 			} while (cursor.moveToNext());
 		}

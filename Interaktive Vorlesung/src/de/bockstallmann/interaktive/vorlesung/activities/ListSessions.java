@@ -32,11 +32,7 @@ import de.bockstallmann.interaktive.vorlesung.support.list.SessionsJSONHandler;
 
 public class ListSessions extends Activity implements OnItemClickListener {
 
-	private int id;
-	private String pw;
 	private FavorizeActionbarListener actionbar_fav_listener;
-	private String title;
-	private String reader;
 	private Course courseObj;
 	private ListView lv_sessions;
 	private SessionsArrayAdapter sessionListAdapter;
@@ -49,17 +45,24 @@ public class ListSessions extends Activity implements OnItemClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_sessions);
-
-		id = getIntent().getExtras().getInt(Constants.EXTRA_COURSE_ID);
-		title = getIntent().getExtras().getString(Constants.EXTRA_COURSE_TITLE);
-		reader = getIntent().getExtras().getString(
-				Constants.EXTRA_COURSE_READER);
-		pw = getIntent().getExtras().getString(Constants.EXTRA_COURSE_PW);
-
-		// TODO: Semester und Jahr sind noch Dummie Werte
-		courseObj = new Course(id, title, reader, "", "");
 		
-		((TextView)findViewById(R.id.actionbar_title)).setText(title);
+		if(getIntent().hasExtra(Constants.EXTRA_SESSION_ID)){
+			
+			Intent intent = new Intent(this, Questions.class);
+			intent.putExtra(Constants.EXTRA_SESSION_ID, getIntent().getExtras().getInt(Constants.EXTRA_SESSION_ID));
+			startActivity(intent);
+		}
+		
+		// TODO: Semester und Jahr sind noch Dummie Werte
+		courseObj = new Course(
+					getIntent().getExtras().getInt(Constants.EXTRA_COURSE_ID), 
+					getIntent().getExtras().getString(Constants.EXTRA_COURSE_TITLE), 
+					getIntent().getExtras().getString(Constants.EXTRA_COURSE_READER), 
+					getIntent().getExtras().getString(Constants.EXTRA_COURSE_SEMESTER),
+					getIntent().getExtras().getString(Constants.EXTRA_COURSE_YEAR),
+					getIntent().getExtras().getString(Constants.EXTRA_COURSE_PW));
+		
+		((TextView)findViewById(R.id.actionbar_title)).setText(courseObj.getTitle());
 		
 		lv_sessions = (ListView) findViewById(R.id.lv_sessions);
 		tx_details = (TextView) findViewById(R.id.tx_course_details);
@@ -72,12 +75,12 @@ public class ListSessions extends Activity implements OnItemClickListener {
 		lv_sessions.setAdapter(sessionListAdapter);
 		jsonLoader = new JSONLoader(new Messenger(new SessionsJSONHandler(
 				(SessionsArrayAdapter) lv_sessions.getAdapter(),findViewById(R.id.rl_progressbar))));
-		jsonLoader.startGetSessionsByCourse(id);
+		jsonLoader.startGetSessionsByCourse(courseObj.getID());
 		
 		if (tx_details.getText().length() < 1) {
 			tx_details.setText("Lädt Daten");
 			jsonLoader = new JSONLoader(new Messenger(new CourseInfoJSONHandler(tx_details)));
-			jsonLoader.startGetCoursesInfo(id);
+			jsonLoader.startGetCoursesInfo(courseObj.getID());
 		}
 		
 	}
@@ -85,7 +88,7 @@ public class ListSessions extends Activity implements OnItemClickListener {
 	@Override
 	protected void onResume() {
 		lv_sessions.setOnItemClickListener(this);
-		actionbar_fav_listener = new FavorizeActionbarListener(courseObj,
+		actionbar_fav_listener = new FavorizeActionbarListener(this, courseObj,
 				(ImageButton) findViewById(R.id.btn_action_fav),
 				new SQLDataHandler(this));
 		super.onResume();
@@ -150,7 +153,7 @@ public class ListSessions extends Activity implements OnItemClickListener {
 		if(session.isArchived()){
 			Intent intent = new Intent(this, QuestionsArchive.class);
 			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
-			intent.putExtra(Constants.EXTRA_COURSE_PW, pw);
+			intent.putExtra(Constants.EXTRA_COURSE_PW, courseObj.getPassword());
 			startActivity(intent);
 		} else{
 			if(!session.isActive()) {
@@ -158,7 +161,7 @@ public class ListSessions extends Activity implements OnItemClickListener {
 			}
 			Intent intent = new Intent(this, Questions.class);
 			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
-			intent.putExtra(Constants.EXTRA_COURSE_PW, pw);
+			intent.putExtra(Constants.EXTRA_COURSE_PW, courseObj.getPassword());
 			startActivity(intent);
 		} 
 		
