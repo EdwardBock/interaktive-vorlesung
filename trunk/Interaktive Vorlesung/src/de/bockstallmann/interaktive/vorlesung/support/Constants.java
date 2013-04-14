@@ -5,7 +5,7 @@ public interface Constants {
 	public static final int RC_ADD_COURSE = 1;
 	public static final int RC_QR_CODE = 2;
 
-	public static final String QR_REGEX = "(.+)&course\\|session=(\\d+)\\|(\\d+)";
+	public static final String QR_REGEX = "(.+)course\\|session=(\\d+)\\|(\\d+)";
 
 	/**
 	 * Extras für die Activity übergabe

@@ -58,23 +58,23 @@ public class ListCourses extends FragmentActivity implements
 
 		// Alle Datenbank Kurse anzeigen
 		db = new SQLDataHandler(this);
-		if(savedAdapter == null){
-			courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row,
-				db.getCourses(), db);
+		if (savedAdapter == null) {
+			courseListAdapter = new CoursesArrayAdapter(this,
+					R.layout.course_row, db.getCourses(), db);
 		} else {
 			courseListAdapter = savedAdapter;
 		}
-		
+
 		// Adapter und Listener übergeben
 		list.setAdapter(courseListAdapter);
 		list.setOnItemClickListener(this);
 		list.setOnItemLongClickListener(this);
 		courseListListener = new CourseListListener(list, et_search,
 				findViewById(R.id.rl_progressbar));
-		if(savedAdapter == null){
+		if (savedAdapter == null) {
 			courseListListener.loadNextCourses();
 		}
-		
+
 	}
 
 	@Override
@@ -103,31 +103,35 @@ public class ListCourses extends FragmentActivity implements
 			final int position, final long id) {
 		final Course course = (Course) parent.getItemAtPosition(position);
 		final Intent intent = buildSessionIntent(course);
-		if(course.hasPassword() && !db.hasCourseId(course.getID())){
-			final EditText pw= new EditText(this);
-			new PasswordDialog(this, course, pw, new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface dialog, int whichButton) {
-		            Editable value = pw.getText(); 
-		            if(course.getPassword().equals(value.toString())){
-		            	startActivity(intent);
-		            } else {
-		            	Toast.makeText(ListCourses.this, "Flasches Passwort!", Toast.LENGTH_SHORT).show();
-		            }
-		        }
-		    }).show();
+		if (course.hasPassword() && !db.hasCourseId(course.getID())) {
+			final EditText pw = new EditText(this);
+			new PasswordDialog(this, course, pw,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							Editable value = pw.getText();
+							if (course.getPassword().equals(value.toString())) {
+								startActivity(intent);
+							} else {
+								Toast.makeText(ListCourses.this,
+										"Flasches Passwort!",
+										Toast.LENGTH_SHORT).show();
+							}
+						}
+					}).show();
 		} else {
 			startActivity(intent);
 		}
 	}
-	
-	private Intent buildSessionIntent(Course course){
+
+	private Intent buildSessionIntent(Course course) {
 		Intent intent = new Intent(this, ListSessions.class)
-		.putExtra(Constants.EXTRA_COURSE_ID, course.getID())
-		.putExtra(Constants.EXTRA_COURSE_TITLE, course.getTitle())
-		.putExtra(Constants.EXTRA_COURSE_READER, course.getReader())
-		.putExtra(Constants.EXTRA_COURSE_SEMESTER, course.getSemester())
-		.putExtra(Constants.EXTRA_COURSE_YEAR, course.getYear())
-		.putExtra(Constants.EXTRA_COURSE_PW, course.getPassword());
+				.putExtra(Constants.EXTRA_COURSE_ID, course.getID())
+				.putExtra(Constants.EXTRA_COURSE_TITLE, course.getTitle())
+				.putExtra(Constants.EXTRA_COURSE_READER, course.getReader())
+				.putExtra(Constants.EXTRA_COURSE_SEMESTER, course.getSemester())
+				.putExtra(Constants.EXTRA_COURSE_YEAR, course.getYear())
+				.putExtra(Constants.EXTRA_COURSE_PW, course.getPassword());
 		return intent;
 	}
 
@@ -181,41 +185,57 @@ public class ListCourses extends FragmentActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
+			Matcher values;
 			switch (requestCode) {
 			case Constants.RC_QR_CODE:
 				String contents = data.getStringExtra("SCAN_RESULT");
 				//String format = data.getStringExtra("SCAN_RESULT_FORMAT");
-				if (!contents.matches(Constants.QR_REGEX)) {
-					Toast.makeText(this, "Konnte keine Präsentation finden...",	Toast.LENGTH_SHORT).show();
-					return;
+				Pattern pattern = Pattern.compile(Constants.QR_REGEX);
+				values = pattern.matcher(contents);
+				if(!values.find()) {
+					Toast.makeText(this, "Konnte keine Präsentation finden...",
+							Toast.LENGTH_SHORT).show();
 				}
-				
-				Matcher values = Pattern.compile(Constants.QR_REGEX).matcher(contents);
-				
-				String ret = "";
-				for(int i = 0; i < values.groupCount(); i++){
-					ret += values.group(i)+" ";
-				}
-				Toast.makeText(this, ret, Toast.LENGTH_LONG).show();
-				// TODO: PW abfragen und favorit speichern
-				if(true) return;
+
 				int session_id = Integer.parseInt(values.group(3));
-				int course_id = Integer.parseInt(values.group(2));				
-				Toast.makeText(this ,"Starte course: "+course_id+"  session: "+session_id, Toast.LENGTH_SHORT).show();
-				Course this_course = courseListAdapter.getCourseById(course_id);
-				if(this_course == null){
-					Toast.makeText(this ,"Veranstaltung nicht gefunden...", Toast.LENGTH_SHORT).show();
+				int course_id = Integer.parseInt(values.group(2));
+				
+				final Course this_course = savedAdapter.getCourseById(course_id);
+				if (this_course == null) {
+					Toast.makeText(this, "Veranstaltung nicht gefunden...",
+							Toast.LENGTH_SHORT).show();
 					return;
 				}
-				Intent intent = buildSessionIntent(this_course);
+				final Intent intent = buildSessionIntent(this_course);
 				intent.putExtra("session_id", session_id);
-				startActivity(intent);
+				if(this_course.hasPassword() && !db.hasCourseId(this_course.getID())){
+					
+					final EditText pw = new EditText(this);
+					new PasswordDialog(this, this_course, pw,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									Editable value = pw.getText();
+									if (this_course.getPassword().equals(value.toString())) {
+										startActivity(intent);
+									} else {
+										Toast.makeText(ListCourses.this,
+												"Flasches Passwort!",
+												Toast.LENGTH_SHORT).show();
+									}
+								}
+							}).show();
+					
+				} else {
+					startActivity(intent);
+				}
+
 				break;
 			default:
 				break;
 			}
 		} else {
-			Log.d("ListCourses", "ResultCode: "+resultCode);
+			Log.d("ListCourses", "ResultCode: " + resultCode);
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
