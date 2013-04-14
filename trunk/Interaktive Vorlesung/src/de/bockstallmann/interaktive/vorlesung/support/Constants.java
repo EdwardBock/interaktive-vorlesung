@@ -5,8 +5,7 @@ public interface Constants {
 	public static final int RC_ADD_COURSE = 1;
 	public static final int RC_QR_CODE = 2;
 
-	public static final String QR_REGEX = "https://play.google.com/store/apps/details?id=" +
-			"de.edwardbock#?t=W251bGwsMSwxLDIxMiwiZGUuZWR3YXJkYm9jayJd&session|\\d+";
+	public static final String QR_REGEX = "(.+)&course\\|session=(\\d+)\\|(\\d+)";
 
 	/**
 	 * Extras für die Activity übergabe
@@ -60,18 +59,15 @@ public interface Constants {
 			+ " VARCHAR(100)NOT NULL, "
 			+ TABLE_COURSE_SEMESTER
 			+ " VARCHAR(10)NOT NULL, "
-			+ TABLE_COURSE_YEAR + " VARCHAR(10)NOT NULL) "; /*
-															 * +
-															 * TABLE_COURSE_USER_ID
-															 * +" INTEGER," +
-															 * TABLE_COURSE_SEMESTER
-															 * +
-															 * " VARCHAR(10) NOT NULL,"
-															 * +
-															 * TABLE_COURSE_PW+
-															 * " VARCHAR(40)"
-															 * +" )";
-															 */
+			+ TABLE_COURSE_YEAR
+			+ " VARCHAR(10)NOT NULL, "
+			+ TABLE_COURSE_PW
+			+ " VARCHAR(30) ) "; /*
+								 * + TABLE_COURSE_USER_ID +" INTEGER," +
+								 * TABLE_COURSE_SEMESTER +
+								 * " VARCHAR(10) NOT NULL," + TABLE_COURSE_PW+
+								 * " VARCHAR(40)" +" )";
+								 */
 
 	public static final String TABLE_QUESTS = "questions";
 	public static final String TABLE_QUEST_ID = "_id";

@@ -1,9 +1,14 @@
 package de.bockstallmann.interaktive.vorlesung.activities;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -20,6 +25,7 @@ import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.listeners.CourseListListener;
 import de.bockstallmann.interaktive.vorlesung.model.Course;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
+import de.bockstallmann.interaktive.vorlesung.support.PasswordDialog;
 import de.bockstallmann.interaktive.vorlesung.support.SQLDataHandler;
 import de.bockstallmann.interaktive.vorlesung.support.list.CoursesArrayAdapter;
 
@@ -31,6 +37,7 @@ public class ListCourses extends FragmentActivity implements
 	private SQLDataHandler db;
 	private EditText et_search;
 	private CourseListListener courseListListener;
+	private CoursesArrayAdapter savedAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,20 +58,28 @@ public class ListCourses extends FragmentActivity implements
 
 		// Alle Datenbank Kurse anzeigen
 		db = new SQLDataHandler(this);
-		courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row,
+		if(savedAdapter == null){
+			courseListAdapter = new CoursesArrayAdapter(this, R.layout.course_row,
 				db.getCourses(), db);
-
+		} else {
+			courseListAdapter = savedAdapter;
+		}
+		
 		// Adapter und Listener übergeben
 		list.setAdapter(courseListAdapter);
 		list.setOnItemClickListener(this);
 		list.setOnItemLongClickListener(this);
 		courseListListener = new CourseListListener(list, et_search,
 				findViewById(R.id.rl_progressbar));
-
+		if(savedAdapter == null){
+			courseListListener.loadNextCourses();
+		}
+		
 	}
 
 	@Override
 	protected void onStop() {
+		savedAdapter = (CoursesArrayAdapter) list.getAdapter();
 		courseListListener.destroyListener();
 		super.onStop();
 	}
@@ -86,13 +101,34 @@ public class ListCourses extends FragmentActivity implements
 	@Override
 	public void onItemClick(final AdapterView<?> parent, final View view,
 			final int position, final long id) {
-		Course course = (Course) parent.getItemAtPosition(position);
-		Intent intent = new Intent(this, ListSessions.class);
-		intent.putExtra(Constants.EXTRA_COURSE_ID, course.getID());
-		intent.putExtra(Constants.EXTRA_COURSE_TITLE, course.getTitle());
-		intent.putExtra(Constants.EXTRA_COURSE_READER, course.getReader());
-		intent.putExtra(Constants.EXTRA_COURSE_PW, course.getPassword());
-		startActivity(intent);
+		final Course course = (Course) parent.getItemAtPosition(position);
+		final Intent intent = buildSessionIntent(course);
+		if(course.hasPassword() && !db.hasCourseId(course.getID())){
+			final EditText pw= new EditText(this);
+			new PasswordDialog(this, course, pw, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int whichButton) {
+		            Editable value = pw.getText(); 
+		            if(course.getPassword().equals(value.toString())){
+		            	startActivity(intent);
+		            } else {
+		            	Toast.makeText(ListCourses.this, "Flasches Passwort!", Toast.LENGTH_SHORT).show();
+		            }
+		        }
+		    }).show();
+		} else {
+			startActivity(intent);
+		}
+	}
+	
+	private Intent buildSessionIntent(Course course){
+		Intent intent = new Intent(this, ListSessions.class)
+		.putExtra(Constants.EXTRA_COURSE_ID, course.getID())
+		.putExtra(Constants.EXTRA_COURSE_TITLE, course.getTitle())
+		.putExtra(Constants.EXTRA_COURSE_READER, course.getReader())
+		.putExtra(Constants.EXTRA_COURSE_SEMESTER, course.getSemester())
+		.putExtra(Constants.EXTRA_COURSE_YEAR, course.getYear())
+		.putExtra(Constants.EXTRA_COURSE_PW, course.getPassword());
+		return intent;
 	}
 
 	/**
@@ -146,27 +182,34 @@ public class ListCourses extends FragmentActivity implements
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
-			case Constants.RC_ADD_COURSE:
-				Toast.makeText(this, "OK! Zur Datenbank hinzufügen",
-						Toast.LENGTH_SHORT).show();
-
-				// SQLite Datenbank füllen
-				// db.addCourse(new Course(db_id,title,reader,semester,year));
-				break;
-			case 0:
-				Intent intent = new Intent(this, Questions.class);
-
+			case Constants.RC_QR_CODE:
 				String contents = data.getStringExtra("SCAN_RESULT");
-				String format = data.getStringExtra("SCAN_RESULT_FORMAT");
+				//String format = data.getStringExtra("SCAN_RESULT_FORMAT");
 				if (!contents.matches(Constants.QR_REGEX)) {
-					Toast.makeText(this, "Konnte keine Präsentation finden...",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(this, "Konnte keine Präsentation finden...",	Toast.LENGTH_SHORT).show();
 					return;
 				}
+				
+				Matcher values = Pattern.compile(Constants.QR_REGEX).matcher(contents);
+				
+				String ret = "";
+				for(int i = 0; i < values.groupCount(); i++){
+					ret += values.group(i)+" ";
+				}
+				Toast.makeText(this, ret, Toast.LENGTH_LONG).show();
 				// TODO: PW abfragen und favorit speichern
-				int session_id = Integer.parseInt(contents.substring(contents.indexOf("|") + 1));
-				// TODO: ListSession starten und da Questions starten lassen
-				Log.d("ListCourses","Starte session "+session_id);
+				if(true) return;
+				int session_id = Integer.parseInt(values.group(3));
+				int course_id = Integer.parseInt(values.group(2));				
+				Toast.makeText(this ,"Starte course: "+course_id+"  session: "+session_id, Toast.LENGTH_SHORT).show();
+				Course this_course = courseListAdapter.getCourseById(course_id);
+				if(this_course == null){
+					Toast.makeText(this ,"Veranstaltung nicht gefunden...", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				Intent intent = buildSessionIntent(this_course);
+				intent.putExtra("session_id", session_id);
+				startActivity(intent);
 				break;
 			default:
 				break;

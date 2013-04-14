@@ -23,8 +23,7 @@ import de.bockstallmann.interaktive.vorlesung.support.SQLDataHandler;
 
 public class Questions extends Activity implements OnClickListener,
 		CollectionObserverInterface {
-
-	private String pw;
+	
 	private int id;
 	private CollectionObservable collection;
 	private ImageButton btn_reload;
@@ -38,7 +37,6 @@ public class Questions extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_questions);
 
-		pw = getIntent().getExtras().getString(Constants.EXTRA_COURSE_PW);
 		id = getIntent().getExtras().getInt(Constants.EXTRA_SESSION_ID);
 
 		// layout elements

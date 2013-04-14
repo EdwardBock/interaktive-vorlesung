@@ -27,9 +27,7 @@ public class CourseListListener implements OnScrollListener, TextWatcher {
 		lv_courses.setOnScrollListener(this);
 		et_search = search;
 		et_search.addTextChangedListener(this);
-		rl_progressbar = (RelativeLayout)progressbar;
-		loadNextCourses();
-		
+		rl_progressbar = (RelativeLayout)progressbar;		
 	}
 	// Methoden für Scroll Listener
 	@Override
@@ -55,7 +53,7 @@ public class CourseListListener implements OnScrollListener, TextWatcher {
 		adapter.getFilter().filter(s);
 	}
 	
-	private void loadNextCourses(){
+	public void loadNextCourses(){
 		rl_progressbar.setVisibility(View.VISIBLE);
 		jsonLoader = new JSONLoader(new Messenger(new CoursesJSONHandler((CoursesArrayAdapter)lv_courses.getAdapter(), rl_progressbar)));
 		if(et_search.getText().toString() == ""){

@@ -30,7 +30,7 @@ public class Course {
 		j = jahr;
 	}
 
-	public String getJahr(){
+	public String getYear(){
 		return j;
 	}
 	
@@ -50,7 +50,7 @@ public class Course {
 		return s;
 	}
 	public boolean hasPassword(){
-		if(pw.equals("")) return false;
+		if(pw == null || pw.equals("")) return false;
 		return true;
 	}
 	public String getPassword(){
