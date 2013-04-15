@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import de.bockstallmann.interaktive.vorlesung.R;
 import de.bockstallmann.interaktive.vorlesung.model.Session;
@@ -42,12 +43,13 @@ public class SessionsArrayAdapter extends ArrayAdapter<Session> {
 		((TextView)view.findViewById(R.id.tx_session_row_title)).setText(session.getTitle());
 		((TextView)view.findViewById(R.id.tx_session_row_description)).setText(session.getRoom()+"; "+session.getBegin()+"-"+session.getEnd());
 		
+		
 		if(session.isArchived()){
-			((TextView)view.findViewById(R.id.tx_session_state)).setText("archiv");
+			((ImageView)view.findViewById(R.id.iv_session_state)).setBackgroundResource(R.drawable.ic_archive);
 		} else if(session.isActive()){
-			((TextView)view.findViewById(R.id.tx_session_state)).setText("active");
+			((ImageView)view.findViewById(R.id.iv_session_state)).setBackgroundResource(R.drawable.ic_online);
 		} else {
-			((TextView)view.findViewById(R.id.tx_session_state)).setText("inactive");
+			((ImageView)view.findViewById(R.id.iv_session_state)).setBackgroundResource(R.drawable.ic_offline);
 		}
 		
 		return view;
