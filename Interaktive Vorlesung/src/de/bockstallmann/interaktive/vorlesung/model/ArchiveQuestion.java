@@ -22,5 +22,8 @@ public class ArchiveQuestion extends Question {
 	public int getCount4(){
 		return this.count4;
 	}
+	public int getOverallCount(){
+		return this.count1+this.count2+this.count3+this.count4;
+	}
 
 }

@@ -10,4 +10,5 @@
     <color name="font_on_bg_lgiht_grey">#868695</color>
     
     <color name="bg_sessionlist">@color/white</color>
+    <color name="bar_blue">#0068d1</color>
 </resources>

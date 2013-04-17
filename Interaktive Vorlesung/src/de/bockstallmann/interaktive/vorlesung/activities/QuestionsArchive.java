@@ -7,6 +7,7 @@ import android.os.Messenger;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import de.bockstallmann.interaktive.vorlesung.support.ArchiveObservable;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.SessionArchiveJSONHandler;
+import de.bockstallmann.interaktive.vorlesung.view.BarView;
 
 public class QuestionsArchive extends Activity implements
 		ArchiveObserverInterface {
@@ -31,6 +33,7 @@ public class QuestionsArchive extends Activity implements
 	private View question_view;
 	private TextView tx_actionbar;
 	private RelativeLayout rl_progressbar;
+	private LayoutInflater li;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,9 +48,9 @@ public class QuestionsArchive extends Activity implements
 		archiveObservable.addObserver(new ArchiveCounterObserver(
 				(TextView) findViewById(R.id.question_counter),
 				(TextView) findViewById(R.id.question_overall)));
-		
+
 		tx_actionbar = (TextView) findViewById(R.id.tx_actionbar);
-		
+
 		rl_progressbar = (RelativeLayout) findViewById(R.id.rl_progressbar);
 		tx_empty_info = (TextView) findViewById(R.id.tx_empty_info);
 		sv_content = (ScrollView) findViewById(R.id.sv_content);
@@ -56,6 +59,8 @@ public class QuestionsArchive extends Activity implements
 		jsonLoader = new JSONLoader(new Messenger(
 				new SessionArchiveJSONHandler(archiveObservable)));
 		jsonLoader.startGetSessionArchive(id);
+
+		
 
 		showLoading();
 
@@ -105,10 +110,11 @@ public class QuestionsArchive extends Activity implements
 	}
 
 	private void updateActionbarText() {
-		if(archiveObservable.countQuestions() <=0){
+		if (archiveObservable.countQuestions() <= 0) {
 			tx_actionbar.setText("");
 		} else {
-			tx_actionbar.setText(archiveObservable.getActiveCollection().getTitle());
+			tx_actionbar.setText(archiveObservable.getActiveCollection()
+					.getTitle());
 		}
 	}
 
@@ -137,35 +143,53 @@ public class QuestionsArchive extends Activity implements
 
 	private void displayQuestion() {
 		sv_content.removeAllViews();
-		if (question_view == null) {
-			LayoutInflater li = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			question_view = li.inflate(R.layout.archive_question, null);
+		if (li == null) {
+			li = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
-		
+		question_view = li.inflate(R.layout.archive_question, null);
 		((TextView) question_view.findViewById(R.id.tx_question))
 				.setText(archiveObservable.getActiveQuestion().getQuestion());
 
 		((TextView) question_view.findViewById(R.id.tx_correct_answer))
 				.setText(archiveObservable.getActiveQuestion()
 						.getCorrectAnswer());
-		
-		if(archiveObservable.getActiveQuestion().getCount1() < 1 &&
-				archiveObservable.getActiveQuestion().getCount2() < 1 &&
-				archiveObservable.getActiveQuestion().getCount3() < 1 &&
-				archiveObservable.getActiveQuestion().getCount4() < 1){
+
+		if (archiveObservable.getActiveQuestion().getCount1() < 1
+				&& archiveObservable.getActiveQuestion().getCount2() < 1
+				&& archiveObservable.getActiveQuestion().getCount3() < 1
+				&& archiveObservable.getActiveQuestion().getCount4() < 1) {
 			Log.d("QuestionsArchive", "Keine Antworten vorhanden");
 		}
-		
-		((TextView) question_view.findViewById(R.id.tx_a1)).setText(Integer
-				.toString(archiveObservable.getActiveQuestion().getCount1()));
+		int r_id = -1;
+		switch(archiveObservable.getActiveQuestion().getCorrectAnswerChar()) {
+		case 'a':
+			r_id = R.id.tx_a1;
+			break;
+		case 'b':
+			r_id = R.id.tx_a2;
+			break;
+		case 'c':
+			r_id = R.id.tx_a3;
+			break;
+		case 'd':
+			r_id = R.id.tx_a4;
+			break;
 
-		((TextView) question_view.findViewById(R.id.tx_a2)).setText(Integer
+		}
+		if(r_id != -1){
+			((TextView) question_view.findViewById(r_id)).setBackgroundResource(R.drawable.bg_archive_answer_correct);
+		}
+		
+		((TextView) question_view.findViewById(R.id.tx_1)).setText(Integer
+				.toString(archiveObservable.getActiveQuestion().getCount1()));
+		
+		((TextView) question_view.findViewById(R.id.tx_2)).setText(Integer
 				.toString(archiveObservable.getActiveQuestion().getCount2()));
 
-		((TextView) question_view.findViewById(R.id.tx_a3)).setText(Integer
+		((TextView) question_view.findViewById(R.id.tx_3)).setText(Integer
 				.toString(archiveObservable.getActiveQuestion().getCount3()));
 
-		((TextView) question_view.findViewById(R.id.tx_a4)).setText(Integer
+		((TextView) question_view.findViewById(R.id.tx_4)).setText(Integer
 				.toString(archiveObservable.getActiveQuestion().getCount4()));
 
 		sv_content.addView(question_view);
