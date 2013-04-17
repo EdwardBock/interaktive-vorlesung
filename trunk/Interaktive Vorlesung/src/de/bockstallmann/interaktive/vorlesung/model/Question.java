@@ -87,6 +87,9 @@ public class Question {
 		}
 		return null;
 	}
+	public char getCorrectAnswerChar(){
+		return cA;
+	}
 	
 	
 }

@@ -71,7 +71,12 @@
     </style>
     
     <style name="CorrectAnswer" parent="@android:style/Widget.TextView">
-        <item name="android:textColor">#ffff00</item>
+        <item name="android:background">@drawable/bg_correct_answer</item>
+    </style>
+    <style name="ArchiveAnswers" parent="@android:style/Widget.TextView">
+        <item name="android:background">@drawable/bg_archive_answer_wrong</item>
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:layout_marginLeft">14dp</item>
     </style>
     
     
