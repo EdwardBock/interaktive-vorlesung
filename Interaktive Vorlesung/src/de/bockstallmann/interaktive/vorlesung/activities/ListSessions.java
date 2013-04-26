@@ -158,12 +158,11 @@ public class ListSessions extends Activity implements OnItemClickListener {
 		} else{
 			if(!session.isActive()) {
 				Toast.makeText(this, "Vorlesung wurde noch nicht gestartet.", Toast.LENGTH_SHORT).show();
-			}else{
-				Intent intent = new Intent(this, Questions.class);
-				intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
-				intent.putExtra(Constants.EXTRA_COURSE_PW, courseObj.getPassword());
-				startActivity(intent);
 			}
+			Intent intent = new Intent(this, Questions.class);
+			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
+			intent.putExtra(Constants.EXTRA_COURSE_PW, courseObj.getPassword());
+			startActivity(intent);
 		} 
 		
 	}

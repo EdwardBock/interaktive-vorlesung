@@ -22,44 +22,64 @@ public class FavorizeClickListener implements OnClickListener {
 	private Course courseObj;
 	private Context c;
 	private ImageView l;
-	public FavorizeClickListener(Context context, Course course, ImageView favicon, ImageView lock,  SQLDataHandler datahelper) {
+
+	public FavorizeClickListener(Context context, Course course,
+			ImageView favicon, ImageView lock, SQLDataHandler datahelper) {
 		dh = datahelper;
 		fav = favicon;
 		l = lock;
 		courseObj = course;
 		c = context;
-		if(dh.hasCourseId(course.getID()))	favicon.setImageResource(R.drawable.ic_star_on);
+		if (dh.hasCourseId(course.getID()))
+			favicon.setImageResource(R.drawable.ic_star_on);
 	}
+
 	@Override
 	public void onClick(View v) {
-		if(dh.hasCourseId(courseObj.getID())){
-			if(FavorizerFactory.unfavorize(c,dh,this.courseObj)){
+		if (dh.hasCourseId(courseObj.getID())) {
+			if (FavorizerFactory.unfavorize(c, dh, this.courseObj)) {
 				this.fav.setImageResource(R.drawable.ic_star_off);
 				this.l.setImageResource(R.drawable.ic_lock_closed);
 			}
 		} else {
-			final EditText password = new EditText(c);
-			new AlertDialog.Builder(c)
-		    .setTitle(courseObj.getTitle())
-		    .setMessage("Bitte gib das Passwort ein:")
-		    .setView(password)
-		    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface dialog, int whichButton) {
-		            Editable value = password.getText(); 
-		            Log.d("PW", value.toString()+"|"+courseObj.getPassword()+"|");
-		            if(courseObj.getPassword().equals(value.toString())){
-		            	if(FavorizerFactory.favorize(c, dh, courseObj)){
-		    				fav.setImageResource(R.drawable.ic_star_on);
-		    				l.setImageResource(R.drawable.ic_lock_open);
-		    			}
-		            } else {
-		            	Toast.makeText(c, "Flasches Passwort!", Toast.LENGTH_SHORT).show();
-		            }
-		        }
-		    }).setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface dialog, int whichButton) {
-		        }
-		    }).show();
+			if (courseObj.hasPassword()) {
+				final EditText password = new EditText(c);
+				new AlertDialog.Builder(c)
+						.setTitle(courseObj.getTitle())
+						.setMessage("Bitte gib das Passwort ein:")
+						.setView(password)
+						.setPositiveButton("Ok",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int whichButton) {
+										Editable value = password.getText();
+										Log.d("PW", value.toString() + "|"
+												+ courseObj.getPassword() + "|");
+										if (courseObj.getPassword().equals(
+												value.toString())) {
+											if (FavorizerFactory.favorize(c,
+													dh, courseObj)) {
+												fav.setImageResource(R.drawable.ic_star_on);
+												l.setImageResource(R.drawable.ic_lock_open);
+											}
+										} else {
+											Toast.makeText(c,
+													"Flasches Passwort!",
+													Toast.LENGTH_SHORT).show();
+										}
+									}
+								})
+						.setNegativeButton("Abbrechen",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int whichButton) {
+									}
+								}).show();
+			} else {
+				if(FavorizerFactory.favorize(c, dh, courseObj)){
+    				fav.setImageResource(R.drawable.ic_star_on);
+    			}
+			}
 		}
 	}
 
