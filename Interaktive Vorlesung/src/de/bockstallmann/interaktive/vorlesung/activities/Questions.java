@@ -57,7 +57,9 @@ public class Questions extends Activity implements OnClickListener,
 	}
 	@Override
 	protected void onResume() {
-		loadQuestions();
+		if(collection.getQuestion() == null){
+			loadQuestions();
+		}
 		super.onResume();
 	}
 
