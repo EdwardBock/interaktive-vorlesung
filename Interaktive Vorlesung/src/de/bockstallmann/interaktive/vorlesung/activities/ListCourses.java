@@ -195,6 +195,7 @@ public class ListCourses extends FragmentActivity implements
 				if(!values.find()) {
 					Toast.makeText(this, "Konnte keine Präsentation finden...",
 							Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				int session_id = Integer.parseInt(values.group(3));
