@@ -7,7 +7,6 @@ import android.os.Messenger;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -18,7 +17,6 @@ import de.bockstallmann.interaktive.vorlesung.support.ArchiveObservable;
 import de.bockstallmann.interaktive.vorlesung.support.Constants;
 import de.bockstallmann.interaktive.vorlesung.support.JSONLoader;
 import de.bockstallmann.interaktive.vorlesung.support.SessionArchiveJSONHandler;
-import de.bockstallmann.interaktive.vorlesung.view.BarView;
 
 public class QuestionsArchive extends Activity implements
 		ArchiveObserverInterface {
@@ -34,6 +32,7 @@ public class QuestionsArchive extends Activity implements
 	private TextView tx_actionbar;
 	private RelativeLayout rl_progressbar;
 	private LayoutInflater li;
+	private String title;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +41,7 @@ public class QuestionsArchive extends Activity implements
 
 		pw = getIntent().getExtras().getString(Constants.EXTRA_COURSE_PW);
 		id = getIntent().getExtras().getInt(Constants.EXTRA_SESSION_ID);
+		title = getIntent().getExtras().getString(Constants.EXTRA_SESSION_TITLE);
 
 		archiveObservable = new ArchiveObservable();
 		archiveObservable.addObserver(this);
@@ -50,7 +50,8 @@ public class QuestionsArchive extends Activity implements
 				(TextView) findViewById(R.id.question_overall)));
 
 		tx_actionbar = (TextView) findViewById(R.id.tx_actionbar);
-
+		tx_actionbar.setText(title);
+		
 		rl_progressbar = (RelativeLayout) findViewById(R.id.rl_progressbar);
 		tx_empty_info = (TextView) findViewById(R.id.tx_empty_info);
 		sv_content = (ScrollView) findViewById(R.id.sv_content);
@@ -105,16 +106,6 @@ public class QuestionsArchive extends Activity implements
 			showContent();
 		} else if (command == ArchiveObservable.CMD_CHANGED) {
 			displayQuestion();
-		}
-		updateActionbarText();
-	}
-
-	private void updateActionbarText() {
-		if (archiveObservable.countQuestions() <= 0) {
-			tx_actionbar.setText("");
-		} else {
-			tx_actionbar.setText(archiveObservable.getActiveCollection()
-					.getTitle());
 		}
 	}
 

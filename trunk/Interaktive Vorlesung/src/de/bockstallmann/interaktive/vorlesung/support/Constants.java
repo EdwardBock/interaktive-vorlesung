@@ -21,6 +21,7 @@ public interface Constants {
 	 * Extras für die Sessionübergabe
 	 */
 	public static final String EXTRA_SESSION_ID = "session_id";
+	public static final String EXTRA_SESSION_TITLE = "session_title";
 
 	/**
 	 * JSON Serverresponse Namen.
@@ -95,5 +96,6 @@ public interface Constants {
 			+ TABLE_QUEST_C
 			+ " INTEGER,"
 			+ TABLE_QUEST_D + " INTEGER" + " )";
+	
 
 }
