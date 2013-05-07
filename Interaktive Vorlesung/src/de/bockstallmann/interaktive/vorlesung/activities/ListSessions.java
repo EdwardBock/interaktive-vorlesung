@@ -154,6 +154,7 @@ public class ListSessions extends Activity implements OnItemClickListener {
 			Intent intent = new Intent(this, QuestionsArchive.class);
 			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
 			intent.putExtra(Constants.EXTRA_COURSE_PW, courseObj.getPassword());
+			intent.putExtra(Constants.EXTRA_SESSION_TITLE, session.getTitle());
 			startActivity(intent);
 		} else{
 			if(!session.isActive()) {
@@ -162,6 +163,7 @@ public class ListSessions extends Activity implements OnItemClickListener {
 			Intent intent = new Intent(this, Questions.class);
 			intent.putExtra(Constants.EXTRA_SESSION_ID, session.getID());
 			intent.putExtra(Constants.EXTRA_COURSE_PW, courseObj.getPassword());
+			intent.putExtra(Constants.EXTRA_SESSION_TITLE, session.getTitle());
 			startActivity(intent);
 		} 
 		
